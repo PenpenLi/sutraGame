@@ -1,0 +1,5 @@
+[
+    {"k":"type","t":"int"},
+    {"k":"reward","t":"string"},
+    {"k":"state","t":"int"}
+]

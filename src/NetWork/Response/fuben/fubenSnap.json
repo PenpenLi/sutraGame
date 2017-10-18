@@ -1,0 +1,8 @@
+[
+    {"k":"id","t":"int"},
+    {"k":"star","t":"int"},
+    {"k":"starReward1","t":"int"},
+    {"k":"starReward2","t":"int"},
+    {"k":"starReward3","t":"int"},
+    {"k":"gateSnaps","t":"array","arraytype":"gateSnap"}
+]

@@ -1,0 +1,5 @@
+[
+    {"k":"id","t":"int"},
+    {"k":"amount","t":"int"},
+    {"k":"gateExtentSnaps","t":"array","arraytype":"gateExtentSnap"}
+]

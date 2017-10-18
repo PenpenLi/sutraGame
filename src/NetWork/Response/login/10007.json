@@ -1,0 +1,4 @@
+[
+    {"k":"charid","t":"int"},
+    {"k":"name","t":"string"}
+]

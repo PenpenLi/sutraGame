@@ -1,0 +1,19 @@
+[
+    {"k":"baseId","t":"double"},
+    {"k":"soldierId","t":"int"},
+    {"k":"level","t":"int"},
+    {"k":"quality","t":"int"},
+    {"k":"exp","t":"int"},
+    {"k":"amount","t":"int"},
+    {"k":"physicsAttack","t":"int"},
+    {"k":"magicAttack","t":"int"},
+    {"k":"barmor","t":"int"},
+    {"k":"bresistance","t":"int"},
+    {"k":"hp","t":"int"},
+    {"k":"hit","t":"int"},
+    {"k":"dodge","t":"int"},
+    {"k":"crit","t":"int"},
+    {"k":"opposeCrit","t":"int"},
+    {"k":"endHurt","t":"int"},
+    {"k":"offsetHurt","t":"int"}
+]

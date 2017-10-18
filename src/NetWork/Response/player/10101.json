@@ -1,0 +1,4 @@
+[
+    {"k":"result","t":"int"},
+    {"k":"baseIds","t":"array","arraytype":"double"}
+]

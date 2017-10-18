@@ -1,0 +1,7 @@
+[
+    {"k":"result","t":"int"},
+    {"k":"fbId","t":"int"},
+    {"k":"gateId","t":"int"},
+    {"k":"showReward","t":"string"},
+    {"k":"showBoxReward","t":"array","arraytype":"boxSnap"}
+]

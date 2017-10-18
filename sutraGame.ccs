@@ -1,0 +1,143 @@
+<Solution>
+  <PropertyGroup Name="sutraGame" Version="3.10.0.0" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Folder Name="bg">
+          <Folder Name="gamelayer">
+            <Image Name="9-16.jpg" />
+          </Folder>
+        </Folder>
+        <Folder Name="Buddhas">
+          <Folder Name="effLight">
+            <Image Name="f_g01.png" />
+            <Image Name="f_g02.png" />
+            <Image Name="f_g03.png" />
+            <Image Name="f_g04.png" />
+            <Image Name="f_g05.png" />
+            <Image Name="f_g06.png" />
+            <Image Name="f_g07.png" />
+            <Image Name="f_g08.png" />
+          </Folder>
+          <Image Name="f_00.png" />
+          <Image Name="f_01.png" />
+          <Image Name="f_02.png" />
+          <Image Name="f_03.png" />
+          <Image Name="f_g.png" />
+        </Folder>
+        <Folder Name="censer">
+          <Folder Name="filework">
+            <Image Name="y0001.png" />
+            <Image Name="y0003.png" />
+            <Image Name="y0005.png" />
+            <Image Name="y0007.png" />
+            <Image Name="y0009.png" />
+            <Image Name="y0011.png" />
+            <Image Name="y0013.png" />
+            <Image Name="y0015.png" />
+            <Image Name="y0017.png" />
+            <Image Name="y0019.png" />
+            <Image Name="y0021.png" />
+            <Image Name="y0023.png" />
+          </Folder>
+          <Image Name="off.png" />
+          <Image Name="on.png" />
+        </Folder>
+        <Folder Name="homeUI">
+          <Folder Name="chenghao">
+            <Image Name="rw_01.png" />
+          </Folder>
+          <Image Name="Continue.png" />
+          <Image Name="one.png" />
+          <Image Name="pause.png" />
+          <Image Name="rw_01.png" />
+          <Image Name="UI_BG.png" />
+          <Image Name="UI_D00.png" />
+          <Image Name="UI_D01.png" />
+          <Image Name="UI_D02.png" />
+          <Image Name="UI_x00.png" />
+          <Image Name="UI_x01.png" />
+          <Image Name="UI_x02.png" />
+          <Image Name="UI_x03.png" />
+          <Image Name="y01.png" />
+          <Image Name="y02.png" />
+          <Image Name="zi.png" />
+        </Folder>
+        <Folder Name="selectSutra">
+          <Image Name="j_bg.png" />
+          <Image Name="j_next.png" />
+          <Image Name="j_off.png" />
+          <Image Name="j_ok.png" />
+          <Image Name="j_on.png" />
+          <Image Name="j_UP.png" />
+        </Folder>
+        <Folder Name="signBoard">
+          <Folder Name="rank">
+            <Image Name="phb_bg.png" />
+          </Folder>
+          <Folder Name="task">
+            <Image Name="rw_bg01.png" />
+            <Image Name="rw_bg02.png" />
+            <Image Name="rw_wc.png" />
+          </Folder>
+          <Folder Name="tool">
+            <Image Name="tool.png" />
+            <Image Name="wp_bg.png" />
+            <Image Name="wp_ok.png" />
+            <Image Name="wp_x.png" />
+          </Folder>
+          <Image Name="q_01.png" />
+          <Image Name="q_02.png" />
+          <Image Name="q_03.png" />
+          <Image Name="q_bg.png" />
+          <Image Name="q_off.png" />
+          <Image Name="q_ok.png" />
+          <Image Name="q_on.png" />
+          <Image Name="q_zi.png" />
+          <Image Name="T_01.png" />
+          <Image Name="T_02.png" />
+          <Image Name="T_03.png" />
+          <Image Name="T_04.png" />
+          <Image Name="T_BG.png" />
+          <Image Name="T_no.png" />
+          <Image Name="T_ok.png" />
+        </Folder>
+        <Folder Name="songOver">
+          <Folder Name="eff">
+            <Image Name="xin01.png" />
+            <Image Name="xin02.png" />
+            <Image Name="xin03.png" />
+            <Image Name="xin04.png" />
+            <Image Name="xin05.png" />
+            <Image Name="xin07.png" />
+            <Image Name="xin09.png" />
+          </Folder>
+          <Image Name="s_bg.png" />
+          <Image Name="s_x01.png" />
+          <Image Name="s_x02.png" />
+          <Image Name="s_x03.png" />
+        </Folder>
+        <Folder Name="woodenFish">
+          <Image Name="m_01.png" />
+          <Image Name="m_02.png" />
+          <Image Name="m_03.png" />
+          <Image Name="m_04.png" />
+          <Image Name="m_05.png" />
+        </Folder>
+        <Image Name="bg.jpg" />
+        <Image Name="exit.png" />
+        <Project Name="exitGameBoardNode.csd" Type="Node" />
+        <Project Name="GameLayerNode.csd" Type="Layer" />
+        <Image Name="icon.png" />
+        <Image Name="icon01.png" />
+        <Image Name="off.png" />
+        <Project Name="rankNode.csd" Type="Node" />
+        <Project Name="signBoardNode.csd" Type="Node" />
+        <Project Name="sutraBoardNode.csd" Type="Node" />
+        <Project Name="sutraOverBoardNode.csd" Type="Node" />
+        <Project Name="taskNode.csd" Type="Node" />
+        <Project Name="toolNode.csd" Type="Node" />
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>
