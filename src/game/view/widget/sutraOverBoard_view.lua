@@ -33,7 +33,7 @@ function sutraOverBoardView:onCreate(param)
 	animateNode:playOnce(true)
 	self.effectNode:addChild(animateNode)
 	--]]
-	for i=0,2 do
+	for i=0,1 do
 		performWithDelay(cocosMake.getRunningScene(), function() audioCtrl:playSound(audioData.win, false) end, i*5.0)
 	end
 	

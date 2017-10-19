@@ -1,7 +1,7 @@
 songData = {}
 --频名字后面没有标记敲击量的，就按时间秒最低三秒一下，最高一秒两下频率计算
 --type=1是自由发挥，2是木鱼引导
-songData[#songData+1] = {id=1, name="觀音菩薩", file="s1.mp3", time=15, count=100, B=true, type=1, touchMax=3000, touchMin=500}
+songData[#songData+1] = {id=1, name="觀音菩薩", file="s1.mp3", time=15, count=1, B=true, type=1, touchMax=30, touchMin=5}
 songData[#songData+1] = {id=2, name="觀音菩薩", file="s1.mp3", time=15, count=100, B=true, type=2, touchMax=1440, touchMin=960}
 songData[#songData+1] = {id=3, name="南無本師釋迦牟尼佛", file="s2.mp3", time=37, count=50, B=true, type=1, touchMax=3700, touchMin=616}
 songData[#songData+1] = {id=4, name="南無本師釋迦牟尼佛", file="s2.mp3", time=37, count=50, B=true, type=2, touchMax=900, touchMin=600}

@@ -97,6 +97,10 @@ function GameLayer:initUI()
 	self:updateChenghao()
 	
 	self:showStartSpeak()
+	
+	self.touchMaskPanel:setSwallowTouches(false)
+	self.touchMaskPanel:onClicked(function()end)
+	self.touchMaskPanel:setVisible(true)
 end
 
 function GameLayer:showStartSpeak()
@@ -170,8 +174,24 @@ function GameLayer:exitGameBtnClick(event)
 end
 
 function GameLayer:continueBtnClick()
+	cocosMake.setGameSpeed(1)
+	audioCtrl:resumeMusic()
+	
+	self.continueBtn:setVisible(false)
+	self.pauseBtn:setVisible(true)
+	
+	self.touchMaskPanel:setSwallowTouches(false)
+	self.touchMaskPanel:setVisible(false)
 end
 function GameLayer:pauseBtnClick()
+	cocosMake.setGameSpeed(0)
+	audioCtrl:pauseMusic()
+	
+	self.continueBtn:setVisible(true)
+	self.pauseBtn:setVisible(false)
+	
+	self.touchMaskPanel:setSwallowTouches(true)
+	self.touchMaskPanel:setVisible(true)
 end
 
 function GameLayer:showCenserFire()
@@ -217,9 +237,7 @@ function GameLayer:qiandao_btnClick(event)
 	local function signCallback()
 	
 	end
-	--LayerManager.showFloat(luaFile.signBoardView, {modal=true, signCallback=signCallback})
-	self:huiwenAnim(12)
-		LayerManager.showFloat(luaFile.sutraOverBoardView, {modal=true,result=0})
+	LayerManager.showFloat(luaFile.signBoardView, {modal=true, signCallback=signCallback})
 end
 
 function GameLayer:createWoodenFishAnim()
@@ -310,6 +328,7 @@ end
 
 function GameLayer:startClickWoodenFish()
 	self.woodenFishClickCount:setVisible(true)
+	self.woodenFishClickCount:setString("0")
 	self.woodenFishClickCount.cnt = 0
 
 	local function clickCallback()
@@ -361,13 +380,17 @@ function GameLayer:startClickWoodenFish()
 		self.woodenFishClickCount:setVisible(false)
 		
 		local res = 0
-		if self.woodenFishClickCount > songData[UserData.selectSongs].touchMax then res = 1 end
-		if self.woodenFishClickCount < songData[UserData.selectSongs].touchMin then res = -1 end
-		if res == 0 then UserData:songToday() end
-		self:huiwenAnim(12)
+		local clickCnt = tonumber(self.woodenFishClickCount:getString())
+		if clickCnt > songData[UserData.selectSongs].touchMax then res = 1 end
+		if clickCnt < songData[UserData.selectSongs].touchMin then res = -1 end
+		if res == 0 then UserData:songToday() self:huiwenAnim(8) end
+		
 		LayerManager.showFloat(luaFile.sutraOverBoardView, {modal=true,result=res})
 
 		audioCtrl:playMusic(audioData.background, true)
+		
+		self.continueBtn:setVisible(false)
+		self.pauseBtn:setVisible(false)
 	end
 	performWithDelay(self, songFinishCallback, songData[UserData.selectSongs].time * songData[UserData.selectSongs].count)
 end
@@ -446,6 +469,8 @@ function GameLayer:songjing_btnClick(event)
 		
 		performWithDelay(self, function()
 					self:startClickWoodenFish()
+					self.continueBtn:setVisible(false)
+					self.pauseBtn:setVisible(true)
 				end, 28)
 		audioCtrl:playMusic(audioData.startSong, true)
 		

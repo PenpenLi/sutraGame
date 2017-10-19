@@ -44,6 +44,16 @@ function audioCtrl:playSound(eff, isLoop)
 	end
 end
 
+
+
+function audioCtrl:resumeMusic()
+	audio.resumeMusic()
+end
+
+function audioCtrl:pauseMusic()
+	audio.pauseMusic()
+end
+
 --停止音效
 function audioCtrl:stopSound(handle)
 	audio.stopSound(handle)
