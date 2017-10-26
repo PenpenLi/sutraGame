@@ -31,7 +31,7 @@
     <Item Key="TabsParamsKey">
       <Value ctype="TabsInfo">
         <OpenedDocuments>
-          <FilePathData Path="sutraOverBoardNode.csd" />
+          <FilePathData Path="signBoardNode.csd" />
           <FilePathData Path="GameLayerNode.csd" />
         </OpenedDocuments>
         <ActiveDocument Path="GameLayerNode.csd" />

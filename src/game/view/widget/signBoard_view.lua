@@ -15,6 +15,9 @@ signBoardView.ui_binding_file = {
 }
 
 function signBoardView:onCreate(param)
+	local ndy = self.signBoardNode:getPositionY()
+	self.signBoardNode:setPositionY(ndy+100)
+	
 	self.signSuccessCallback = param.signCallback
 	self:dispatchEvent({name = GlobalEvent.SIGN_VIEW_SHOW, data={view=self}})
 	

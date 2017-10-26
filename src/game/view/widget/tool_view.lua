@@ -31,9 +31,9 @@ function toolView:onCreate(param)
 	end
 	
 	local toolPos = {}
-	toolPos[1] = cc.p(0, 10)
-	toolPos[2] = cc.p(5, 10)
-	toolPos[3] = cc.p(-5, 10)
+	toolPos[1] = {offsetPos=cc.p(0, 10),cnt=-1}
+	toolPos[2] = {offsetPos=cc.p(1, 10),cnt=-1}
+	toolPos[3] = {offsetPos=cc.p(-9, 10),cnt=UserData:getTool_lotus(  )}
 	for idx=1, 3 do
 		--if UserData.toolList[tostring(idx)] then
 		if true then
@@ -41,7 +41,7 @@ function toolView:onCreate(param)
 			self["Node_"..idx]:addChild(tool)
 			WidgetHelp:setShader(tool, "Shaders/light.vsh", "Shaders/light.fsh")
 			
-			tool:setPosition(toolPos[idx])
+			tool:setPosition(toolPos[idx].offsetPos)
 			tool.tid=idx
 			toollist[idx] = tool
 			local tid = idx
@@ -56,6 +56,12 @@ function toolView:onCreate(param)
 			self["Node_"..idx]:addChild(gou)
 			gou:setVisible(false)
 			tool.gou = gou
+			
+			if toolPos[idx].cnt >= 0 then
+				local lbl = cocosMake.newLabel(toolPos[idx].cnt, -55, -45)
+				lbl:setColor(cc.c3b(150, 150, 150))
+				self["Node_"..idx]:addChild(lbl)
+			end
 		end
 	end
 	
@@ -97,7 +103,7 @@ function toolView:useBtnClick(event)
 			lastspr:setScale(2.5)
 			lastspr:setPosition(720/2, 1280/2+270)
 			self:addChild(lastspr)
-			lastspr:runAction(cc.Sequence:create(cc.FadeOut:create(1.0), cc.CallFunc:create(function() lastspr:removeFromParent() end)))
+			lastspr:runAction(cc.Sequence:create(cc.DelayTime:create(1.0), cc.FadeOut:create(1.0), cc.CallFunc:create(function() lastspr:removeFromParent() end)))
 		end)
 		
 	else

@@ -101,6 +101,9 @@ function GameLayer:initUI()
 	self.touchMaskPanel:setSwallowTouches(false)
 	self.touchMaskPanel:onClicked(function()end)
 	self.touchMaskPanel:setVisible(true)
+	
+	self.continueBtn:setVisible(false)
+	self.pauseBtn:setVisible(false)
 end
 
 function GameLayer:showStartSpeak()
@@ -331,27 +334,42 @@ function GameLayer:startClickWoodenFish()
 	self.woodenFishClickCount:setString("0")
 	self.woodenFishClickCount.cnt = 0
 
-	local function clickCallback()
-		local soundfile = audioData.woodenFish
-		if songData[UserData.selectSongs].B then soundfile = audioData.woodenFishB end
-		audioCtrl:playSound(soundfile, false)
-		
-		self.woodenFishClickCount.cnt = self.woodenFishClickCount.cnt + 1
-		self.woodenFishClickCount:setString(self.woodenFishClickCount.cnt)
-	end
 	
 	local def = "0"
 	if UserData.usedTool == "1" or UserData.usedTool == "2" then
 		def = UserData.usedTool
 	end
-	local btn = cocosMake.newButton("woodenFish/"..def.."/".."m_01.png", 
-							"woodenFish/"..def.."/".."m_02.png", 
-							"woodenFish/"..def.."/".."m_01.png", 0, 0, clickCallback)
+	local btn_normal = cocosMake.newSprite("woodenFish/"..def.."/".."m_01.png")
+	local btn_touch = cocosMake.newSprite("woodenFish/"..def.."/".."m_02.png")
+	btn_normal:setVisible(true)
+	btn_touch:setVisible(false)
+	
+	self.woodenFishPanel:onTouch(function(event)
+		if event.name == "began" then
+			btn_normal:setVisible(false)
+			btn_touch:setVisible(true)
+			local soundfile = audioData.woodenFish
+			if songData[UserData.selectSongs].B then soundfile = audioData.woodenFishB end
+			audioCtrl:playSound(soundfile, false)
+			
+			self.woodenFishClickCount.cnt = self.woodenFishClickCount.cnt + 1
+			self.woodenFishClickCount:setString(self.woodenFishClickCount.cnt)
+			self.woodenFishClickCount:setScale(0)
+			self.woodenFishClickCount:runAction(cc.EaseExponentialOut:create(cc.ScaleTo:create(0.3, 1)))
+			
+		elseif event.name == "ended" then
+			btn_normal:setVisible(true)
+			btn_touch:setVisible(false)
+		end
+	end)
+	self.woodenFishPanel:setTouchEnabled(true)
 	
 	
-	self.woodenFishPanel:addChild(btn)
+	self.woodenFishPanel:addChild(btn_normal)
+	self.woodenFishPanel:addChild(btn_touch)
 	local fsize = self.woodenFishPanel:getContentSize()
-	btn:setPosition(cc.p(fsize.width/2.0 + 110, 230))
+	btn_normal:setPosition(cc.p(fsize.width/2.0 + 110, 230))
+	btn_touch:setPosition(cc.p(fsize.width/2.0 + 110, 230))
 	self.bottomMenuPanel:setVisible(false)
 	
 	
@@ -383,9 +401,15 @@ function GameLayer:startClickWoodenFish()
 		local clickCnt = tonumber(self.woodenFishClickCount:getString())
 		if clickCnt > songData[UserData.selectSongs].touchMax then res = 1 end
 		if clickCnt < songData[UserData.selectSongs].touchMin then res = -1 end
-		if res == 0 then UserData:songToday() self:huiwenAnim(8) end
+		if res == 0 then 
+			UserData:songToday() self:huiwenAnim(8, function() 
+				LayerManager.showFloat(luaFile.sutraOverBoardView, {modal=true,result=res})
+			end)
+		else
+			LayerManager.showFloat(luaFile.sutraOverBoardView, {modal=true,result=res})
+		end
 		
-		LayerManager.showFloat(luaFile.sutraOverBoardView, {modal=true,result=res})
+		
 
 		audioCtrl:playMusic(audioData.background, true)
 		
@@ -421,7 +445,7 @@ function GameLayer:jingwenAnim(overTime)
 		local actionMove = cc.MoveBy:create(mtime, cc.p(10, 0))
 		local actionFade = cc.FadeIn:create(mtime)
 		local actionSpawn = cc.Spawn:create(actionMove, actionFade)
-		local delay1 = cc.DelayTime:create((i-1)*mtime)
+		local delay1 = cc.DelayTime:create((i-1)*mtime*1.3)
 		txt:runAction(cc.Sequence:create(delay1, actionSpawn))
 		
 		local delay2 = cc.DelayTime:create(overTime)
@@ -429,7 +453,8 @@ function GameLayer:jingwenAnim(overTime)
 	end
 end
 
-function GameLayer:huiwenAnim(overTime)
+function GameLayer:huiwenAnim(overTime, animCallback)
+	local mtime = 1.3
 	for i=1, 4 do
 		local sprpath = string.format("res/songOver/%02d.png", i)
 		local txt = cocosMake.newSprite(sprpath)
@@ -437,8 +462,7 @@ function GameLayer:huiwenAnim(overTime)
 		txt:setOpacity(0)
 		txt:setGlobalZOrder(1)
 		self:addChild(txt)
-		
-		local mtime = 1.3
+				
 		local function callBackFunc()
 			local actionMove = cc.MoveBy:create(mtime, cc.p(10, 0))
 			local actionFade = cc.FadeOut:create(mtime)
@@ -449,12 +473,13 @@ function GameLayer:huiwenAnim(overTime)
 		local actionMove = cc.MoveBy:create(mtime, cc.p(10, 0))
 		local actionFade = cc.FadeIn:create(mtime)
 		local actionSpawn = cc.Spawn:create(actionMove, actionFade)
-		local delay1 = cc.DelayTime:create((i-1)*mtime)
+		local delay1 = cc.DelayTime:create((i-1)*mtime*1.6)
 		txt:runAction(cc.Sequence:create(delay1, actionSpawn))
 		
 		local delay2 = cc.DelayTime:create(overTime)
 		txt:runAction(cc.Sequence:create(delay2, cc.CallFunc:create(callBackFunc)))
 	end
+	self:runAction(cc.Sequence:create(cc.DelayTime:create(overTime + mtime), cc.CallFunc:create(animCallback)))
 end
 
 function GameLayer:songjing_btnClick(event)

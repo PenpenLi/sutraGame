@@ -37,6 +37,7 @@ function sutraOverBoardView:onCreate(param)
 		performWithDelay(cocosMake.getRunningScene(), function() audioCtrl:playSound(audioData.win, false) end, i*5.0)
 	end
 	
+	--胜利
 	if result == 0 then
 		self.sutraTotalCount:setString(UserData.songCount)
 		local animateNode = new_class(luaFile.AnimationSprite, {
@@ -61,9 +62,13 @@ function sutraOverBoardView:onCreate(param)
 			lastspr:runAction(cc.Sequence:create(cc.FadeOut:create(1.0), cc.CallFunc:create(function() lastspr:removeFromParent() end)))
 		end)
 		
+		UserData:setTool_lotus( 1 )
+		
+	--太慢
 	elseif result == -1 then
 		self.sutraOverBoard:loadTexture("songOver/sb_01.png")
 		
+	--太快
 	elseif result == 1 then
 		self.sutraOverBoard:loadTexture("songOver/sb_02.png")
 		

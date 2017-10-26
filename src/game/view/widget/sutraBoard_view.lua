@@ -29,17 +29,14 @@ function sutraBoardView:onCreate(param)
 	local itemCnt = math.max(#self.ziyoufahui_songlist, #self.muyuyinddao_songlist)
 	self.pages={}
 	for i=1, itemCnt do
-		local idx = math.max(1, math.ceil((i-1)/5))
+		local idx = math.max(1, math.ceil((i)/5))
 		if not self.pages[idx] then self.pages[idx] = {A={}, B={}} end
 		if self.ziyoufahui_songlist[i] then table.insert(self.pages[idx].A, self.ziyoufahui_songlist[i]) end
 		if self.muyuyinddao_songlist[i] then table.insert(self.pages[idx].B, self.muyuyinddao_songlist[i]) end
 	end
 	self.currPage = 1
 	
-	
-	
 	 self.select = UserData.selectSongs
-	 log("-------------B.self.select", self.select)
 	 
 	 self:dispatchEvent({name = GlobalEvent.SUTRA_VIEW_SHOW, data={view=self}})
 	 
@@ -49,7 +46,6 @@ end
 function sutraBoardView:updatePage(param)
 	local function selectedEvent(sender,eventType)
 		local tag = sender:getTag()
-		log("-------------A.self.select", tag)
 		self.select = tag
 		self:updateCheckboxState()
 		--self:selectSutra(tonumber(tag)-1000)
@@ -61,21 +57,22 @@ function sutraBoardView:updatePage(param)
 		self["CheckBox_"..i]:setVisible(false)
 	end
 	
+	
 	for i=1, #self.pages[self.currPage].A do
-		self["Text_"..i]:setColor(cc.c3b(0, 0, 0))
-		self["Text_"..i]:setString(self.pages[self.currPage].A[i].name)
-		self["CheckBox_"..i]:addEventListenerCheckBox(selectedEvent)
-		self["CheckBox_"..i]:setTag(self.pages[self.currPage].A[i].id)
-		self["CheckBox_"..i]:setVisible(true)
-	end	
-	for i=1, #self.pages[self.currPage].B do
 		local j=i+5
 		self["Text_"..j]:setColor(cc.c3b(0, 0, 0))
-		self["Text_"..j]:setString(self.pages[self.currPage].B[i].name)
-		
+		self["Text_"..j]:setString(self.pages[self.currPage].A[i].name)
 		self["CheckBox_"..j]:addEventListenerCheckBox(selectedEvent)
-		self["CheckBox_"..j]:setTag(self.pages[self.currPage].B[i].id)
+		self["CheckBox_"..j]:setTag(self.pages[self.currPage].A[i].id)
 		self["CheckBox_"..j]:setVisible(true)
+	end	
+	for i=1, #self.pages[self.currPage].B do
+		self["Text_"..i]:setColor(cc.c3b(0, 0, 0))
+		self["Text_"..i]:setString(self.pages[self.currPage].B[i].name)
+		
+		self["CheckBox_"..i]:addEventListenerCheckBox(selectedEvent)
+		self["CheckBox_"..i]:setTag(self.pages[self.currPage].B[i].id)
+		self["CheckBox_"..i]:setVisible(true)
 	end	
 	
 	self:updateCheckboxState()

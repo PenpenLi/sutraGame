@@ -24,6 +24,7 @@ function UserData:init( ... )
 	self.toolList = CacheUtil:getCacheVal(CacheType.tools)--我的物品
 	self.usedTool = CacheUtil:getCacheVal(CacheType.usedTool)
 	
+	
 	self.chenghaoLv = 0--称号等级
 	
 	if self.buddhasLightLevel == 0 then 
@@ -39,12 +40,14 @@ function UserData:init( ... )
 		CacheUtil:setCacheVal(CacheType.buddhasLightDay, self.buddhasLightDay)
 	end
 	
+	--解析我的物品数据
 	local tools = string.split(self.toolList, ",")
 	self.toolList = {}
-	for k,v in pairs(tools) do self.toolList[tostring(v)] = 1 end
-	
-	
-	
+	for k,v in pairs(tools) do 
+		local tool = string.split(v, ":")
+		self.toolList[tostring(tool[1])] = tonumber(tool[2])
+	end
+		
 	self.todayCanSign = true
 	self.todayCanIncense = true
 	self.todayCanSong = true
@@ -279,8 +282,32 @@ function UserData:songToday()
 		
 		if self.songContinueCount >= 30 and self.songContinueCount < 108 then if not self.toolList["2"] then TipViewEx:showTip(TipViewEx.tipType.getTool) end self.toolList["2"] = 1 end
 		
-		if self.songContinueCount >= 108 then if not self.toolList["3"] then TipViewEx:showTip(TipViewEx.tipType.getTool) end self.toolList["3"] = 1 end
+		--if self.songContinueCount >= 108 then if not self.toolList["3"] then TipViewEx:showTip(TipViewEx.tipType.getTool) end self.toolList["3"] = 108 end
 	end
+end
+
+function UserData:setTool_lotus( cnt )
+	if not self.toolList["3"] then self.toolList["3"] = 0 end
+	self.toolList["3"] = self.toolList["3"] + cnt
+	
+	self:saveToolsData()
+end
+function UserData:getTool_lotus(  )
+	if not self.toolList["3"] then self.toolList["3"] = 0 end
+	return self.toolList["3"]
+end
+
+--保存我的道具数据
+function UserData:saveToolsData()
+	local str = ""
+	for k,v in pairs(self.toolList) do
+		str = str .. "," .. k .. ":" .. v
+	end
+	if string.len(str) > 0 then
+		str = string.sub(str, 2, string.len(str))
+	end
+	
+	CacheUtil:setCacheVal(CacheType.tools, str)
 end
 
 
