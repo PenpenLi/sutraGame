@@ -42,6 +42,7 @@ add("EventDefine", "game.define.event_define")
 -- 工具类
 add("UserData", "src.user_data")
 add("SongData", "src.song_data")
+add("AdManager", "src.AdManager")
 
 add("NumberHelper", "game.utils.number_helper")
 add("GameUtil", "game.utils.game_util")

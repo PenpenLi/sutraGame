@@ -185,6 +185,8 @@ function GameLayer:continueBtnClick()
 	
 	self.touchMaskPanel:setSwallowTouches(false)
 	self.touchMaskPanel:setVisible(false)
+	
+	AdManager:hideAd()
 end
 function GameLayer:pauseBtnClick()
 	cocosMake.setGameSpeed(0)
@@ -195,6 +197,8 @@ function GameLayer:pauseBtnClick()
 	
 	self.touchMaskPanel:setSwallowTouches(true)
 	self.touchMaskPanel:setVisible(true)
+	
+	AdManager:showAd()
 end
 
 function GameLayer:showCenserFire()
@@ -392,9 +396,7 @@ function GameLayer:startClickWoodenFish()
 	local function songFinishCallback()
 		self.woodenFishPanel:removeAllChildren()
 		self.woodenFishPanel:setTouchEnabled(false)
-		self.woodenFishPanel:setVisible(false)
-		self.bottomMenuPanel:setVisible(true)
-		
+		self.woodenFishPanel:setVisible(false)		
 		self.woodenFishClickCount:setVisible(false)
 		
 		local res = 0
@@ -403,9 +405,11 @@ function GameLayer:startClickWoodenFish()
 		if clickCnt < songData[UserData.selectSongs].touchMin then res = -1 end
 		if res == 0 then 
 			UserData:songToday() self:huiwenAnim(8, function() 
+				self.bottomMenuPanel:setVisible(true)
 				LayerManager.showFloat(luaFile.sutraOverBoardView, {modal=true,result=res})
 			end)
 		else
+			self.bottomMenuPanel:setVisible(true)
 			LayerManager.showFloat(luaFile.sutraOverBoardView, {modal=true,result=res})
 		end
 		

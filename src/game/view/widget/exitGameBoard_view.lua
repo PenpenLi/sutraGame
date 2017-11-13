@@ -42,10 +42,13 @@ function exitGameBoardView:onCreate(param)
 	self.tipsNode:addChild(tiplist[#tiplist])
 	
 	self:dispatchEvent({name = GlobalEvent.EXITGAME_VIEW_SHOW, data={view=self}})
+	
+	AdManager:showAd()
 end
 
 
 function exitGameBoardView:onClose( ... )
+	AdManager:hideAd()
 	self:dispatchEvent({name = GlobalEvent.EXITGAME_VIEW_SHOW, data={view=nil}})
 end
 

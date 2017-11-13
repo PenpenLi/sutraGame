@@ -41,6 +41,8 @@ function sutraBoardView:onCreate(param)
 	 self:dispatchEvent({name = GlobalEvent.SUTRA_VIEW_SHOW, data={view=self}})
 	 
 	 self:updatePage()
+	 
+	 AdManager:showAd()
 end
 
 function sutraBoardView:updatePage(param)
@@ -91,6 +93,7 @@ function sutraBoardView:selectSutra( tag )
 end
 
 function sutraBoardView:onClose( ... )
+	AdManager:hideAd()
 	self:dispatchEvent({name = GlobalEvent.SUTRA_VIEW_SHOW, data={view=nil}})
 end
 

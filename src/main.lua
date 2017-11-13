@@ -43,7 +43,9 @@ local function main()
     end
 	GameController = new_class(luaFile.GameController)
     GameController:startGame()
-
+	
+	
+	
     --startCocosDegbugTicker()
 end
 

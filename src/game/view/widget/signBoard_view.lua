@@ -62,11 +62,13 @@ function signBoardView:onCreate(param)
 		end
 	end
 	
+	AdManager:showAd()
 	return true
 end
 
 
 function signBoardView:onClose( ... )
+	AdManager:hideAd()
 	self:dispatchEvent({name = GlobalEvent.SIGN_VIEW_SHOW, data={view=nil}})
 end
 

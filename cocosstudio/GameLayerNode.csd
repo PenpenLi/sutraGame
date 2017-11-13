@@ -96,31 +96,31 @@
                     <PreSize X="0.1575" Y="0.1625" />
                     <LabelAtlasFileImage_CNB Type="Normal" Path="homeUI/zi.png" Plist="" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="censer_fire1" ActionTag="-538305314" Tag="20" IconVisible="True" LeftMargin="197.2100" RightMargin="202.7900" TopMargin="-148.1900" BottomMargin="548.1900" ctype="SingleNodeObjectData">
+                  <AbstractNodeData Name="censer_fire1" ActionTag="-538305314" Tag="20" RotationSkewX="8.0000" RotationSkewY="8.0000" IconVisible="True" LeftMargin="207.2100" RightMargin="192.7900" TopMargin="-148.1900" BottomMargin="548.1900" ctype="SingleNodeObjectData">
                     <Size X="0.0000" Y="0.0000" />
                     <AnchorPoint />
-                    <Position X="197.2100" Y="548.1900" />
+                    <Position X="207.2100" Y="548.1900" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.4930" Y="1.3705" />
+                    <PrePosition X="0.5180" Y="1.3705" />
                     <PreSize X="0.0000" Y="0.0000" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="censer_fire2" ActionTag="-2084881277" Tag="110" IconVisible="True" LeftMargin="166.1300" RightMargin="233.8700" TopMargin="-137.6200" BottomMargin="537.6200" ctype="SingleNodeObjectData">
+                  <AbstractNodeData Name="censer_fire2" ActionTag="-2084881277" Tag="110" RotationSkewX="4.0000" RotationSkewY="4.0000" IconVisible="True" LeftMargin="172.1300" RightMargin="227.8700" TopMargin="-136.6200" BottomMargin="536.6200" ctype="SingleNodeObjectData">
                     <Size X="0.0000" Y="0.0000" />
                     <AnchorPoint />
-                    <Position X="166.1300" Y="537.6200" />
+                    <Position X="172.1300" Y="536.6200" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.4153" Y="1.3440" />
+                    <PrePosition X="0.4303" Y="1.3415" />
                     <PreSize X="0.0000" Y="0.0000" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="censer_fire3" ActionTag="-1324501022" Tag="111" IconVisible="True" LeftMargin="228.1200" RightMargin="171.8800" TopMargin="-139.5400" BottomMargin="539.5400" ctype="SingleNodeObjectData">
+                  <AbstractNodeData Name="censer_fire3" ActionTag="-1324501022" Tag="111" RotationSkewX="3.0000" RotationSkewY="3.0000" IconVisible="True" LeftMargin="234.1200" RightMargin="165.8800" TopMargin="-136.5400" BottomMargin="536.5400" ctype="SingleNodeObjectData">
                     <Size X="0.0000" Y="0.0000" />
                     <AnchorPoint />
-                    <Position X="228.1200" Y="539.5400" />
+                    <Position X="234.1200" Y="536.5400" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.5703" Y="1.3488" />
+                    <PrePosition X="0.5853" Y="1.3413" />
                     <PreSize X="0.0000" Y="0.0000" />
                   </AbstractNodeData>
                 </Children>
