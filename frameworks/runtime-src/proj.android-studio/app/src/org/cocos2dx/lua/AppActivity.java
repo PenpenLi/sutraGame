@@ -145,7 +145,7 @@ public class AppActivity extends Cocos2dxActivity{
                 Log.d(LOGTAG, "onAdLoaded");
                 luaLoadAdCallback("success");
 
-                if (showAdIndex) showAd();
+                if (showAdIndex == true) showAd();
             }
 
             @Override

@@ -45,4 +45,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':libcocos2dx')
     compile 'com.google.android.gms:play-services-ads:11.4.2'
+	compile 'com.inmobi.monetization:inmobi-ads:7.0.1'
+	compile 'com.squareup.picasso:picasso:2.5.2'
 }

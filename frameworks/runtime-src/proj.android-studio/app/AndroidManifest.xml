@@ -36,6 +36,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+		
+		<activity
+		android:name="com.inmobi.rendering.InMobiAdActivity"
+		android:configChanges="keyboardHidden|orientation|keyboard|smallestScreenSize|screenSize|screenLayout"
+		android:hardwareAccelerated="true"
+		android:resizeableActivity="false"
+		android:theme="@android:style/Theme.NoTitleBar"
+		tools:ignore="UnusedAttribute" />
 
 
     </application>
@@ -45,7 +53,8 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>  
-    
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	
   	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
  	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
