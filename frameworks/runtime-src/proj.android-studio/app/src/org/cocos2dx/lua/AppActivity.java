@@ -38,6 +38,7 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+
 import com.leting.sutraGame.R;
 
 import android.app.Activity;
@@ -45,6 +46,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
@@ -52,6 +54,7 @@ import org.cocos2dx.lib.Cocos2dxLuaJavaBridge;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 
 public class AppActivity extends Cocos2dxActivity{
@@ -66,6 +69,9 @@ public class AppActivity extends Cocos2dxActivity{
     public int showAdLuaCallback = 0;
     public int hideAdLuaCallback = 0;
     public int stateAdLuaCallback = 0;
+	
+	
+	private InMobiBanner mInMobiBanner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +79,8 @@ public class AppActivity extends Cocos2dxActivity{
         g_AppActivity = this;
 
         onInitAdmob();
+		
+		onInitInMobi();
 
     }
     // Helper get display screen to avoid deprecated function use
@@ -195,6 +203,78 @@ public class AppActivity extends Cocos2dxActivity{
         loadAd();
     }
 
+	public void onInitInMobi()
+    {
+        runOnUiThread(new Runnable()
+    {
+
+        @Override
+        public void run()
+        {
+            InMobiSdk.init(g_AppActivity, "d6033153bb3d4982a35b8c349c354f68");
+
+            mInMobiBanner = new InMobiBanner(g_AppActivity, 1511238989700L);
+            //RelativeLayout adContainer = (RelativeLayout) findViewById(R.id.ad_container);
+            mInMobiBanner.setAnimationType(InMobiBanner.AnimationType.ROTATE_HORIZONTAL_AXIS);
+            mInMobiBanner.setRefreshInterval(60);
+            mInMobiBanner.setListener(new InMobiBanner.BannerAdListener() {
+                @Override
+                public void onAdLoadSucceeded(InMobiBanner inMobiBanner) {
+                    Log.d(LOGTAG, "inMobi onAdLoadSucceeded");
+                }
+
+                @Override
+                public void onAdLoadFailed(InMobiBanner inMobiBanner,
+                                           InMobiAdRequestStatus inMobiAdRequestStatus) {
+                    Log.d(LOGTAG, "inMobi Banner ad failed to load with error: " +
+                            inMobiAdRequestStatus.getMessage());
+                }
+
+                @Override
+                public void onAdDisplayed(InMobiBanner inMobiBanner) {
+                    Log.d(LOGTAG, "inMobi onAdDisplayed");
+                }
+
+                @Override
+                public void onAdDismissed(InMobiBanner inMobiBanner) {
+                    Log.d(LOGTAG, "inMobi onAdDismissed");
+                }
+
+                @Override
+                public void onAdInteraction(InMobiBanner inMobiBanner, Map<Object, Object> map) {
+                    Log.d(LOGTAG, "inMobi onAdInteraction");
+                }
+
+                @Override
+                public void onUserLeftApplication(InMobiBanner inMobiBanner) {
+                    Log.d(LOGTAG, "inMobi onUserLeftApplication");
+                }
+
+                @Override
+                public void onAdRewardActionCompleted(InMobiBanner inMobiBanner, Map<Object, Object> map) {
+                    Log.d(LOGTAG, "inMobi onAdRewardActionCompleted");
+                }
+            });
+
+            Display display = getWindowManager().getDefaultDisplay();
+            Point pt = getDisplaySize(display);
+            RelativeLayout.LayoutParams bannerParams = new RelativeLayout.LayoutParams(
+                    pt.x,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            bannerParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            bannerParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            mInMobiBanner.setLayoutParams(bannerParams);
+
+            LinearLayout.LayoutParams adParams = new LinearLayout.LayoutParams(
+                    pt.x,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            addContentView(mInMobiBanner, adParams);
+
+            mInMobiBanner.load();
+        }
+    });
+    }
+	
     public void loadAd()
     {
         //AdRequest request = new AdRequest.Builder().build();
