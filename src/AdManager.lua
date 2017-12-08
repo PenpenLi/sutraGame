@@ -15,19 +15,16 @@ function AdManager:loadAd(extendCallback)
 	local className="org/cocos2dx/lua/AppActivity" --包名/类名
 	local args = { "", callbackLua }
 	local sigs = "(Ljava/lang/String;I)V" --传入string参数，无返回值   
-	local ok,ret = luaj.callStaticMethod(className,"luaLoadAd",args,sigs)  
-	if not ok then
+	--local ok,ret = luaj.callStaticMethod(className,"luaLoadAd",args,sigs)  
+	--if not ok then
 		--item:setString(ok.."error:"..ret)  
-		self:loadAd()
-	end
+		--self:loadAd()
+	--end
 end
 
 function AdManager:showAd()
 	print("AdManager:showAd")
-	if not isLoaded then
-		self:loadAd()
-		return
-	end
+	
 	
 	local function callbackLua()
 	end
@@ -41,13 +38,9 @@ end
 
 function AdManager:hideAd()
 	print("AdManager:hideAd")
-	if not isLoaded then
-		return
-	end
 	
 	local function callbackLua()
-		self:loadAd()
-		isLoaded = false
+		
 	end
 	local className="org/cocos2dx/lua/AppActivity" --包名/类名
 	local args = { "", callbackLua }
@@ -55,7 +48,6 @@ function AdManager:hideAd()
 	local ok,ret = luaj.callStaticMethod(className,"luaHideAd",args,sigs)  
 	if not ok then
 	end
-	callbackLua()
 end
 
 function AdManager:stateAd()
