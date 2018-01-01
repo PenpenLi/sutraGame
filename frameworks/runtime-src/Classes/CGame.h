@@ -52,7 +52,6 @@ public:
 	static void AppUpdate();
 
 	static void operateAd(int luaCallback, const char* opName, const char* opParam);
-	static int AdLuaCallback;
 };
 
 

@@ -27,8 +27,6 @@
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "../proj.win32/MacAddress.h"
 #include "MacAddress/md5.h"
-//#include <jni.h>
-#include "platform/android/jni/JniHelper.h"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include "AndroidUtils.h"
 #include "MacAddress/md5.h"
@@ -435,10 +433,11 @@ void CGame::AppUpdate()
 #endif
 }
 
+static int AdLuaCallback;
 void CGame::operateAd(int luaCallback, const char* opName, const char* opParam)
 {
 	AdLuaCallback = luaCallback;
-//#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	JniMethodInfo info;
 	bool ret = JniHelper::getStaticMethodInfo(info, "org/cocos2dx/cpp/AppActivity", "openURL_facebookEval", "()V");
 	jobject jobj;
@@ -447,5 +446,5 @@ void CGame::operateAd(int luaCallback, const char* opName, const char* opParam)
 		//log("call void getObj() succeed");
 		info.env->CallStaticVoidMethod(info.classID, info.methodID);
 	}
-//#endif
+#endif
 }

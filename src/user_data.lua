@@ -22,11 +22,12 @@ function UserData:init( ... )
 	self.birthday = CacheUtil:getCacheVal(CacheType.birthday)
 	
 	self.toolList = CacheUtil:getCacheVal(CacheType.tools)--我的物品
-	self.usedTool = CacheUtil:getCacheVal(CacheType.usedTool)
+	self.buddhasId = CacheUtil:getCacheVal(CacheType.buddhasId)--界面显示的佛祖
+	self.usedTool = "1"--改成只有一种木鱼
 	
+	--self.chenghaoLv = 0--称号等级
 	
-	self.chenghaoLv = 0--称号等级
-	
+	self.buddhasLightLevel = 3--佛光定为3级
 	if self.buddhasLightLevel == 0 then 
 		self.buddhasLightLevel = 1
 		CacheUtil:setCacheVal(CacheType.buddhasLightLevel, self.buddhasLightLevel)
@@ -78,10 +79,12 @@ function UserData:init( ... )
 	self:calcSong()
 	
 	self:saveIncenseData()
+	self:loadMusicRhythmData()
 end
 
 function UserData:saveUseTool( val )
 	self.usedTool = tostring(val)
+	self.usedTool = "1"--改成只有一种木鱼
 	CacheUtil:setCacheVal(CacheType.usedTool, self.usedTool)
 end
 
@@ -93,6 +96,7 @@ end
 --保存点香数据
 function UserData:saveIncenseData( ... )
 	CacheUtil:setCacheVal(CacheType.incenseDay, self.incenseDay)
+	self.buddhasLightLevel = 3--佛光定为3级
 	CacheUtil:setCacheVal(CacheType.buddhasLightLevel, self.buddhasLightLevel)
 	CacheUtil:setCacheVal(CacheType.buddhasLightDay, self.buddhasLightDay)
 end
@@ -208,9 +212,8 @@ function UserData:calcIncense( ... )
 		effLv = effLv + 1
 		if effLv%3 == 0 then
 			self.buddhasLightDay = incTime
-			log("A:self.buddhasLightLevel", self.buddhasLightLevel)
 			self.buddhasLightLevel = math.min(3, math.max(0, self.buddhasLightLevel + (lastInc and 1 or -1)))
-			log("B:self.buddhasLightLevel", self.buddhasLightLevel)
+			self.buddhasLightLevel = 3--佛光定为3级
 		end
 	end
 end
@@ -327,5 +330,24 @@ function UserData:getDayNoByTime( t )
 	local d = os.date("%j", t)
 	return y*366 + d
 end
+
+function UserData:loadMusicRhythmData()
+	if not self.musicData then
+		local ret = csvParse.LoadMusicRhythm("res/audio/song/musicClick.csv")
+		self.musicData = ret
+		return ret
+	else
+		return self.musicData
+	end
+end
+
+function UserData:setBuddhas(id)
+	self.buddhasId = id
+end
+
+function UserData:getBuddhas()
+	return self.buddhasId
+end
+
 
 return UserData

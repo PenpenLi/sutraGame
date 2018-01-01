@@ -30,6 +30,7 @@ THE SOFTWARE.
 
 #include <stack>
 #include <thread>
+#include <chrono>
 
 #include "platform/CCPlatformMacros.h"
 #include "base/CCRef.h"
@@ -38,6 +39,7 @@ THE SOFTWARE.
 #include "math/CCMath.h"
 #include "platform/CCGL.h"
 #include "platform/CCGLView.h"
+#include "game/GameRunClassManager.h"
 
 NS_CC_BEGIN
 
@@ -493,6 +495,8 @@ public:
      */
     void resetMatrixStack();
 
+	void addCGameRunClass(GameClass::GameRunClass* obj);
+
     /**
      * returns the cocos2d thread id.
      Useful to know if certain code is already running on the cocos2d thread
@@ -589,7 +593,7 @@ protected:
     Vector<Scene*> _scenesStack;
     
     /* last time the main loop was updated */
-    struct timeval *_lastUpdate;
+    std::chrono::steady_clock::time_point _lastUpdate;
 
     /* whether or not the next delta time will be zero */
     bool _nextDeltaTimeZero;

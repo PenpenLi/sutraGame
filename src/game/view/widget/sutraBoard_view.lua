@@ -14,29 +14,20 @@ sutraBoardView.ui_binding_file = {
 }
 
 function sutraBoardView:onCreate(param)
-	self.ziyoufahui_songlist = {}
-	self.muyuyinddao_songlist = {}
-	for i=1, #songData do
-		if songData[i].type == 1 then
-			table.insert(self.ziyoufahui_songlist, songData[i])
-		
-		elseif songData[i].type == 2 then
-			table.insert(self.muyuyinddao_songlist, songData[i])
-		end
-	end
 	
+	local musicInfo = UserData:loadMusicRhythmData()
 	
-	local itemCnt = math.max(#self.ziyoufahui_songlist, #self.muyuyinddao_songlist)
 	self.pages={}
-	for i=1, itemCnt do
-		local idx = math.max(1, math.ceil((i)/5))
-		if not self.pages[idx] then self.pages[idx] = {A={}, B={}} end
-		if self.ziyoufahui_songlist[i] then table.insert(self.pages[idx].A, self.ziyoufahui_songlist[i]) end
-		if self.muyuyinddao_songlist[i] then table.insert(self.pages[idx].B, self.muyuyinddao_songlist[i]) end
+	
+	for k,v in pairs(musicInfo) do
+		local page_k = math.ceil(k/10)
+		if not self.pages[page_k] then self.pages[page_k] = {} end
+		table.insert(self.pages[page_k], v.songName)
 	end
+	
 	self.currPage = 1
 	
-	 self.select = UserData.selectSongs
+	 self.select = UserData.selectSongs or 1
 	 
 	 self:dispatchEvent({name = GlobalEvent.SUTRA_VIEW_SHOW, data={view=self}})
 	 
@@ -59,23 +50,13 @@ function sutraBoardView:updatePage(param)
 		self["CheckBox_"..i]:setVisible(false)
 	end
 	
-	
-	for i=1, #self.pages[self.currPage].A do
-		local j=i+5
-		self["Text_"..j]:setColor(cc.c3b(0, 0, 0))
-		self["Text_"..j]:setString(self.pages[self.currPage].A[i].name)
-		self["CheckBox_"..j]:addEventListenerCheckBox(selectedEvent)
-		self["CheckBox_"..j]:setTag(self.pages[self.currPage].A[i].id)
-		self["CheckBox_"..j]:setVisible(true)
-	end	
-	for i=1, #self.pages[self.currPage].B do
+	for i=1, #self.pages[self.currPage] do
 		self["Text_"..i]:setColor(cc.c3b(0, 0, 0))
-		self["Text_"..i]:setString(self.pages[self.currPage].B[i].name)
-		
+		self["Text_"..i]:setString(self.pages[self.currPage][i])
 		self["CheckBox_"..i]:addEventListenerCheckBox(selectedEvent)
-		self["CheckBox_"..i]:setTag(self.pages[self.currPage].B[i].id)
+		self["CheckBox_"..i]:setTag(i + (self.currPage-1)*10)
 		self["CheckBox_"..i]:setVisible(true)
-	end	
+	end
 	
 	self:updateCheckboxState()
 end
@@ -130,6 +111,10 @@ function sutraBoardView:sureBtnClick(event)
 	audioCtrl:playSound(audioData.buttonClick, false)
 	log("self.select", self.select)
 	UserData.selectSongs = self.select
+	
+	local musicInfo = UserData:loadMusicRhythmData()
+	ccexp.AudioEngine:preload("res/audio/song/" .. musicInfo[self.select].songId .. ".mp3")
+	
 	LayerManager.closeFloat(self)
 end
 

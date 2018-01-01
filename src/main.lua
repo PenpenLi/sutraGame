@@ -44,8 +44,9 @@ local function main()
 	GameController = new_class(luaFile.GameController)
     GameController:startGame()
 	
-	
-	
+	if TARGET_PLATFORM ~= cc.PLATFORM_OS_WINDOWS then
+		AdManager:loadAd()
+	end
     --startCocosDegbugTicker()
 end
 

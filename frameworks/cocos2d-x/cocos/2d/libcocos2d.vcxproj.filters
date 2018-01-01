@@ -289,6 +289,9 @@
     <Filter Include="vr">
       <UniqueIdentifier>{5cbd879f-02ae-4f28-af33-2c4f980dd6f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game">
+      <UniqueIdentifier>{23e6dcc3-3194-4496-9311-3e998ec2779f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\physics\CCPhysicsBody.cpp">
@@ -1967,6 +1970,9 @@
     </ClCompile>
     <ClCompile Include="..\vr\CCVRGenericRenderer.cpp">
       <Filter>vr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game\GameRunClassManager.cpp">
+      <Filter>game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3844,6 +3850,12 @@
     </ClInclude>
     <ClInclude Include="..\vr\CCVRGenericRenderer.h">
       <Filter>vr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game\GameRunClassManager.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game\GameRunClass.h">
+      <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

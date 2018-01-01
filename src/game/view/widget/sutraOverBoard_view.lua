@@ -61,15 +61,9 @@ function sutraOverBoardView:onCreate(param)
 			self:addChild(lastspr)
 			lastspr:runAction(cc.Sequence:create(cc.FadeOut:create(1.0), cc.CallFunc:create(function() lastspr:removeFromParent() end)))
 		end)
-		
 		UserData:setTool_lotus( 1 )
 		
-	--太慢
-	elseif result == -1 then
-		self.sutraOverBoard:loadTexture("songOver/sb_01.png")
-		
-	--太快
-	elseif result == 1 then
+	else
 		self.sutraOverBoard:loadTexture("songOver/sb_02.png")
 		
 	end

@@ -895,7 +895,7 @@ end
 
 
 function logc(...)
-	cc.CGame:setPrintColor(0x000C)
+	--cc.CGame:setPrintColor(0x000C)
 	log(...)
-	cc.CGame:setPrintColor(0x000F)
+	--cc.CGame:setPrintColor(0x000F)
 end

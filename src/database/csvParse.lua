@@ -71,9 +71,10 @@ local function parseline(line)
             end  
         end  
   
+		
         if(tl) then v = trim_left(v); end  
         if(tr) then v = trim_right(v); end  
-  
+		
         ret[table.getn(ret)+1] = v;  
         --print(8,"ret["..table.getn(ret).."]=".."\""..v.."\"");  
   
@@ -152,7 +153,69 @@ function csvParse.LoadCsv(fileName)
         end
         ret[table.getn(ret)+1] = data
     end
+    return ret  
+end
+
+function csvParse.LoadMusicRhythm(fileName)  
     
-  
+    local sourcePath = fileName
+
+    local targetPlatform = cc.Application:getInstance():getTargetPlatform()
+    if (cc.PLATFORM_OS_WINDOWS == targetPlatform) then
+        --sourcePath = "../../res/" .. datapath
+        --sourcePath = "res/" .. datapath
+    elseif (cc.PLATFORM_OS_IPHONE == targetPlatform) or (cc.PLATFORM_OS_IPAD == targetPlatform) or (cc.PLATFORM_OS_ANDROID == targetPlatform)  then
+       
+       --sourcePath = cc.FileUtils:getInstance():getWritablePath() .. sourcePath
+       --Game:initDataBase("res",Constant.DB_NAME)
+    end
+
+    local sourcePath = cc.FileUtils:getInstance():getStringFromFile(sourcePath)
+    local xx = string.split(sourcePath, "\n")
+    
+    local  header = parseline(xx[1])
+    local ret = {}
+	
+	
+    local headerCount = #header
+	for i=1, headerCount do
+		ret[i] = {songName=header[i], songId=0, buddhaId=0, jingtuId=0, fojus=0, rhythm={}}
+	end
+	
+	local songIds = parseline(xx[2])
+	
+	for i=1, #songIds do
+		ret[i].songId = songIds[i]
+	end
+	
+	local buddhaIds = parseline(xx[3])
+	for i=1, #buddhaIds do
+		ret[i].buddhaId = buddhaIds[i]
+	end
+	
+	local jingtuIds = parseline(xx[4])
+	for i=1, #jingtuIds do
+		ret[i].jingtuId = jingtuIds[i]
+	end
+	
+	local fojus = parseline(xx[5])
+	for i=1, #fojus do
+		ret[i].foju = tonumber(fojus[i])
+	end
+	
+	local songTimes = parseline(xx[6])
+	for i=1, #songTimes do
+		ret[i].songTime = tonumber(songTimes[i])
+	end
+	
+    for i=7,#xx do
+        local lineInfo = parseline(xx[i])
+		
+		for j=1, #lineInfo do
+			if lineInfo[j] ~= "" then
+				ret[j].rhythm[#ret[j].rhythm+1] = tonumber(lineInfo[j])
+			end
+		end
+    end
     return ret  
 end

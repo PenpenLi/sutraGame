@@ -91,7 +91,8 @@ function signBoardView:taskBtnClick(event)
 	
 	--LayerManager.closeFloat(self)
 	
-	LayerManager.showFloat(luaFile.taskView, {modal=true})
+	--LayerManager.showFloat(luaFile.taskView, {modal=true})
+	
 end
 
 function signBoardView:rankBtnClick(event)

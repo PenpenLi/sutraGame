@@ -9,6 +9,14 @@
           </Folder>
         </Folder>
         <Folder Name="Buddhas">
+          <Folder Name="buddhas">
+            <Image Name="kqmw.png" />
+            <Image Name="nwamtf.png" />
+            <Image Name="nwbssjmnf.png" />
+            <Image Name="nwdzwps.png" />
+            <Image Name="nwgsyps.png" />
+            <Image Name="xzysysf.png" />
+          </Folder>
           <Folder Name="effLight">
             <Image Name="f_g01.png" />
             <Image Name="f_g02.png" />
@@ -112,6 +120,7 @@
             <Image Name="xin07.png" />
             <Image Name="xin09.png" />
           </Folder>
+          <Image Name="lh11.png" />
           <Image Name="s_bg.png" />
           <Image Name="s_x01.png" />
           <Image Name="s_x02.png" />

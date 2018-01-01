@@ -8,10 +8,11 @@ CacheType = {
 	songDay = "_songDay_",
 	birthday = "_birthday_",
 	buddhasLightDay = "_buddhasLightDay_",
-	buddhasLightLevel = "_buddhasLightLevel_",
+	buddhasLightLevel = "_buddhasLightLevel_",--佛光等级
 	ImageCacheData = "_ImageCacheData_",
 	tools = "_tools_",
 	usedTool = "_usedTool_",
+	buddhasId = "_buddhasId_",
 }
 
 	
@@ -21,10 +22,10 @@ CacheVal = {
 	[CacheType.songDay] =           {default = {}, encrypt = true},
 	[CacheType.birthday] =           {default = 0, encrypt = true},
 	[CacheType.buddhasLightDay] =           {default = 0, encrypt = true},
-	[CacheType.buddhasLightLevel] =           {default = 0, encrypt = true},
+	[CacheType.buddhasLightLevel] =           {default = 3, encrypt = true},
 	[CacheType.tools] =           	{default = "", encrypt = false},
-	[CacheType.usedTool] =           {default = "", encrypt = false},
-	
+	[CacheType.usedTool] =           {default = "1", encrypt = false},
+	[CacheType.buddhasId] =           {default = "nwamtf", encrypt = false},
 	
 	[CacheType.ImageCacheData] =           {default = {}, encrypt = true},
 }

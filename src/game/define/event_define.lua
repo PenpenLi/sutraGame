@@ -28,3 +28,5 @@ regGlobalEvent("EXITGAME_VIEW_SHOW")
 regGlobalEvent("RANK_VIEW_SHOW")
 regGlobalEvent("TASK_VIEW_SHOW")
 regGlobalEvent("TOOL_VIEW_SHOW")
+regGlobalEvent("CLICK_WOODENFINISH_SUCCESS")
+
