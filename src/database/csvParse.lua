@@ -208,7 +208,12 @@ function csvParse.LoadMusicRhythm(fileName)
 		ret[i].songTime = tonumber(songTimes[i])
 	end
 	
-    for i=7,#xx do
+	local clickEffects = parseline(xx[7])
+	for i=1, #clickEffects do
+		ret[i].clickEffect = clickEffects[i]
+	end
+	
+    for i=8,#xx do
         local lineInfo = parseline(xx[i])
 		
 		for j=1, #lineInfo do

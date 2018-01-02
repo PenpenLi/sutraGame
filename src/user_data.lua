@@ -343,6 +343,7 @@ end
 
 function UserData:setBuddhas(id)
 	self.buddhasId = id
+	CacheUtil:setCacheVal(CacheType.buddhasId, self.buddhasId)
 end
 
 function UserData:getBuddhas()

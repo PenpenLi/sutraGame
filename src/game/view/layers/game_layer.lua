@@ -129,8 +129,7 @@ function GameLayer:playClickCountNumberEff()
 		indexFormat = 4,                                 -- 整数位数
 	})
 	self.clickCountEffNode:addChild(animateNode)
-	animateNode:playOnce(true, 0)
-	
+	animateNode:playOnce(true, 0)	
 end
 
 
@@ -311,7 +310,7 @@ function GameLayer:startClickWoodenFish()
 			btn_normal:setVisible(false)
 			btn_touch:setVisible(true)
 			local soundfile = audioData.woodenFish
-			if songData[UserData.selectSongs].B then soundfile = audioData.woodenFishB end
+			--if songData[UserData.selectSongs].B then soundfile = audioData.woodenFishB end
 			audioCtrl:playSound(soundfile, false)
 			
 			self.woodenFishClickCount.cnt = self.woodenFishClickCount.cnt + 1
@@ -469,8 +468,6 @@ function GameLayer:huiwenAnim(overTime, animCallback)
 end
 
 function GameLayer:songjing_btnClick(event)
-	
-	
 	if UserData.selectSongs > 0 and UserData.selectSongs <= UserData.localSongCount then
 		self.bottomMenuPanel:setVisible(false)
 		
@@ -480,6 +477,7 @@ function GameLayer:songjing_btnClick(event)
 		
 		performWithDelay(self, function()
 					self:startClickWoodenFish()
+					self:startClickWoodenFishEffect()
 					self.continueBtn:setVisible(false)
 					self.pauseBtn:setVisible(true)
 				end, 0)--28
@@ -490,6 +488,56 @@ function GameLayer:songjing_btnClick(event)
 	else
 		audioCtrl:playSound(audioData.error, false)
 		TipViewEx:showTip(TipViewEx.tipType.songTip)
+	end
+end
+
+function GameLayer:startClickWoodenFishEffect()
+	self.clickWoodenFishEffect = performWithDelay(self, function()
+		local musicData = UserData:loadMusicRhythmData()
+		local eff = musicData[UserData.selectSongs].clickEffect
+		
+		if eff == "hb" then
+			local animateNode = new_class(luaFile.AnimationSprite, {
+				startFrameIndex = 1,                             -- 开始帧索引
+				isReversed = false,                              -- 是否反转
+				plistFileName = "res/woodenFish/hb.plist", -- plist文件
+				pngFileName = "res/woodenFish/hb.png",     -- png文件
+				pattern = "hb/",                      -- 帧名称模式串
+				frameNum = 11,                                   -- 帧数
+				rate = 0.10,                                     -- 
+				stay = true,                                    -- 是否停留（是否从cache中移除纹理）
+				indexFormat = 4,                                 -- 整数位数
+			})
+			self:addChild(animateNode)
+			animateNode:playOnce(true, 0)
+			animateNode:setPosition(math.random(100, 620), math.random(980, 1180))			
+			animateNode:runAction(cc.MoveBy:create(math.random(1.5, 2), cc.p(math.random(0, 200)-100, -math.random(200, 380))))
+			
+		elseif eff == "ym" then
+			local ymSpr = cocosMake.newSprite("res/woodenFish/ym.png")
+			self:addChild(ymSpr)
+			ymSpr:setPosition(math.random(100, 620), math.random(980, 1180))	
+				
+			local moveTime = math.random(2.5, 4)
+			ymSpr:runAction(cc.MoveBy:create(moveTime, cc.p(math.random(0, 200)-100, -math.random(200, 380))))
+			
+			local action_list2 = {}
+			action_list2[#action_list2 + 1] = cc.FadeIn:create(0.3)
+			action_list2[#action_list2 + 1] = cc.DelayTime:create(moveTime-0.5-0.3)
+			action_list2[#action_list2 + 1] = cc.FadeOut:create(0.5)
+			action_list2[#action_list2 + 1] = cc.CallFunc:create(function () ymSpr:removeFromParent() end)
+			ymSpr:setOpacity(0)
+			ymSpr:runAction(cc.Sequence:create(unpack(action_list2)))
+		end
+		
+		self:startClickWoodenFishEffect()
+	end, math.random(200, 1000)/100)
+end
+
+function GameLayer:stopClickWoodenFishEffect()
+	if self.clickWoodenFishEffect then
+		self:removeAction(self.clickWoodenFishEffect)
+		self.clickWoodenFishEffect = nil
 	end
 end
 
