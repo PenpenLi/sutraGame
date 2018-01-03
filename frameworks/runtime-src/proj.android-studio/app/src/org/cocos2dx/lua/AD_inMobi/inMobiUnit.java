@@ -166,7 +166,7 @@ public class inMobiUnit extends adBaseUnit {
                     height = (int)(height*ratio);
 
                     contain.setY(-height);
-                    //contain.setVisibility(View.INVISIBLE);
+                    contain.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -258,7 +258,7 @@ public class inMobiUnit extends adBaseUnit {
         bannerLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         bannerLayoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         mBannerAd.setLayoutParams(bannerLayoutParams);
-        //mBannerAd.setTranslationY(display.getHeight() - height);
+        mBannerAd.setTranslationY(display.getHeight() - height);
 
         contain.addView(mBannerAd);
 
