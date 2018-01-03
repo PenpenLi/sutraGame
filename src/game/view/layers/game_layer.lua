@@ -341,12 +341,12 @@ function GameLayer:startClickWoodenFish()
 	--播放经文
 	--startPos, endPos, speed, containWidget
 	self.musicPlayerCtrl:setParam(cc.p(720, 250), cc.p(0, 250), 150, self)
-	local musicData = UserData:loadMusicRhythmData()
-	self.musicPlayerCtrl:playMusic(musicData[UserData.selectSongs].songId, musicData[UserData.selectSongs].songTime, 
-		musicData[UserData.selectSongs].rhythm, musicData[UserData.selectSongs].foju)
+	local musicData = UserData:getSelectSongInfo()
+	self.musicPlayerCtrl:playMusic(musicData.songId, musicData.songTime, 
+		musicData.rhythm, musicData.foju)
 		
 	--更换佛祖图像
-	UserData:setBuddhas(musicData[UserData.selectSongs].buddhaId)
+	UserData:setBuddhas(musicData.buddhaId)
 	self:setBuddhasImage(UserData:getBuddhas())
 	
 		
@@ -584,6 +584,10 @@ function GameLayer:return_key()
 	GameController:addEventListener(GlobalEvent.TOOL_VIEW_SHOW,function(event)
 		self.floatView = event.data and event.data.view or nil
     end)
+	GameController:addEventListener(GlobalEvent.JINGTU_VIEW_SHOW,function(event)
+		self.floatView = event.data and event.data.view or nil
+    end)
+	
 	GameController:addEventListener(GlobalEvent.CLICK_WOODENFINISH_SUCCESS, handler(self, self.clickWoodenFinishSuccessEvent))	
 end
 

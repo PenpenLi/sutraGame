@@ -333,13 +333,23 @@ end
 
 function UserData:loadMusicRhythmData()
 	if not self.musicData then
-		local ret = csvParse.LoadMusicRhythm("res/audio/song/musicClick.csv")
+		local ret = csvParse.LoadMusicRhythm("res/songData.csv")
 		self.musicData = ret
 		return ret
 	else
 		return self.musicData
 	end
 end
+
+--获取选中的经文的佛祖信息
+function UserData:getSelectSongInfo()
+	if self.selectSongs == 0 then
+		return nil
+	end
+	local musicData = UserData:loadMusicRhythmData()
+	return musicData[self.selectSongs]
+end
+
 
 function UserData:setBuddhas(id)
 	self.buddhasId = id

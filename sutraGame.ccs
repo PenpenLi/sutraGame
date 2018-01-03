@@ -80,6 +80,67 @@
           <Image Name="j_UP.png" />
         </Folder>
         <Folder Name="signBoard">
+          <Folder Name="jingtu">
+            <Folder Name="jlsj">
+              <Image Name="jlsj_01.png" />
+              <Image Name="jlsj_02.png" />
+              <Image Name="jlsj_03.png" />
+              <Image Name="jlsj_04.png" />
+              <Image Name="jlsj_05.png" />
+              <Image Name="jlsj_06.png" />
+              <Image Name="jlsj_07.png" />
+              <Image Name="jlsj_08.png" />
+              <Image Name="jlsj_09.png" />
+              <Image Name="jlsj_10.png" />
+              <Image Name="jlsj_11.png" />
+              <Image Name="jlsj_12.png" />
+              <Image Name="jlsj_gray.png" />
+            </Folder>
+            <Folder Name="ljs">
+              <Image Name="ljs.png" />
+              <Image Name="ljs_01.png" />
+              <Image Name="ljs_02.png" />
+              <Image Name="ljs_03.png" />
+              <Image Name="ljs_04.png" />
+              <Image Name="ljs_05.png" />
+              <Image Name="ljs_06.png" />
+              <Image Name="ljs_07.png" />
+              <Image Name="ljs_08.png" />
+              <Image Name="ljs_09.png" />
+              <Image Name="ljs_10.png" />
+              <Image Name="ljs_11.png" />
+              <Image Name="ljs_12.png" />
+              <Image Name="ljs_gray.png" />
+            </Folder>
+            <Folder Name="llsj">
+              <Image Name="llsj.png" />
+              <Image Name="llsj_01.png" />
+              <Image Name="llsj_02.png" />
+              <Image Name="llsj_03.png" />
+              <Image Name="llsj_04.png" />
+              <Image Name="llsj_05.png" />
+              <Image Name="llsj_06.png" />
+              <Image Name="llsj_07.png" />
+              <Image Name="llsj_08.png" />
+              <Image Name="llsj_09.png" />
+              <Image Name="llsj_10.png" />
+              <Image Name="llsj_11.png" />
+              <Image Name="llsj_12.png" />
+              <Image Name="llsj_gray.png" />
+            </Folder>
+          </Folder>
+          <Folder Name="lotus">
+            <Image Name="lh_01.png" />
+            <Image Name="lh_02.png" />
+            <Image Name="lh_03.png" />
+            <Image Name="lh_04.png" />
+            <Image Name="lh_05.png" />
+            <Image Name="lh_06.png" />
+            <Image Name="lh_07.png" />
+            <Image Name="lh_08.png" />
+            <Image Name="lh_09.png" />
+            <Image Name="lh_bg.png" />
+          </Folder>
           <Folder Name="rank">
             <Image Name="phb_bg.png" />
           </Folder>
@@ -146,6 +207,11 @@
         <Project Name="sutraOverBoardNode.csd" Type="Node" />
         <Project Name="taskNode.csd" Type="Node" />
         <Project Name="toolNode.csd" Type="Node" />
+        <Project Name="jingtuNode_jlsj.csd" Type="Node" />
+        <Project Name="jingtuNode_ljs.csd" Type="Node" />
+        <Project Name="jingtuNode_llsj.csd" Type="Node" />
+        <Project Name="jingtuNode.csd" Type="Node" />
+        <Project Name="lotusNode.csd" Type="Node" />
       </RootFolder>
     </Group>
   </SolutionFolder>

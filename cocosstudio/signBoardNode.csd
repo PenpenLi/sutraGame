@@ -372,7 +372,7 @@
                 <PreSize X="0.0895" Y="0.1018" />
                 <LabelAtlasFileImage_CNB Type="Normal" Path="signBoard/q_zi.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="taskBtn" ActionTag="-1492801796" Tag="113" IconVisible="False" LeftMargin="116.9767" RightMargin="500.0233" TopMargin="528.2848" BottomMargin="68.7152" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="113" Scale9Height="118" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="jingtuBtn" ActionTag="-1492801796" Tag="113" IconVisible="False" LeftMargin="116.9767" RightMargin="500.0233" TopMargin="528.2848" BottomMargin="68.7152" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="113" Scale9Height="118" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="143.0000" Y="140.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="188.4767" Y="138.7152" />
@@ -402,7 +402,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="toolBtn" ActionTag="-143447148" Tag="115" IconVisible="False" LeftMargin="490.2003" RightMargin="115.7997" TopMargin="540.2838" BottomMargin="64.7162" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="124" Scale9Height="110" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="lotusBtn" ActionTag="-143447148" Tag="115" IconVisible="False" LeftMargin="490.2003" RightMargin="115.7997" TopMargin="540.2838" BottomMargin="64.7162" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="124" Scale9Height="110" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="154.0000" Y="132.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="567.2003" Y="130.7162" />

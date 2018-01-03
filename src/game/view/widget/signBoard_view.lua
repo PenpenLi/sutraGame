@@ -8,9 +8,9 @@ signBoardView.ui_resource_file = {"signBoardNode"}
 					
 signBoardView.ui_binding_file = {
 	closeBtn        = {event = "click", method = "touchPanelClick"},
-	taskBtn        = {event = "click", method = "taskBtnClick"},
+	jingtuBtn        = {event = "click", method = "jingtuBtnClick"},
 	rankBtn        = {event = "click", method = "rankBtnClick"},
-	toolBtn        = {event = "click", method = "toolBtnClick"},
+	lotusBtn        = {event = "click", method = "lotusBtnClick"},
 	
 }
 
@@ -86,12 +86,20 @@ function signBoardView:touchPanelClick(event)
 	LayerManager.closeFloat(self)
 end
 
-function signBoardView:taskBtnClick(event)
+function signBoardView:jingtuBtnClick(event)
 	audioCtrl:playSound(audioData.buttonClick, false)
 	
-	--LayerManager.closeFloat(self)
+	local songData = UserData:loadMusicRhythmData()
+	local buddhas = UserData:getBuddhas()
+
+	for k,v in pairs(songData) do
+		if  v.buddhaId == buddhas then
+			LayerManager.showFloat(luaFile.jingtuView, {modal=true, jingtu=v.jingtuId})
+			break
+		end
+	end
 	
-	--LayerManager.showFloat(luaFile.taskView, {modal=true})
+	
 	
 end
 
@@ -103,12 +111,12 @@ function signBoardView:rankBtnClick(event)
 	LayerManager.showFloat(luaFile.rankView, {modal=true})
 end
 
-function signBoardView:toolBtnClick(event)
+function signBoardView:lotusBtnClick(event)
 	audioCtrl:playSound(audioData.buttonClick, false)
 	
 	--LayerManager.closeFloat(self)
 	
-	LayerManager.showFloat(luaFile.toolView, {modal=true})
+	LayerManager.showFloat(luaFile.lotusView, {modal=true})
 end
 
 

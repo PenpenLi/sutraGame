@@ -69,6 +69,9 @@ add("TipViewEx", "game.view.widget.tip_view_ex")
 add("DialogBase", "game.view.widget.dialog_base")
 add("DefaultDialog", "game.view.widget.default_dialog")
 
+
+add("lotusView", "game.view.widget.lotus_view")
+add("jingtuView", "game.view.widget.jingtu_view")
 add("exitGameBoardView", "game.view.widget.exitGameBoard_view")
 add("signBoardView", "game.view.widget.signBoard_view")
 add("sutraBoardView", "game.view.widget.sutraBoard_view")
