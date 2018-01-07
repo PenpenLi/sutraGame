@@ -101,6 +101,7 @@ function GameLayer:initUI()
 	
 	self.continueBtn:setVisible(false)
 	self.pauseBtn:setVisible(false)
+	
 end
 
 function GameLayer:showStartSpeak()
@@ -205,6 +206,8 @@ function GameLayer:continueBtnClick()
 	self.touchMaskPanel:setSwallowTouches(false)
 	self.touchMaskPanel:setVisible(false)
 	
+	self.musicPlayerCtrl:resume()
+	
 	AdManager:hideAd()
 end
 function GameLayer:pauseBtnClick()
@@ -216,6 +219,8 @@ function GameLayer:pauseBtnClick()
 	
 	self.touchMaskPanel:setSwallowTouches(true)
 	self.touchMaskPanel:setVisible(true)
+
+	self.musicPlayerCtrl:pause()
 	
 	AdManager:showAd()
 end
@@ -310,15 +315,10 @@ function GameLayer:startClickWoodenFish()
 			btn_normal:setVisible(false)
 			btn_touch:setVisible(true)
 			local soundfile = audioData.woodenFish
-			--if songData[UserData.selectSongs].B then soundfile = audioData.woodenFishB end
+			--if songData[UserData:getSelectSongs()].B then soundfile = audioData.woodenFishB end
 			audioCtrl:playSound(soundfile, false)
-			
-			self.woodenFishClickCount.cnt = self.woodenFishClickCount.cnt + 1
-			self.woodenFishClickCount:setString(self.woodenFishClickCount.cnt)
-			self.woodenFishClickCount:setScale(0)
-			self.woodenFishClickCount:runAction(cc.EaseExponentialOut:create(cc.ScaleTo:create(0.3, 1)))
 			self.musicPlayerCtrl:clickEvent()
-			self:playClickCountNumberEff()
+			
 			
 		elseif event.name == "ended" then
 			btn_normal:setVisible(true)
@@ -338,9 +338,18 @@ function GameLayer:startClickWoodenFish()
 	
 	audioCtrl:stopMusic()
 	
+	local function clickCallback()
+		self.woodenFishClickCount.cnt = self.woodenFishClickCount.cnt + 1
+		self.woodenFishClickCount:setString(self.woodenFishClickCount.cnt)
+		self.woodenFishClickCount:setScale(0)
+		self.woodenFishClickCount:runAction(cc.EaseExponentialOut:create(cc.ScaleTo:create(0.3, 1)))		
+		self:playClickCountNumberEff()
+	end
+	
 	--播放经文
 	--startPos, endPos, speed, containWidget
 	self.musicPlayerCtrl:setParam(cc.p(720, 250), cc.p(0, 250), 150, self)
+	self.musicPlayerCtrl:setClickValidCallback(clickCallback)
 	local musicData = UserData:getSelectSongInfo()
 	self.musicPlayerCtrl:playMusic(musicData.songId, musicData.songTime, 
 		musicData.rhythm, musicData.foju)
@@ -350,16 +359,16 @@ function GameLayer:startClickWoodenFish()
 	self:setBuddhasImage(UserData:getBuddhas())
 	
 		
-	--[[audioCtrl:playMusic(songData[UserData.selectSongs].file, false)
-	if songData[UserData.selectSongs].count > 1 then
+	--[[audioCtrl:playMusic(songData[UserData:getSelectSongs()].file, false)
+	if songData[UserData:getSelectSongs()].count > 1 then
 		local songCount = 1
 		local sch = schedule(self, function()
-			audioCtrl:playMusic(songData[UserData.selectSongs].file, false)
+			audioCtrl:playMusic(songData[UserData:getSelectSongs()].file, false)
 			songCount = songCount + 1
-			if songCount >= songData[UserData.selectSongs].count then
+			if songCount >= songData[UserData:getSelectSongs()].count then
 				self:stopAction(sch)
 			end
-		end, songData[UserData.selectSongs].time)
+		end, songData[UserData:getSelectSongs()].time)
 	end
 	
 	
@@ -371,8 +380,8 @@ function GameLayer:startClickWoodenFish()
 		
 		local res = 0
 		local clickCnt = tonumber(self.woodenFishClickCount:getString())
-		if clickCnt > songData[UserData.selectSongs].touchMax then res = 1 end
-		if clickCnt < songData[UserData.selectSongs].touchMin then res = -1 end
+		if clickCnt > songData[UserData:getSelectSongs()].touchMax then res = 1 end
+		if clickCnt < songData[UserData:getSelectSongs()].touchMin then res = -1 end
 		if res == 0 then 
 			UserData:songToday() self:huiwenAnim(8, function() 
 				self.bottomMenuPanel:setVisible(true)
@@ -387,14 +396,23 @@ function GameLayer:startClickWoodenFish()
 		self.continueBtn:setVisible(false)
 		self.pauseBtn:setVisible(false)
 	end
-	performWithDelay(self, songFinishCallback, songData[UserData.selectSongs].time * songData[UserData.selectSongs].count)--]]
+	performWithDelay(self, songFinishCallback, songData[UserData:getSelectSongs()].time * songData[UserData:getSelectSongs()].count)--]]
 end
 
 
 
 function GameLayer:jingwen_btnClick(event)
 	audioCtrl:playSound(audioData.buttonClick, false)
-	LayerManager.showFloat(luaFile.sutraBoardView, {modal=true})
+	
+	
+	
+	local function callback()
+		local musicData = UserData:getSelectSongInfo()
+		--更换佛祖图像
+		UserData:setBuddhas(musicData.buddhaId)
+		self:setBuddhasImage(UserData:getBuddhas())
+	end
+	LayerManager.showFloat(luaFile.sutraBoardView, {modal=true, selectCallback=callback})
 end
 
 function GameLayer:jingwenAnim(overTime)
@@ -468,7 +486,7 @@ function GameLayer:huiwenAnim(overTime, animCallback)
 end
 
 function GameLayer:songjing_btnClick(event)
-	if UserData.selectSongs > 0 and UserData.selectSongs <= UserData.localSongCount then
+	if UserData:getSelectSongs() > 0 then
 		self.bottomMenuPanel:setVisible(false)
 		
 		self.woodenFishPanel:removeAllChildren()
@@ -494,7 +512,7 @@ end
 function GameLayer:startClickWoodenFishEffect()
 	self.clickWoodenFishEffect = performWithDelay(self, function()
 		local musicData = UserData:loadMusicRhythmData()
-		local eff = musicData[UserData.selectSongs].clickEffect
+		local eff = musicData[UserData:getSelectSongs()].clickEffect
 		
 		if eff == "hb" then
 			local animateNode = new_class(luaFile.AnimationSprite, {

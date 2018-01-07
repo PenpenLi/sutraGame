@@ -112,7 +112,7 @@ end
 ccui.CheckBox.addEventListenerCheckBox = UICheckBoxDeprecated.addEventListenerCheckBox
 
 function UICheckBoxDeprecated.setSelectedState(self,flag)
-   deprecatedTip("ccui.CheckBox:setSelectedState", "ccui.CheckBox:setSelected")
+   --deprecatedTip("ccui.CheckBox:setSelectedState", "ccui.CheckBox:setSelected")
    return self:setSelected(flag)
 end
 ccui.CheckBox.setSelectedState = UICheckBoxDeprecated.setSelectedState

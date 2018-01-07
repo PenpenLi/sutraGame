@@ -12,8 +12,8 @@ function musicPlayerCtrl:Init( ... )
 	self.clickScore = {}
 	self.clickLegalSprs = {}
 	self.fojuScore = 0
+	self.clickValidCallback = nil
 end
-
 
 function musicPlayerCtrl:recyclexx(xx)
 	self.xxSprites[#self.xxSprites+1] = xx
@@ -21,8 +21,10 @@ function musicPlayerCtrl:recyclexx(xx)
 		xx:stopAction(xx.moveLineAction)
 		xx.moveLineAction = nil
 	end
+	xx:setTexture("res/homeUI/xingguang.png")
 	xx:setVisible(false)
 end
+
 function musicPlayerCtrl:createxx()
 	local xx = cocosMake.newSprite("res/homeUI/xingguang.png")
 	xx:runAction(cc.RepeatForever:create(cc.RotateBy:create(1.0, 360)))
@@ -51,6 +53,8 @@ function musicPlayerCtrl:setParam(startPos, endPos, speed, containWidget)
 	
 	self.moveTime = (self.startPos.x - self.endPos.x)/self.moveSpeed
 	self.moveMiddleTime = self.moveTime/2
+	
+	self.clickValidCallback = nil
 end
 
 function musicPlayerCtrl:playMusic(musicRes, musicTime, musicClickData, fohaoNum)
@@ -117,6 +121,7 @@ function musicPlayerCtrl:update(clock)
 				end
 			end
 			self:setClickScore(-1)
+			xx:setTexture("res/homeUI/xingguang2.png")
 		end)
 		local clickLegalAction = xx:runAction(cc.Sequence:create(unpack(action_clickLegal)))
 		xx.clickLegalAction = clickLegalAction
@@ -157,9 +162,17 @@ function musicPlayerCtrl:clickEvent()
 		table.remove(self.clickLegalSprs, 1)
 		
 		self:setClickScore(1)
+		if self.clickValidCallback then
+			self.clickValidCallback()
+		end
 		return idx
 	end
 	return 0
+end
+
+
+function musicPlayerCtrl:setClickValidCallback(callback)
+	self.clickValidCallback = callback
 end
 
 function musicPlayerCtrl:setClickScore(val)
@@ -177,13 +190,28 @@ function musicPlayerCtrl:setClickScore(val)
 		if not failed then
 			self.fojuScore = self.fojuScore + 1
 		end
-		if self.fojuScore == 100 then
+		--if self.fojuScore == 100 then
+		if self.fojuScore == 3 then
 			GameController:dispatchEvent({name = GlobalEvent.CLICK_WOODENFINISH_SUCCESS, data={}})
 		end
 		self.clickScoreIndex = 1
 		logc("playMusicOver_calcFoju, fohaoScore:", self.fojuScore)
 	end
 	
+end
+
+function musicPlayerCtrl:pause()
+	if self.playing then
+		ccexp.AudioEngine:pauseAll()
+		self.pauseClock = os.clock()
+	end
+end
+
+function musicPlayerCtrl:resume()
+	if self.playing then
+		ccexp.AudioEngine:resumeAll()
+		self.beginClock = self.beginClock + (os.clock() - self.pauseClock)
+	end
 end
 
 return musicPlayerCtrl

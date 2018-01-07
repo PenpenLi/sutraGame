@@ -200,6 +200,11 @@
         <Project Name="GameLayerNode.csd" Type="Layer" />
         <Image Name="icon.png" />
         <Image Name="icon01.png" />
+        <Project Name="jingtuNode.csd" Type="Node" />
+        <Project Name="jingtuNode_jlsj.csd" Type="Node" />
+        <Project Name="jingtuNode_ljs.csd" Type="Node" />
+        <Project Name="jingtuNode_llsj.csd" Type="Node" />
+        <Project Name="lotusNode.csd" Type="Node" />
         <Image Name="off.png" />
         <Project Name="rankNode.csd" Type="Node" />
         <Project Name="signBoardNode.csd" Type="Node" />
@@ -207,11 +212,6 @@
         <Project Name="sutraOverBoardNode.csd" Type="Node" />
         <Project Name="taskNode.csd" Type="Node" />
         <Project Name="toolNode.csd" Type="Node" />
-        <Project Name="jingtuNode_jlsj.csd" Type="Node" />
-        <Project Name="jingtuNode_ljs.csd" Type="Node" />
-        <Project Name="jingtuNode_llsj.csd" Type="Node" />
-        <Project Name="jingtuNode.csd" Type="Node" />
-        <Project Name="lotusNode.csd" Type="Node" />
       </RootFolder>
     </Group>
   </SolutionFolder>

@@ -91,7 +91,7 @@ function signBoardView:jingtuBtnClick(event)
 	
 	local songData = UserData:loadMusicRhythmData()
 	local buddhas = UserData:getBuddhas()
-
+	log("buddhas", buddhas)
 	for k,v in pairs(songData) do
 		if  v.buddhaId == buddhas then
 			LayerManager.showFloat(luaFile.jingtuView, {modal=true, jingtu=v.jingtuId})
