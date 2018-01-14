@@ -23,7 +23,6 @@ function UserData:init( ... )
 	
 	self.toolList = CacheUtil:getCacheVal(CacheType.tools)--我的物品
 	self.buddhasId = CacheUtil:getCacheVal(CacheType.buddhasId)--界面显示的佛祖
-	self.selectSongs = CacheUtil:getCacheVal(CacheType.selectSongs)--选择的佛曲号
 	self.usedTool = "1"--改成只有一种木鱼
 	
 	--self.chenghaoLv = 0--称号等级
@@ -61,6 +60,8 @@ function UserData:init( ... )
 	self.signContinueCount = 0
 	
 	self.incenseCount = 0
+	
+	self.selectSongs = 1
 	
 	self.monthWeekDay = {}
 	
@@ -334,6 +335,14 @@ function UserData:loadMusicRhythmData()
 		local ret = csvParse.LoadMusicRhythm("res/songData.csv")
 		self.musicData = ret
 		
+		for k,v in pairs(ret) do
+			if v.buddhaId == self.buddhasId then
+				self.selectSongs = k
+				break
+			end
+		end
+		
+		
 		return ret
 	else
 		return self.musicData
@@ -357,15 +366,6 @@ end
 
 function UserData:getBuddhas()
 	return self.buddhasId
-end
-
-function UserData:setSelectSongs(songId)
-	self.selectSongs = songId
-	CacheUtil:setCacheVal(CacheType.selectSongs, self.selectSongs)
-end
-
-function UserData:getSelectSongs()
-	return self.selectSongs
 end
 
 

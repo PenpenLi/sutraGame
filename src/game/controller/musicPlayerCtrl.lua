@@ -52,49 +52,76 @@ function musicPlayerCtrl:setParam(startPos, endPos, speed, containWidget)
 	self.containWidget = containWidget
 	
 	self.moveTime = (self.startPos.x - self.endPos.x)/self.moveSpeed
-	self.moveMiddleTime = self.moveTime/2
-	
+	self.moveMiddleTime = self.moveTime/2.0
+	log("self.moveMiddleTime:", self.moveTime, self.moveMiddleTime)
 	self.clickValidCallback = nil
 end
 
 function musicPlayerCtrl:playMusic(musicRes, musicTime, musicClickData, fohaoNum)
 	local action_list = {}
-	self.songPlayDelayTime = self.moveMiddleTime - 1/50
+	self.songPlayDelayTime = self.moveMiddleTime - 0.2 - musicClickData[1]
 	action_list[#action_list + 1] = cc.DelayTime:create(self.songPlayDelayTime)
 	action_list[#action_list + 1] = cc.CallFunc:create(function ()
 			--audioCtrl:playMusic("res/audio/song/" .. musicRes .. ".mp3", true)
 			ccexp.AudioEngine:play2d("res/audio/song/" .. musicRes .. ".mp3", true)
 		end)
-	self.containWidget:runAction(cc.Sequence:create(unpack(action_list)))
-	
+	 --self.containWidget:runAction(cc.Sequence:create(unpack(action_list)))
+	self.musicRes = musicRes
 	self.clickScore = {}
 	self.clickScoreIndex = 1
 	for i=1, fohaoNum do self.clickScore[i] = 0 end
 	self.clickLegalSprs = {}
-	self.musicClickData = musicClickData
+	self.musicRhythm = DeepCopy(musicClickData)
+	self.musicRhythmCount = #musicClickData
 	self.musicTime = musicTime
-	self.musicClickDataCount = #self.musicClickData
 	self.fohaoNum = fohaoNum
 	self.playing = true
-	
-	self.curStep = 1
-	self:run(musicClickData, 1)
+	self.errTime = 0
+	self.curStep = -20--帧缓冲
+	self.notStartIndex = true
+	self:run()
 
 
-	
+	AudioEngine.preloadMusic("res/audio/song/" .. self.musicRes .. ".mp3")
 end
 
-function musicPlayerCtrl:update(clock)
-	if self.musicClickDataCount < self.curStep then
-		if clock >= self.musicTime then
-			self.curStep = 1
-			self.beginClock = os.clock()
+function musicPlayerCtrl:update(ft)
+	self.clock=self.clock+ft
+	log("update", ft, self.clock, self.curStep, self.musicRhythm[self.curStep])
+	
+	if ft <= 0.0 then
+		return
+	end
+	
+	if self.musicRhythmCount < self.curStep then
+		if self.clock >= self.musicTime + self.errTime then
+			self.curStep = -5
+			self.clock = 0.0
 		end
 		return
 	end
-	if clock >= self.musicClickData[self.curStep] then
-		log(clock, self.musicClickData[self.curStep], self.curStep, os.clock())
+	
+	if not self.musicRhythm[self.curStep] then
+		self.curStep = self.curStep + 1
+		self.clock = 0.0
 		
+		if self.musicRhythm[self.curStep] then
+			--audioCtrl:resumeMusic()
+			local action_list = {}
+			self.errTime = 0.1
+			self.songPlayDelayTime = self.moveMiddleTime - self.errTime
+			action_list[#action_list + 1] = cc.DelayTime:create(self.songPlayDelayTime)
+			action_list[#action_list + 1] = cc.CallFunc:create(function ()
+					log("play music")
+					AudioEngine.playMusic("res/audio/song/" .. self.musicRes .. ".mp3")
+				end)
+			 self.containWidget:runAction(cc.Sequence:create(unpack(action_list)))
+		end
+		return 
+	end
+		
+	
+	if self.clock >= self.musicRhythm[self.curStep] then
 		local curStep = self.curStep
 		local xx = self:getxx()
 		xx:setVisible(true)
@@ -126,9 +153,10 @@ function musicPlayerCtrl:update(clock)
 		local clickLegalAction = xx:runAction(cc.Sequence:create(unpack(action_clickLegal)))
 		xx.clickLegalAction = clickLegalAction
 		
+		
 		self.curStep=self.curStep+1
-		for i=self.curStep, self.musicClickDataCount do
-			if clock <= self.musicClickData[i] then
+		for i=self.curStep, self.musicRhythmCount do
+			if self.clock <= self.musicRhythm[i] then
 				self.curStep = i
 				break
 			end
@@ -136,11 +164,14 @@ function musicPlayerCtrl:update(clock)
 	end
 end
 --开始播放经文
-function musicPlayerCtrl:run(musicClickData, startIndex)
-	self.beginClock = os.clock()
+function musicPlayerCtrl:run()
+	--[[self.beginClock = os.clock()
 	schedule(self.containWidget, function ()
 		self:update(os.clock() - self.beginClock)
 	end, 0.0)
+	--]]
+	self.clock = 0.0
+	self.containWidget:onUpdate(handler(self, self.update))
 end
 
 function musicPlayerCtrl:clickEvent()
@@ -202,15 +233,15 @@ end
 
 function musicPlayerCtrl:pause()
 	if self.playing then
-		ccexp.AudioEngine:pauseAll()
-		self.pauseClock = os.clock()
+		cocosMake.setGameSpeed(0)
+		AudioEngine:pauseMusic()
 	end
 end
 
 function musicPlayerCtrl:resume()
 	if self.playing then
-		ccexp.AudioEngine:resumeAll()
-		self.beginClock = self.beginClock + (os.clock() - self.pauseClock)
+		cocosMake.setGameSpeed(1)
+		AudioEngine:resumeMusic()
 	end
 end
 

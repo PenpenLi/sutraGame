@@ -16,7 +16,7 @@ function jingtuView:onCreate(param)
 	local openBlockNum = math.random(0, 12)
 	log("openBlockNum", openBlockNum)
 	
-	local jingtuNode = cc.CSLoader:createNode("res/jingtuNode_" .. jingtu .. ".csb")
+	local jingtuNode = cc.CSLoader:createNode("jingtuNode_" .. jingtu .. ".csb")
 	if jingtuNode then
 		self:addChild(jingtuNode)
 		jingtuNode:setPosition(display.center)

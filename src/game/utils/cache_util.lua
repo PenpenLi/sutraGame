@@ -13,7 +13,6 @@ CacheType = {
 	tools = "_tools_",
 	usedTool = "_usedTool_",
 	buddhasId = "_buddhasId_",
-	selectSongs = "_selectSongs_",
 }
 
 	
@@ -27,7 +26,6 @@ CacheVal = {
 	[CacheType.tools] =           	{default = "", encrypt = false},
 	[CacheType.usedTool] =           {default = "1", encrypt = false},
 	[CacheType.buddhasId] =           {default = "nwamtf", encrypt = false},
-	[CacheType.selectSongs] =           {default = 1, encrypt = false},
 	
 	[CacheType.ImageCacheData] =           {default = {}, encrypt = true},
 }

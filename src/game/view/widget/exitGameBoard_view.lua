@@ -44,12 +44,17 @@ function exitGameBoardView:onCreate(param)
 	self:dispatchEvent({name = GlobalEvent.EXITGAME_VIEW_SHOW, data={view=self}})
 	
 	AdManager:showAd()
+	
+	self.player = param.player
+	self.player:pause()
 end
 
 
 function exitGameBoardView:onClose( ... )
 	AdManager:hideAd()
 	self:dispatchEvent({name = GlobalEvent.EXITGAME_VIEW_SHOW, data={view=nil}})
+	
+	self.player:resume()
 end
 
 function exitGameBoardView:bgTouch()

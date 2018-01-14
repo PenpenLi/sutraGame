@@ -54,6 +54,8 @@ function audioCtrl:pauseMusic()
 	audio.pauseMusic()
 end
 
+
+
 --停止音效
 function audioCtrl:stopSound(handle)
 	audio.stopSound(handle)
@@ -79,4 +81,8 @@ end
 function audioCtrl:setMusicVolume(volume)
 	audio.setMusicVolume(volume/100.0)
 end 
+
+function audioCtrl:preloadMusic(src)
+	audio.preloadMusic(src)
+end
 return audioCtrl
