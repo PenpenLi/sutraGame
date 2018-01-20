@@ -1,0 +1,7 @@
+[
+    {"k":"result","t":"int"},
+    {"k":"id","t":"int"},
+    {"k":"starType","t":"int"},
+    {"k":"starState","t":"int"},
+    {"k":"reward","t":"string"}
+]

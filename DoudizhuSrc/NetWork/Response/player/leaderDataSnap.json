@@ -1,0 +1,23 @@
+[
+    {"k":"playerId","t":"double"},
+    {"k":"baseId","t":"double"},
+    {"k":"leaderId","t":"int"},
+    {"k":"level","t":"int"},
+    {"k":"grade","t":"int"},
+    {"k":"talentLv","t":"int"},
+    {"k":"seat","t":"int"},
+    {"k":"state","t":"int"},
+    {"k":"exp","t":"int"},
+    {"k":"soldiers","t":"soldierDataSnap"},
+    {"k":"physicsAttack","t":"int"},
+    {"k":"magicAttack","t":"int"},
+    {"k":"barmor","t":"int"},
+    {"k":"bresistance","t":"int"},
+    {"k":"hp","t":"int"},
+    {"k":"hit","t":"int"},
+    {"k":"dodge","t":"int"},
+    {"k":"crit","t":"int"},
+    {"k":"opposeCrit","t":"int"},
+    {"k":"endHurt","t":"int"},
+    {"k":"offsetHurt","t":"int"}
+]

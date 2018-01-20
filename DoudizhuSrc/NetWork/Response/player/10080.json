@@ -1,0 +1,5 @@
+[
+    {"k":"moneytype","t":"int"},
+    {"k":"change","t":"double"},
+    {"k":"total","t":"double"}
+]

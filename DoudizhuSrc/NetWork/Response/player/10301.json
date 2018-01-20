@@ -1,0 +1,6 @@
+[
+    {"k":"result","t":"int"},
+    {"k":"type","t":"int"},
+    {"k":"leaderId","t":"double"},
+    {"k":"level","t":"int"}
+]

@@ -1,0 +1,4 @@
+[
+    {"k":"result","t":"int"},
+    {"k":"leaderPacket","t":"array","arraytype":"leaderDataSnap"}
+]

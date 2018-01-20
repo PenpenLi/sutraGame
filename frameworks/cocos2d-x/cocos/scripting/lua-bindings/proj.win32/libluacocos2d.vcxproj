@@ -11,6 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\external\lua\crypt\crypt.c" />
+    <ClCompile Include="..\..\..\..\external\lua\crypt\lsha1.c" />
+    <ClCompile Include="..\..\..\..\external\lua\lpeg\lpcap.c" />
+    <ClCompile Include="..\..\..\..\external\lua\lpeg\lpcode.c" />
+    <ClCompile Include="..\..\..\..\external\lua\lpeg\lpprint.c" />
+    <ClCompile Include="..\..\..\..\external\lua\lpeg\lptree.c" />
+    <ClCompile Include="..\..\..\..\external\lua\lpeg\lpvm.c" />
     <ClCompile Include="..\..\..\..\external\lua\luasocket\auxiliar.c" />
     <ClCompile Include="..\..\..\..\external\lua\luasocket\buffer.c" />
     <ClCompile Include="..\..\..\..\external\lua\luasocket\except.c" />
@@ -25,6 +32,9 @@
     <ClCompile Include="..\..\..\..\external\lua\luasocket\timeout.c" />
     <ClCompile Include="..\..\..\..\external\lua\luasocket\udp.c" />
     <ClCompile Include="..\..\..\..\external\lua\luasocket\wsocket.c" />
+    <ClCompile Include="..\..\..\..\external\lua\sproto\lsproto.c" />
+    <ClCompile Include="..\..\..\..\external\lua\sproto\sproto.c" />
+    <ClCompile Include="..\..\..\..\external\lua\stringex\stringex.c" />
     <ClCompile Include="..\..\..\..\external\lua\tolua\tolua_event.c" />
     <ClCompile Include="..\..\..\..\external\lua\tolua\tolua_is.c" />
     <ClCompile Include="..\..\..\..\external\lua\tolua\tolua_map.c" />
@@ -86,6 +96,13 @@
     <ClCompile Include="..\manual\ui\lua_cocos2dx_ui_manual.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\external\lua\crypt\crypt.h" />
+    <ClInclude Include="..\..\..\..\external\lua\lpeg\lpcap.h" />
+    <ClInclude Include="..\..\..\..\external\lua\lpeg\lpcode.h" />
+    <ClInclude Include="..\..\..\..\external\lua\lpeg\lpprint.h" />
+    <ClInclude Include="..\..\..\..\external\lua\lpeg\lptree.h" />
+    <ClInclude Include="..\..\..\..\external\lua\lpeg\lptypes.h" />
+    <ClInclude Include="..\..\..\..\external\lua\lpeg\lpvm.h" />
     <ClInclude Include="..\..\..\..\external\lua\luajit\include\lauxlib.h" />
     <ClInclude Include="..\..\..\..\external\lua\luajit\include\lua.h" />
     <ClInclude Include="..\..\..\..\external\lua\luajit\include\luaconf.h" />
@@ -105,6 +122,9 @@
     <ClInclude Include="..\..\..\..\external\lua\luasocket\timeout.h" />
     <ClInclude Include="..\..\..\..\external\lua\luasocket\udp.h" />
     <ClInclude Include="..\..\..\..\external\lua\luasocket\wsocket.h" />
+    <ClInclude Include="..\..\..\..\external\lua\sproto\msvcint.h" />
+    <ClInclude Include="..\..\..\..\external\lua\sproto\sproto.h" />
+    <ClInclude Include="..\..\..\..\external\lua\stringex\stringex.h" />
     <ClInclude Include="..\..\..\..\external\lua\tolua\tolua++.h" />
     <ClInclude Include="..\..\..\..\external\lua\tolua\tolua_event.h" />
     <ClInclude Include="..\..\..\..\external\xxtea\xxtea.h" />
@@ -164,6 +184,14 @@
     <ClInclude Include="..\manual\ui\lua_cocos2dx_ui_manual.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\external\lua\lpeg\HISTORY" />
+    <None Include="..\..\..\..\external\lua\lpeg\lpeg.html" />
+    <None Include="..\..\..\..\external\lua\lpeg\makefile" />
+    <None Include="..\..\..\..\external\lua\lpeg\re.html" />
+    <None Include="..\..\..\..\external\lua\lpeg\re.lua" />
+    <None Include="..\..\..\..\external\lua\lpeg\test.lua" />
+    <None Include="..\..\..\..\external\lua\sproto\README" />
+    <None Include="..\..\..\..\external\lua\sproto\README.md" />
     <None Include="..\script\AudioEngine.lua">
       <FileType>Document</FileType>
     </None>
@@ -227,6 +255,9 @@
     <ProjectReference Include="..\..\..\2d\libcocos2d.vcxproj">
       <Project>{98a51ba8-fc3a-415b-ac8f-8c7bd464e93e}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\external\lua\lpeg\lpeg-128.gif" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9F2D6CE6-C893-4400-B50C-6DB70CC2562F}</ProjectGuid>

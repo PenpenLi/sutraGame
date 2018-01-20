@@ -79,6 +79,18 @@
     <Filter Include="manual\navmesh">
       <UniqueIdentifier>{fa8be49e-8b79-4dc5-8f28-febde1347eda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="crypt">
+      <UniqueIdentifier>{b64aaa4a-d18c-4d97-8810-29dc01197d84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lepg">
+      <UniqueIdentifier>{0111afce-f40e-496a-a1d2-4ddea07668f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sproto">
+      <UniqueIdentifier>{753307b7-ad3c-492a-a7be-245b6404339a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stringex">
+      <UniqueIdentifier>{38f942f5-d1cc-44de-9679-cb6162e666e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\auto\lua_cocos2dx_auto.cpp">
@@ -299,6 +311,36 @@
     </ClCompile>
     <ClCompile Include="..\manual\lua_module_register.cpp">
       <Filter>manual</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\external\lua\crypt\lsha1.c">
+      <Filter>crypt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\external\lua\crypt\crypt.c">
+      <Filter>crypt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\external\lua\lpeg\lpprint.c">
+      <Filter>lepg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\external\lua\lpeg\lptree.c">
+      <Filter>lepg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\external\lua\lpeg\lpvm.c">
+      <Filter>lepg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\external\lua\lpeg\lpcap.c">
+      <Filter>lepg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\external\lua\lpeg\lpcode.c">
+      <Filter>lepg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\external\lua\sproto\sproto.c">
+      <Filter>sproto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\external\lua\sproto\lsproto.c">
+      <Filter>sproto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\external\lua\stringex\stringex.c">
+      <Filter>stringex</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -530,6 +572,36 @@
     <ClInclude Include="..\manual\Lua-BindingsExport.h">
       <Filter>manual</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\external\lua\crypt\crypt.h">
+      <Filter>crypt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\lua\lpeg\lpcode.h">
+      <Filter>lepg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\lua\lpeg\lpprint.h">
+      <Filter>lepg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\lua\lpeg\lptree.h">
+      <Filter>lepg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\lua\lpeg\lptypes.h">
+      <Filter>lepg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\lua\lpeg\lpvm.h">
+      <Filter>lepg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\lua\lpeg\lpcap.h">
+      <Filter>lepg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\lua\sproto\sproto.h">
+      <Filter>sproto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\lua\sproto\msvcint.h">
+      <Filter>sproto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\external\lua\stringex\stringex.h">
+      <Filter>stringex</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\script\CCBReaderLoad.lua">
@@ -634,5 +706,34 @@
     <None Include="..\script\ui\GuiConstants.lua">
       <Filter>script\ui</Filter>
     </None>
+    <None Include="..\..\..\..\external\lua\lpeg\lpeg.html">
+      <Filter>lepg</Filter>
+    </None>
+    <None Include="..\..\..\..\external\lua\lpeg\makefile">
+      <Filter>lepg</Filter>
+    </None>
+    <None Include="..\..\..\..\external\lua\lpeg\re.html">
+      <Filter>lepg</Filter>
+    </None>
+    <None Include="..\..\..\..\external\lua\lpeg\re.lua">
+      <Filter>lepg</Filter>
+    </None>
+    <None Include="..\..\..\..\external\lua\lpeg\test.lua">
+      <Filter>lepg</Filter>
+    </None>
+    <None Include="..\..\..\..\external\lua\lpeg\HISTORY">
+      <Filter>lepg</Filter>
+    </None>
+    <None Include="..\..\..\..\external\lua\sproto\README">
+      <Filter>sproto</Filter>
+    </None>
+    <None Include="..\..\..\..\external\lua\sproto\README.md">
+      <Filter>sproto</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\external\lua\lpeg\lpeg-128.gif">
+      <Filter>lepg</Filter>
+    </Image>
   </ItemGroup>
 </Project>

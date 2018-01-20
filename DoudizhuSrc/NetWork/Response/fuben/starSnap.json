@@ -1,0 +1,5 @@
+[
+    {"k":"id","t":"int"},
+    {"k":"star","t":"int"},
+    {"k":"challengeAmout","t":"int"}
+]

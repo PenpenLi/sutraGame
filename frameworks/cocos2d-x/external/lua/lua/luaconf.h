@@ -525,6 +525,14 @@
 #define lua_str2number(s,p)	strtod((s), (p))
 
 
+#define LUAI_UACINT		LUA_INTEGER
+/*
+** use LUAI_UACINT here to avoid problems with promotions (which
+** can turn a comparison between unsigneds into a signed comparison)
+*/
+//#define LUA_UNSIGNED		unsigned LUAI_UACINT
+#define LUA_UNSIGNED		LUAI_UINT32
+
 /*
 @@ The luai_num* macros define the primitive operations over numbers.
 */

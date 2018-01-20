@@ -1,6 +1,6 @@
 
 local GameLayer = class("GameLayer", cocosMake.viewBase)
-
+local crypts = require("crypt")
 --cocos studio生成的csb
 GameLayer.ui_resource_file = {"GameLayerNode"}
 

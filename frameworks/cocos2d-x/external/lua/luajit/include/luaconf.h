@@ -97,6 +97,52 @@
 */
 #define LUAL_BUFFERSIZE	(BUFSIZ > 16384 ? 8192 : BUFSIZ)
 
+
+/*
+@@ LUAI_BITSINT defines the number of bits in an int.
+** CHANGE here if Lua cannot automatically detect the number of bits of
+** your machine. Probably you do not need to change this.
+*/
+/* avoid overflows in comparison */
+#if INT_MAX-20 < 32760
+#define LUAI_BITSINT	16
+#elif INT_MAX > 2147483640L
+/* int has at least 32 bits */
+#define LUAI_BITSINT	32
+#else
+#error "you must define LUA_BITSINT with number of bits in an integer"
+#endif
+
+
+/*
+@@ LUAI_UINT32 is an unsigned integer with at least 32 bits.
+@@ LUAI_INT32 is an signed integer with at least 32 bits.
+@@ LUAI_UMEM is an unsigned integer big enough to count the total
+@* memory used by Lua.
+@@ LUAI_MEM is a signed integer big enough to count the total memory
+@* used by Lua.
+** CHANGE here if for some weird reason the default definitions are not
+** good enough for your machine. (The definitions in the 'else'
+** part always works, but may waste space on machines with 64-bit
+** longs.) Probably you do not need to change this.
+*/
+#if LUAI_BITSINT >= 32
+#define LUAI_UINT32	unsigned int
+#define LUAI_INT32	int
+#define LUAI_MAXINT32	INT_MAX
+#define LUAI_UMEM	size_t
+#define LUAI_MEM	ptrdiff_t
+#else
+/* 16-bit ints */
+#define LUAI_UINT32	unsigned long
+#define LUAI_INT32	long
+#define LUAI_MAXINT32	LONG_MAX
+#define LUAI_UMEM	unsigned long
+#define LUAI_MEM	long
+#endif
+
+#define LUA_UNSIGNED		LUAI_UINT32
+
 /* The following defines are here only for compatibility with luaconf.h
 ** from the standard Lua distribution. They must not be changed for LuaJIT.
 */

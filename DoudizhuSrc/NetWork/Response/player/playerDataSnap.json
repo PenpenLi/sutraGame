@@ -1,0 +1,12 @@
+[
+    {"k":"charid","t":"double"},
+    {"k":"name","t":"string"},
+    {"k":"body","t":"int"},
+    {"k":"exp","t":"int"},
+    {"k":"level","t":"int"},
+    {"k":"endurance","t":"int"},
+    {"k":"money","t":"array","arraytype":"double"},
+    {"k":"lowRecruitFreeNum","t":"int"},
+    {"k":"highRecruitNum","t":"int"},
+    {"k":"leaderSoul","t":"int"}
+]

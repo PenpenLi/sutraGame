@@ -1,0 +1,5 @@
+[
+    {"k":"thisid","t":"int"},
+    {"k":"baseid","t":"int"},
+    {"k":"num","t":"int"}
+]
