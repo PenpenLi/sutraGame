@@ -88,4 +88,4 @@ add("gameSoundCtrl", "game.controller.sound_ctrl")
 add("loadingTipsCtrl", "game.controller.loadingTips_ctrl")
 add("ImageCacheCtrl", "game.controller.image_cache_ctrl")
 add("musicPlayerCtrl", "game.controller.musicPlayerCtrl")
-
+add("networkControl", "game.controller.networkControl")

@@ -22,6 +22,10 @@ function mainScene:onEnter()
 			AdManager:loadAd()
 		end)
 		self:runAction(cc.Sequence:create(unpack(action_list)))
+		
+		--[[networkControl = new_class(luaFile.networkControl)
+		networkControl:init()
+		networkControl:authUser()--]]
 	end
 	
 	StateMgr:ChangeState(StateType.Game)

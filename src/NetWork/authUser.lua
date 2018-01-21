@@ -151,7 +151,7 @@ local function connectCallback_login(state)
 end
 
 local function check_illegal_chars(str)
-	if not str or string.len(str) == 0 then return false end
+	--if not str or string.len(str) == 0 then return false end
 	for i=1, string.len(str) do
 		local b = string.byte(str, i)
 		if (b > -1 and b < 48) or (b > 57 and b < 65) or (b > 90 and b < 97) or (b  > 122) then
