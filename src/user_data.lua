@@ -61,7 +61,11 @@ function UserData:init( ... )
 	
 	self.incenseCount = 0
 	
+	--当前选中的佛经
 	self.selectSongs = 1
+	
+	--净土已打开数据
+	self.jingtuOpenData = {}
 	
 	self.monthWeekDay = {}
 	
@@ -360,6 +364,21 @@ function UserData:setMusicScoreWithID(id, score)
 			v.score = v.score + score
 			break
 		end
+	end
+end
+
+--设置净土已打开数据
+function UserData:setJingtuOpenData(data)
+	self.jingtuOpenData = {}
+	local musicScoreList = string.split(data, ",")
+	for k, v in pairs(musicScoreList) do
+		local sc = string.split(v, ":")
+		self.jingtuOpenData[sc[1]] = sc[2]
+	end
+end
+function UserData:getJingtuOpenData(jingtuName)
+	for k,v in pairs(self.jingtuOpenData ) do
+		
 	end
 end
 

@@ -39,8 +39,8 @@ function authGame:totalPushCallback(data)
 	log("totalPushCallback", data)
 	local musicScoreList = string.split(fohaoGroup, ",")
 	for k, v in pairs(musicScoreList) do
-		local sc = string.split(v, "_")
-		UserData:setMusicScoreWithID(tonumber(v[1]), tonumber(v[2]))
+		local sc = string.split(v, ":")
+		UserData:setMusicScoreWithID(tonumber(sc[1]), tonumber(sc[2]))
 	end
 	
 	
