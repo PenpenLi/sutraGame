@@ -13,3 +13,10 @@ function performWithDelay(node, callback, delay)
     node:runAction(sequence)
     return sequence
 end
+
+function performWithDelayG( callback, delay)
+    local delay = cc.DelayTime:create(delay)
+    local sequence = cc.Sequence:create(delay, cc.CallFunc:create(callback))
+    cc.Director:getInstance():getRunningScene():runAction(sequence)
+    return sequence
+end

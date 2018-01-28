@@ -11,10 +11,11 @@ local function add(name, def)
 end
 
 
-add("networkManager", "src.NetWork.networkManager")
+add("networkManager", "src.NetWork.NetworkManager")
 add("networkAuthUser", "src.NetWork.networkHandle_authUser")
 add("networkGame", "src.NetWork.networkHandle_game")
-
+add("authUser", "src.NetWork.authUser")
+add("authGame", "src.NetWork.authGame")
 
 add("ViewBase", "framework.ViewBase")
 add("StaticDataLoader", "src.database.StaticDataLoader")
@@ -22,7 +23,7 @@ add("csvParse", "src.database.csvParse")
 add("jsonParse", "database.jsonParse")
 
 
-add("authUser", "src.authUser")
+
 add("mainScene", "game.view.scenes.mainScene")
 add("loginLayer", "src.layer.loginLayer")
 add("roomLayer", "src.layer.roomLayer")

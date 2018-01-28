@@ -29,7 +29,7 @@ local function main()
 	require("preload")
 	
 	cc.FileUtils:getInstance():setPopupNotify(false)
-
+	TARGET_PLATFORM = cc.Application:getInstance():getTargetPlatform()
 	cc.FileUtils:getInstance():addSearchPath("src/")
 	cc.FileUtils:getInstance():addSearchPath("res/")
 

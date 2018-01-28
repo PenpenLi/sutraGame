@@ -1,4 +1,4 @@
-local sprotoparser = require "sprotoparser"
+local sprotoparser = require "skynet.sprotoparser"
 
 local proto = {}
 

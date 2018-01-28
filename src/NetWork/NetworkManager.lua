@@ -1,6 +1,6 @@
 --require "json"
 
-networkManager = class("networkManager")
+local networkManager = class("networkManager")
 networkManager.logicType = { none = 0, userAuth = 1, game = 2 }
 networkManager.stateCode = { close = 0, open = 1, }
 
@@ -114,3 +114,4 @@ end
 function networkManager.unRegisterMsgCallback(registerName)
 	networkManager.handle.setUnEventCallback(Constant.Network.CODE_ONMESSAGE, registerName)
 end
+return networkManager

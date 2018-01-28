@@ -182,38 +182,42 @@ function csvParse.LoadMusicRhythm(fileName)
 		ret[i] = {songName=header[i], songId=0, buddhaId=0, jingtuId=0, fojus=0, rhythm={}}
 	end
 	
-	local songIds = parseline(xx[2])
+	local ids = parseline(xx[2])	
+	for i=1, #ids do
+		ret[i].id = ids[i]
+	end
 	
+	local songIds = parseline(xx[3])
 	for i=1, #songIds do
 		ret[i].songId = songIds[i]
 	end
 	
-	local buddhaIds = parseline(xx[3])
+	local buddhaIds = parseline(xx[4])
 	for i=1, #buddhaIds do
 		ret[i].buddhaId = buddhaIds[i]
 	end
 	
-	local jingtuIds = parseline(xx[4])
+	local jingtuIds = parseline(xx[5])
 	for i=1, #jingtuIds do
 		ret[i].jingtuId = jingtuIds[i]
 	end
 	
-	local fojus = parseline(xx[5])
+	local fojus = parseline(xx[6])
 	for i=1, #fojus do
 		ret[i].foju = tonumber(fojus[i])
 	end
 	
-	local songTimes = parseline(xx[6])
+	local songTimes = parseline(xx[7])
 	for i=1, #songTimes do
 		ret[i].songTime = tonumber(songTimes[i])
 	end
 	
-	local clickEffects = parseline(xx[7])
+	local clickEffects = parseline(xx[8])
 	for i=1, #clickEffects do
 		ret[i].clickEffect = clickEffects[i]
 	end
 	
-    for i=8,#xx do
+    for i=9,#xx do
         local lineInfo = parseline(xx[i])
 		
 		for j=1, #lineInfo do

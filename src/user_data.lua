@@ -65,8 +65,7 @@ function UserData:init( ... )
 	
 	self.monthWeekDay = {}
 	
-	
-	
+	self.uuid = "ABCDEFG123456789"
 	
 	
 	self.today = {month=0, day=0, year=0}
@@ -333,16 +332,12 @@ end
 function UserData:loadMusicRhythmData()
 	if not self.musicData then
 		local ret = csvParse.LoadMusicRhythm("res/songData.csv")
-		self.musicData = ret
 		
 		for k,v in pairs(ret) do
-			if v.buddhaId == self.buddhasId then
-				self.selectSongs = k
-				break
-			end
+			v.score = 0
 		end
 		
-		
+		self.musicData = ret
 		return ret
 	else
 		return self.musicData
@@ -358,6 +353,15 @@ function UserData:getSelectSongInfo()
 	return musicData[self.selectSongs]
 end
 
+--设置每个music的分数
+function UserData:setMusicScoreWithID(id, score)
+	for k,v in pairs(self.musicData) do
+		if v.id == id then
+			v.score = v.score + score
+			break
+		end
+	end
+end
 
 function UserData:setBuddhas(id)
 	self.buddhasId = id
@@ -366,6 +370,10 @@ end
 
 function UserData:getBuddhas()
 	return self.buddhasId
+end
+
+function UserData:getUuid()
+	return self.uuid
 end
 
 
