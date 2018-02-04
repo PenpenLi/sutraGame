@@ -24,7 +24,7 @@ function sutraBoardView:onCreate(param)
 		local ban = (i%2) == 1 and kuaiban or manban
 		ban[#ban+1] = musicInfo[i]
 		
-		if musicInfo[i].id == UserData.selectSongs then
+		if musicInfo[i].id == UserData.selectSongId then
 			self.lastSelectName = musicInfo[i].songName
 		end
 	end
@@ -157,7 +157,7 @@ function sutraBoardView:sureBtnClick(event)
 	local musicInfo = UserData:loadMusicRhythmData()
 	for k,v in pairs(musicInfo) do
 		if v.songName == self.lastSelectName then
-			UserData.selectSongs = v.id
+			UserData.selectSongId = v.id
 			key = k
 			break
 		end
@@ -167,9 +167,7 @@ function sutraBoardView:sureBtnClick(event)
 		return
 	end
 	
-	
-	local musicInfo = UserData:loadMusicRhythmData()
-	--ccexp.AudioEngine:preload("res/audio/song/" .. musicInfo[UserData.selectSongs].songId .. ".mp3")
+	--ccexp.AudioEngine:preload("res/audio/song/" .. musicInfo[UserData.selectSongId].songId .. ".mp3")
 	audioCtrl:preloadMusic("res/audio/song/" .. musicInfo[key].songId .. ".mp3")
 	if self.selectCallback then self.selectCallback(key) end
 	

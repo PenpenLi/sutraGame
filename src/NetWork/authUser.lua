@@ -53,15 +53,15 @@ local function authLogin()
 	--3. Server->Client : base64(DH-Exchange(server key))
     local  function  getSecret(msg)
         serverkey = msg
-		--print("serverkey", serverkey)
+		print("serverkey", serverkey)
 		
         secret = crypts.dhsecret(clientkey, serverkey)
-        --print("secret", secret)
+        print("secret", crypts.base64encode(secret))
 	
 			
         --4. Client->Server : base64(HMAC(challenge, secret))
         local hmac = crypts.hmac64(challenge, secret)
-		--print("hmac", hmac)
+		print("hmac", crypts.base64encode(hmac))
 		
 		local function macCallback(msg)
 			if msg == "0" then
@@ -78,7 +78,10 @@ local function authLogin()
 				}
 				
 				-- 5. server get token and return response
+				log("token:", token)
+				print("encode_token(token)", encode_token(token))
 				local etoken = crypts.desencode(secret, encode_token(token))
+				print("etoken", crypts.base64encode(etoken))
 				networkManager.registerMsgCallback(checkFine)
 				networkManager.request(etoken)
 				
@@ -95,12 +98,12 @@ local function authLogin()
         networkManager.registerMsgCallback(getSecret)
 		
         challenge = msg
-		--print("challenge", msg)
+		print("challenge", msg)
 
         --2. Client->Server : base64(8bytes handshake client key)
         clientkey = crypts.randomkey()
         clientkey = crypts.dhexchange(clientkey)
-		--print("clientkey", clientkey)
+		print("clientkey", crypts.base64encode(clientkey))
         networkManager.request(clientkey)
 
         
@@ -180,7 +183,7 @@ function authUser.start_register(id, psd, notifyCallback)
 end
 
 function authUser.start_login(id, psd, notifyCallback)
-	--print("authUser.start_login", id, psd)
+	print("authUser.start_login", id, psd)
 	if notifyCallback then authUser.notifyCallback = notifyCallback end
 	
 	

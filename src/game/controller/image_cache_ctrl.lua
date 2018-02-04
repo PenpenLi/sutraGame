@@ -130,7 +130,7 @@ function ImageCacheCtrl:downloadImage(url, callback)
     end
 
     -- 下载目标文件名（url的md5值 + 扩展名）
-    local md5 = cc.CGame:getMD5(url)
+    local md5 = CGame:getMD5(url)
     local extension = string.match(url, ".+%.(%w+)$") or "" -- 扩展名
     local fileName = device.writablePath .. "cache/" .. md5 .. "." .. extension
 
@@ -144,7 +144,7 @@ function ImageCacheCtrl:downloadImage(url, callback)
         -- 清除对应数据
         self:deleteCache(fileName)
         -- 下载资源
-        cc.CGame:HttpDownloadImage(url, fileName, function(code, fileName)
+        CGame:HttpDownloadImage(url, fileName, function(code, fileName)
             if code == 200 then
                 --print("image download completed")
                 self:insertCache(fileName)
@@ -162,11 +162,11 @@ function ImageCacheCtrl:downloadFile(url, callback)
     end
 
     -- 下载目标文件名（url的md5值 + 扩展名）
-    local md5 = cc.CGame:getMD5(url)
+    local md5 = CGame:getMD5(url)
     local extension = string.match(url, ".+%.(%w+)$") or "" -- 扩展名
     local fileName = device.writablePath .. "cache/" .. md5 .. "." .. extension
 
-    cc.CGame:HttpDownloadFile(url, fileName, function(code, fileName)
+    CGame:HttpDownloadFile(url, fileName, function(code, fileName)
 		if code == 200 then
 			--print("image download completed")
 			callback(fileName)

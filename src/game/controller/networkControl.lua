@@ -27,7 +27,25 @@ function networkControl:authUser()
 			
 		end
 	end
-	self.auser.start_login(uuid, TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS and "windows" or "", loginCallback)
+	self.auser.start_login(uuid, TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS and "windows" or "unknown", loginCallback)
 end
+
+function networkControl:sendMessage(msgName, msgData)
+	local repeatTime = 0
+	local data = DeepCopy(msgData)
+	
+	local function send()
+		networkManager.request(msgName, data, 
+			function(recv)
+				if recv.errCode ~= 0 and repeatTime < 3 then
+					send()
+				end
+				repeatTime=repeatTime+1
+			end, 0)
+	end
+	
+	send()
+end
+
 
 return networkControl

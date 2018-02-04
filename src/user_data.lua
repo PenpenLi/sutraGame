@@ -12,6 +12,8 @@ end
 
 function UserData:init( ... )
 	self.signDay = CacheUtil:getCacheVal(CacheType.signDay)
+	self.signLine = 0
+	
 	self.buddhasLightLevel = CacheUtil:getCacheVal(CacheType.buddhasLightLevel)
 	self.buddhasLightDay = CacheUtil:getCacheVal(CacheType.buddhasLightDay)
 	
@@ -28,11 +30,11 @@ function UserData:init( ... )
 	--self.chenghaoLv = 0--称号等级
 	
 	self.buddhasLightLevel = 3--佛光定为3级
-	if self.buddhasLightLevel == 0 then 
+	if self.buddhasLightLevel == 0 then
 		self.buddhasLightLevel = 1
 		CacheUtil:setCacheVal(CacheType.buddhasLightLevel, self.buddhasLightLevel)
 	end
-	if self.birthday == 0 then 
+	if self.birthday == 0 then
 		self.birthday = os.time()
 		CacheUtil:setCacheVal(CacheType.birthday, self.birthday)
 	end
@@ -59,28 +61,42 @@ function UserData:init( ... )
 	self.signCount = 0
 	self.signContinueCount = 0
 	
-	self.incenseCount = 0
-	
 	--当前选中的佛经
-	self.selectSongs = 1
+	self.selectSongId = 1
 	
 	--净土已打开数据
 	self.jingtuOpenData = {}
+	
+	--综合排名
+	self.totalRank = 0
+	
+	--签到次数
+	self.signNum = 0
+	self.signRank = 0
+	
+	--上香次数
+	self.censerNum = 0
+	self.censerRank = 0
+	self.incenseLastTime = 0
+	
+	--诵经次数
+	self.sutraNum = 0
+	self.sutraRank = 0
+	self.sutraLastTime = 0
+	
+	--莲花数量
+	self.lotusNum = 0
 	
 	self.monthWeekDay = {}
 	
 	self.uuid = "ABCDEFG123456789"
 	
-	
 	self.today = {month=0, day=0, year=0}
-	local todayStr = self:getDayByTime(os.time())
-	self.today.month, self.today.day, self.today.year = todayStr.month, todayStr.day, todayStr.year
+	self:setToday(os.time())
 	
 	self:calcSign()
 	self:calcIncense()
-	self:calcSong()
 	
-	self:saveIncenseData()
 	self:loadMusicRhythmData()
 end
 
@@ -90,9 +106,14 @@ function UserData:saveUseTool( val )
 	CacheUtil:setCacheVal(CacheType.usedTool, self.usedTool)
 end
 
+--所有保存数据的时间点以server下发的servertime为准，client算好上传
 --保存登录数据
 function UserData:saveSignData( ... )
 	CacheUtil:setCacheVal(CacheType.signDay, self.signDay)
+	
+	--同步到服务器
+	self.signLine = CGame:bitOperate(2, self.signLine, CGame:bitOperate(5, 1, self.today.day-1))
+	networkControl:sendMessage("updateUserData", {type="signLine", data=self.signLine, ostime=self.ostime})
 end
 
 --保存点香数据
@@ -101,11 +122,18 @@ function UserData:saveIncenseData( ... )
 	self.buddhasLightLevel = 3--佛光定为3级
 	CacheUtil:setCacheVal(CacheType.buddhasLightLevel, self.buddhasLightLevel)
 	CacheUtil:setCacheVal(CacheType.buddhasLightDay, self.buddhasLightDay)
+	
+	self.incenseLastTime = self.ostime
+	networkControl:sendMessage("updateUserData", {type="censerNum", data="", ostime=self.ostime})
+	
 end
 
 --保存诵经数据
-function UserData:saveSongData( ... )
+function UserData:saveSongData( id, score )
 	CacheUtil:setCacheVal(CacheType.songDay, self.songDay)
+	
+	self.sutraLastTime = self.ostime
+	networkControl:sendMessage("updateUserData", {type="songScore", data=id..":"..score, ostime=self.ostime})
 end
 
 --计算登录数据
@@ -152,7 +180,7 @@ function UserData:calcSign( ... )
 	
 	--连续登录
 	self.signContinueCount = 0
-	local curTime = self:getDayNoByTime( os.time() )
+	local curTime = self:getDayNoByTime( self.ostime )
 	local ondayTime = 60*60*24
 	while true do
 		local tday = self:getDayByTime(curTime)
@@ -182,11 +210,11 @@ function UserData:calcIncense( ... )
 	
 	
 	--上香累计
-	self.incenseCount = 0
+	self.censerNum = 0
 	for y,yd in pairs(self.incenseDay) do
 		for m,md in pairs(yd) do
 			for d,dd in pairs(md) do
-				if dd then self.incenseCount = self.incenseCount + 1 end
+				if dd then self.censerNum = self.censerNum + 1 end
 			end
 		end
 	end
@@ -271,6 +299,7 @@ function UserData:incenseToday(  )
 		self.incenseDay[self.today.year][self.today.month][self.today.day] = true
 		self:calcIncense()
 		self:saveIncenseData()
+		
 	end
 end
 
@@ -350,45 +379,142 @@ end
 
 --获取选中的经文的佛祖信息
 function UserData:getSelectSongInfo()
-	if self.selectSongs == 0 then
+	if self.selectSongId == 0 then
 		return nil
 	end
 	local musicData = UserData:loadMusicRhythmData()
-	return musicData[self.selectSongs]
+	return musicData[self.selectSongId]
 end
 
 --设置每个music的分数
 function UserData:setMusicScoreWithID(id, score)
 	for k,v in pairs(self.musicData) do
 		if v.id == id then
-			v.score = v.score + score
+			v.score = score
 			break
 		end
 	end
 end
 
 --设置净土已打开数据
-function UserData:setJingtuOpenData(data)
-	self.jingtuOpenData = {}
-	local musicScoreList = string.split(data, ",")
-	for k, v in pairs(musicScoreList) do
-		local sc = string.split(v, ":")
-		self.jingtuOpenData[sc[1]] = sc[2]
-	end
+function UserData:setJingtuOpenData(jingtuName, openNum)
+	self.jingtuOpenData[jingtuName] = openNum
 end
 function UserData:getJingtuOpenData(jingtuName)
 	for k,v in pairs(self.jingtuOpenData ) do
-		
+		if k == jingtuName then
+			return v
+		end
 	end
 end
 
+--综合排名
+function UserData:setTotalRank(r)
+	self.totalRank = r
+end
+function UserData:getTotalRank()
+	return self.totalRank
+end
+
+
+
+--当前显示的佛像
 function UserData:setBuddhas(id)
 	self.buddhasId = id
 	CacheUtil:setCacheVal(CacheType.buddhasId, self.buddhasId)
 end
-
 function UserData:getBuddhas()
 	return self.buddhasId
+end
+
+--设置今天时间
+function UserData:setToday(d)
+	self.ostime = d
+	self.today = {month=0, day=0, year=0}
+	local todayStr = self:getDayByTime(d)
+	self.today.month, self.today.day, self.today.year = todayStr.month, todayStr.day, todayStr.year
+end
+
+--设置每日签到数据，需要用到today
+function UserData:setSignDayInfo(data)
+	self.signDay[self.today.year] = {}
+	self.signDay[self.today.year][self.today.month] = {}
+	
+	for i=1, 32 do
+		self.signDay[self.today.year][self.today.month][i] = 1 == CGame:bitOperate(1, data, i)
+	end
+	self.signLine = data
+	
+	self:calcSign()
+end
+
+function UserData:setSignNum(d)
+	self.signNum = tonumber(d) or 0
+end
+function UserData:getSignNum()
+	return self.signNum
+end
+function UserData:setSignRank(d)
+	self.signRank = d
+end
+function UserData:getSignRank()
+	return self.signRank
+end
+
+function UserData:setCenserNum(d)
+	self.censerNum = tonumber(d) or 0
+end
+function UserData:getCenserNum()
+	return self.censerNum
+end
+function UserData:setCenserRank(d)
+	self.censerRank = tonumber(d) or 0
+end
+function UserData:getCenserRank()
+	return self.censerRank
+end
+
+function UserData:setSutraNum(d)
+	self.sutraNum = tonumber(d) or 0
+end
+function UserData:getSutraNum()
+	return self.sutraNum
+end
+function UserData:setSutraRank(d)
+	self.sutraRank = tonumber(d) or 0
+end
+function UserData:getSutraRank()
+	return self.sutraRank
+end
+function UserData:setSutraLastTime(t)
+	self.sutraLastTime = t
+	
+	local last = self:getDayByTime(t)	
+	if last.year == self.today.year and last.month == self.today.month and last.day == self.today.day then
+		self.todayCanSign = false
+	else
+		self.todayCanSign = true
+	end
+end
+
+
+function UserData:setLotusNum(d)
+	self.lotusNum = tonumber(d) or 0
+end
+function UserData:getLotusNum()
+	return self.lotusNum
+end
+
+function UserData:setIncenseLastTime(d)
+	local t = tonumber(d) or 0
+	self.incenseLastTime = t
+	
+	local last = self:getDayByTime(t)	
+	if last.year == self.today.year and last.month == self.today.month and last.day == self.today.day then
+		self.todayCanIncense = false
+	else
+		self.todayCanIncense = true
+	end
 end
 
 function UserData:getUuid()

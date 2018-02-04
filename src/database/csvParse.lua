@@ -173,20 +173,19 @@ function csvParse.LoadMusicRhythm(fileName)
     local sourcePath = cc.FileUtils:getInstance():getStringFromFile(sourcePath)
     local xx = string.split(sourcePath, "\n")
     
-    local  header = parseline(xx[1])
+    local ids = parseline(xx[1])
     local ret = {}
-	
-	
-    local headerCount = #header
-	for i=1, headerCount do
-		ret[i] = {songName=header[i], songId=0, buddhaId=0, jingtuId=0, fojus=0, rhythm={}}
-	end
-	
-	local ids = parseline(xx[2])	
+	for i=1, #ids do ret[i] = {} end
+
 	for i=1, #ids do
 		ret[i].id = ids[i]
 	end
 	
+	local songNames = parseline(xx[2])	
+	for i=1, #songNames do
+		ret[i].songName = songNames[i]
+	end
+
 	local songIds = parseline(xx[3])
 	for i=1, #songIds do
 		ret[i].songId = songIds[i]
@@ -221,10 +220,16 @@ function csvParse.LoadMusicRhythm(fileName)
         local lineInfo = parseline(xx[i])
 		
 		for j=1, #lineInfo do
+			if not ret[j].rhythm then ret[j].rhythm = {} end
 			if lineInfo[j] ~= "" then
 				ret[j].rhythm[#ret[j].rhythm+1] = tonumber(lineInfo[j])
 			end
 		end
     end
-    return ret  
+
+	local res = {}
+	for k,v in pairs(ret) do
+		res[v.id] = v
+	end
+    return res
 end

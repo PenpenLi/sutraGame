@@ -23,24 +23,27 @@ totalPush 1 {
 		signRank 2 : integer
 		censerNum 3 : integer
 		censerRank 4 : integer
-		sutraNum 5 : integer
-		sutraRank 6 : integer
+		incenseLastTime 5 : integer
+		sutraNum 6 : integer
+		sutraRank 7 : integer
+		sutraLastTime 8 : integer
 		
-		jingtuGroup 7 : string
-		lotusNum 8 : integer
+		jingtuGroup 9 : string
+		lotusNum 10 : integer
 		
-		signLine 9 : integer
-		serverTime 10 : integer
-		fohaoGroup 11 : string
+		signLine 11 : integer
+		serverTime 12 : integer
+		fohaoGroup 13 : string
 		
-		first 12 : boolean
+		first 14 : boolean
 	}
 }
 
 updateUserData 2 {
 	request {
-		type 0 : string
-		data 1 : string
+		type 0 	: string
+		data 1 	: string
+		ostime 2	: integer
 	}
 	response {
 		errCode 0 : integer
@@ -59,7 +62,7 @@ heartbeat 1 {}
 
 pushUserData 2 {
 	request {
-		type 0 : integer
+		type 0 : string
 		data 1 : string
 	}
 }

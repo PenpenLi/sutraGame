@@ -11,9 +11,9 @@ rankView.ui_binding_file = {
 }
 
 function rankView:onCreate(param)
-	self.songCount:setString(UserData.songCount)
-	self.incenseCount:setString(UserData.incenseCount)
-	self.signCount:setString(UserData.signCount)
+	self.songCount:setString(UserData:getSutraNum())
+	self.incenseCount:setString(UserData:getCenserNum())
+	self.signCount:setString(UserData:getSignNum())
 	
 	
 	self:dispatchEvent({name = GlobalEvent.RANK_VIEW_SHOW, data={view=self}})
