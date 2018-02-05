@@ -47,7 +47,7 @@ public class adManager {
         //inMobiAD.luaHideAd(param, luaFunc);
     }
     public void luaStateAd(final String param,final int luaFunc){
-        admobAD.luaStateAd(param, luaFunc);
+        if (admobAD != null)admobAD.luaStateAd(param, luaFunc);
 
         //inMobiAD.luaStateAd(param, luaFunc);
     }

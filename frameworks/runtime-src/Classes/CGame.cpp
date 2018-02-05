@@ -448,3 +448,152 @@ void CGame::operateAd(int luaCallback, const char* opName, const char* opParam)
 	}
 #endif
 }
+
+
+unsigned int CGame::bitOperate(const int op, const int res, const int desc)
+{
+	unsigned int val = 0;
+	switch (op)
+	{
+	case 1: {
+		val = (res & desc);
+	}break;
+
+	case 2: {
+		val = (res | desc);
+	}break;
+
+	case 3: {
+		val = (~res);
+	}break;
+
+	case 4: {
+		val = (desc^res);
+	}break;
+
+	case 5: {
+		val = (desc << res);
+	}break;
+
+	case 6: {
+		val = (desc >> res);
+	}break;
+	default:
+		break;
+	}
+
+	return val;
+}
+
+
+void CGame::HttpDownloadImage(const std::string &url, const std::string &fileName, const int &callBackFunc)
+{
+	LuaEngine* pEngine = (LuaEngine*)ScriptEngineManager::getInstance()->getScriptEngine();
+	LuaStack* luaStack = pEngine->getLuaStack();
+
+
+	if (FileUtils::sharedFileUtils()->isFileExist(fileName.c_str()))
+	{
+		//log("download file exist");
+		luaStack->pushInt(200);
+		luaStack->pushString(fileName.c_str());
+		luaStack->executeFunctionByHandler(callBackFunc, 2);
+	}
+	else
+	{
+		HttpRequest * request = new HttpRequest();
+		request->setUrl(url.c_str());
+		request->setTag("request download");
+		request->setRequestType(HttpRequest::Type::GET);
+		request->setResponseCallback([fileName, luaStack, callBackFunc](HttpClient* client, HttpResponse* response) {
+			if (!response) {
+				return;
+			}
+
+			if (0 != strlen(response->getHttpRequest()->getTag())) {
+				//log("%s completed", response->getHttpRequest()->getTag());
+			}
+
+			long statusCode = response->getResponseCode();
+			//log("response code: %ld", statusCode);
+
+			if (!response->isSucceed()) {
+				//log("response failed");
+				//log("error buffer: %s", response->getErrorBuffer());
+				return;
+			}
+
+			std::vector<char>* buffer = response->getResponseData();
+			std::string bufStr(buffer->begin(), buffer->end());
+
+			// save file to local
+			FILE	*fp = fopen(fileName.c_str(), "wb+");
+			fwrite(bufStr.c_str(), 1, buffer->size(), fp);
+			fclose(fp);
+
+			luaStack->pushInt(statusCode);
+			luaStack->pushString(fileName.c_str());
+			luaStack->executeFunctionByHandler(callBackFunc, 2);
+		});
+		HttpClient::getInstance()->send(request);
+		request->release();
+	}
+}
+
+
+void CGame::HttpDownloadFile(const std::string &url, const std::string &fileName, const int &callBackFunc)
+{
+	LuaEngine* pEngine = (LuaEngine*)ScriptEngineManager::getInstance()->getScriptEngine();
+	LuaStack* luaStack = pEngine->getLuaStack();
+
+	std::string path = FileUtils::sharedFileUtils()->getWritablePath();
+
+	HttpRequest * request = new HttpRequest();
+	request->setUrl(url.c_str());
+	request->setTag("request download");
+	request->setRequestType(HttpRequest::Type::GET);
+	request->setResponseCallback([path, fileName, luaStack, callBackFunc](HttpClient* client, HttpResponse* response) {
+		if (!response) {
+			return;
+		}
+
+		if (0 != strlen(response->getHttpRequest()->getTag())) {
+			log("%s completed", response->getHttpRequest()->getTag());
+		}
+
+		long statusCode = response->getResponseCode();
+		log("response code: %ld", statusCode);
+
+		if (!response->isSucceed()) {
+			log("response failed");
+			log("error buffer: %s", response->getErrorBuffer());
+			return;
+		}
+
+		std::vector<char>* buffer = response->getResponseData();
+		std::string bufStr(buffer->begin(), buffer->end());
+
+		//save file to local
+		std::string		pathName = path + fileName.c_str();
+		FILE *fp = fopen(pathName.c_str(), "wb+");
+		fwrite(bufStr.c_str(), 1, buffer->size(), fp);
+		fclose(fp);
+
+		luaStack->pushInt(statusCode);
+		luaStack->pushString(fileName.c_str());
+		luaStack->executeFunctionByHandler(callBackFunc, 2);
+	});
+	HttpClient::getInstance()->send(request);
+	request->release();
+}
+
+const std::string CGame::getMD5(std::string src)
+{
+	MD5 md5;
+	md5.update(src);
+	std::string src_str = md5.toString();
+	/*transform(src_str.begin(), src_str.end(), src_str.begin(), [](char c) {
+	return toupper(c);
+	});*/
+	return src_str;
+}

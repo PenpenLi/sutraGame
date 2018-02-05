@@ -52,6 +52,13 @@ public:
 	static void AppUpdate();
 
 	static void operateAd(int luaCallback, const char* opName, const char* opParam);
+
+	static unsigned int bitOperate(const int op, const int res, const int desc);
+
+	static void HttpDownloadImage(const std::string &url, const std::string &fileName, const int &callBackFunc);
+	static void HttpDownloadFile(const std::string &url, const std::string &fileName, const int &callBackFunc);
+
+	static const std::string getMD5(std::string src);
 };
 
 

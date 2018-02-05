@@ -20,6 +20,7 @@ static luaL_Reg luax_exts[] = {
 	{ "sproto.core", luaopen_sproto_core },
 	{ "crypt", luaopen_crypt },
 	{ "stringex", luaopen_stringex },
+	
     {NULL, NULL}
 };
 

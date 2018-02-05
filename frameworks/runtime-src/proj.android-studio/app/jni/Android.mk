@@ -5,6 +5,7 @@ include $(CLEAR_VARS)
 $(call import-add-path,$(LOCAL_PATH)/../../../../cocos2d-x)
 $(call import-add-path,$(LOCAL_PATH)/../../../../cocos2d-x/external)
 $(call import-add-path,$(LOCAL_PATH)/../../../../cocos2d-x/cocos)
+$(call import-add-path,$(LOCAL_PATH)/../../../../cocos2d-x/game)
 
 LOCAL_MODULE := cocos2dlua_shared
 
@@ -26,6 +27,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Classes \
 					$(LOCAL_PATH)/../../../../cocos2d-x/tools/simulator/libsimulator/lib \
 					$(LOCAL_PATH)/../../../../cocos2d-x/tools/simulator/libsimulator/lib/protobuf-lite	\
 					$(LOCAL_PATH)/../../../../cocos2d-x/cocos/base	\
+					$(LOCAL_PATH)/../../../../cocos2d-x/cocos/game	\
 					$(LOCAL_PATH)/../../../../cocos2d-x/cocos/scripting/lua-bindings/manual
 
 # _COCOS_HEADER_ANDROID_BEGIN

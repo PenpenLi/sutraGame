@@ -58,6 +58,8 @@ public class AppActivity extends Cocos2dxActivity{
 
         adMgr = new adManager();
         adMgr.initSDK(g_AppActivity);
+
+        AppUtils.init(this);
     }
 
 

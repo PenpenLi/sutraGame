@@ -133,6 +133,23 @@ LOCAL_SRC_FILES += ../manual/navmesh/lua_cocos2dx_navmesh_conversions.cpp \
                    ../manual/navmesh/lua_cocos2dx_navmesh_manual.cpp \
                    ../auto/lua_cocos2dx_navmesh_auto.cpp \
 
+#CGame
+LOCAL_SRC_FILES += ../auto/lua_CGame_auto.cpp \
+				   
+#other
+LOCAL_SRC_FILES += ../../../../external/lua/crypt/crypt.c \
+				   ../../../../external/lua/crypt/lsha1.c \
+				   ../../../../external/lua/lpeg/lpcap.c \
+				   ../../../../external/lua/lpeg/lpcode.c \
+				   ../../../../external/lua/lpeg/lpprint.c \
+				   ../../../../external/lua/lpeg/lptree.c \
+				   ../../../../external/lua/lpeg/lpvm.c \
+				   ../../../../external/lua/sproto/sproto.c \
+				   ../../../../external/lua/sproto/lsproto.c \
+				   ../../../../external/lua/stringex/stringex.c \
+				   ../../../../external/lua/stringex/stringex.c \
+				   ../../../../cocos/game/GameRunClassManager.cpp
+				   
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../../external/lua/tolua \
                     $(LOCAL_PATH)/../../../../external/lua/luajit/include \
                     $(LOCAL_PATH)/../../../2d \
@@ -161,7 +178,13 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../../external/lua/tolua \
                     $(LOCAL_PATH)/../manual/navmesh \
                     $(LOCAL_PATH)/../../../../external/xxtea \
                     $(LOCAL_PATH)/../../../.. \
-                    $(LOCAL_PATH)/../../../../external/lua
+                    $(LOCAL_PATH)/../../../../external/lua \
+					$(LOCAL_PATH)/../../../../external/crypt \
+					$(LOCAL_PATH)/../../../../external/lpeg \
+					$(LOCAL_PATH)/../../../../external/sproto \
+					$(LOCAL_PATH)/../../../../external/stringex \
+					$(LOCAL_PATH)/../../../../cocos2d-x/cocos/game	\
+					$(LOCAL_PATH)/../../../../../runtime-src/Classes
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../../../external/lua/tolua \
                            $(LOCAL_PATH)/../../../../external/lua/luajit/include \

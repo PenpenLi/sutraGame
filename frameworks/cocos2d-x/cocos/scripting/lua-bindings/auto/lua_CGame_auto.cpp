@@ -887,6 +887,177 @@ static int lua_CGame_CGame_finalize(lua_State* tolua_S)
     return 0;
 }
 
+int lua_cocos2dx_CGame_CGame_bitOperate(lua_State* tolua_S)
+{
+	int argc = 0;
+	bool ok = true;
+	tolua_Error tolua_err;
+#if COCOS2D_DEBUG >= 1
+
+#endif
+
+#if COCOS2D_DEBUG >= 1
+	if (!tolua_isusertable(tolua_S, 1, "CGame", 0, &tolua_err)) goto tolua_lerror;
+#endif
+
+	argc = lua_gettop(tolua_S) - 1;
+
+	if (argc == 3)
+	{
+		int arg0;
+		int arg1;
+		int arg2;
+		ok &= luaval_to_int32(tolua_S, 2, (int *)&arg0, "CGame:bitOperate");
+		ok &= luaval_to_int32(tolua_S, 3, (int *)&arg1, "CGame:bitOperate");
+		ok &= luaval_to_int32(tolua_S, 4, (int *)&arg2, "CGame:bitOperate");
+		if (!ok)
+		{
+			tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_CGame_CGame_bitOperate'", nullptr);
+			return 0;
+		}
+		unsigned int res = CGame::bitOperate(arg0, arg1, arg2);
+		//lua_settop(tolua_S, 1);
+		tolua_pushnumber(tolua_S, (lua_Number)res);
+
+		return 1;
+	}
+	luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "CGame:bitOperate", argc, 3);
+	return 0;
+#if COCOS2D_DEBUG >= 1
+	tolua_lerror:
+				tolua_error(tolua_S, "#ferror in function 'lua_cocos2dx_CGame_CGame_bitOperate'.", &tolua_err);
+#endif
+				return 0;
+}
+
+static int lua_cocos2dx_CGame_CGame_getMD5(lua_State* tolua_S)
+{
+	int argc = 0;
+	bool ok = true;
+	tolua_Error tolua_err;
+#if COCOS2D_DEBUG >= 1
+
+#endif
+
+#if COCOS2D_DEBUG >= 1
+	if (!tolua_isusertable(tolua_S, 1, "CGame", 0, &tolua_err)) goto tolua_lerror;
+#endif
+
+	argc = lua_gettop(tolua_S) - 1;
+
+	if (argc == 1)
+	{
+		std::string arg0;
+		ok &= luaval_to_std_string(tolua_S, 2, &arg0, "CGame:getMD5");
+		if (!ok)
+		{
+			tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_CGame_CGame_getMD5'", nullptr);
+			return 0;
+		}
+
+		char ret[80] = {};
+		strcpy(ret, CGame::getMD5(arg0).c_str());
+		tolua_pushstring(tolua_S, ret);
+		return 1;
+	}
+	luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "CGame:getMD5", argc, 1);
+	return 0;
+#if COCOS2D_DEBUG >= 1
+	tolua_lerror:
+				tolua_error(tolua_S, "#ferror in function 'lua_cocos2dx_CGame_CGame_getMD5'.", &tolua_err);
+#endif
+				return 0;
+}
+
+
+int lua_cocos2dx_CGame_CGame_HttpDownloadFile(lua_State* tolua_S)
+{
+	int argc = 0;
+	bool ok = true;
+	tolua_Error tolua_err;
+#if COCOS2D_DEBUG >= 1
+
+#endif
+
+#if COCOS2D_DEBUG >= 1
+	if (!tolua_isusertable(tolua_S, 1, "CGame", 0, &tolua_err)) goto tolua_lerror;
+#endif
+
+	argc = lua_gettop(tolua_S) - 1;
+
+	if (argc == 3)
+	{
+		std::string arg0;
+		std::string arg1;
+		int arg2;
+		ok &= luaval_to_std_string(tolua_S, 2, &arg0, "CGame:HttpDownloadFile");
+		ok &= luaval_to_std_string(tolua_S, 3, &arg1, "CGame:HttpDownloadFile");
+		//ok &= luaval_to_int32(tolua_S, 4,(int *)&arg2, "CGame:HttpReqGet");
+		ok &= toluafix_isfunction(tolua_S, 4, "LUA_FUNCTION", 0, &tolua_err);
+		arg2 = toluafix_ref_function(tolua_S, 4, 0);
+		if (!ok)
+		{
+			tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_CGame_CGame_HttpDownloadFile'", nullptr);
+			return 0;
+		}
+		CGame::HttpDownloadFile(arg0, arg1, arg2);
+		lua_settop(tolua_S, 1);
+		return 1;
+	}
+	luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "CGame:HttpDownloadFile", argc, 3);
+	return 0;
+#if COCOS2D_DEBUG >= 1
+	tolua_lerror:
+				tolua_error(tolua_S, "#ferror in function 'lua_cocos2dx_CGame_CGame_HttpDownloadFile'.", &tolua_err);
+#endif
+				return 0;
+}
+
+
+
+int lua_cocos2dx_CGame_CGame_HttpDownloadImage(lua_State* tolua_S)
+{
+	int argc = 0;
+	bool ok = true;
+	tolua_Error tolua_err;
+#if COCOS2D_DEBUG >= 1
+
+#endif
+
+#if COCOS2D_DEBUG >= 1
+	if (!tolua_isusertable(tolua_S, 1, "CGame", 0, &tolua_err)) goto tolua_lerror;
+#endif
+
+	argc = lua_gettop(tolua_S) - 1;
+
+	if (argc == 3)
+	{
+		std::string arg0;
+		std::string arg1;
+		int arg2;
+		ok &= luaval_to_std_string(tolua_S, 2, &arg0, "CGame:HttpDownloadImage");
+		ok &= luaval_to_std_string(tolua_S, 3, &arg1, "CGame:HttpDownloadImage");
+		//ok &= luaval_to_int32(tolua_S, 4,(int *)&arg2, "CGame:HttpReqGet");
+		ok &= toluafix_isfunction(tolua_S, 4, "LUA_FUNCTION", 0, &tolua_err);
+		arg2 = toluafix_ref_function(tolua_S, 4, 0);
+		if (!ok)
+		{
+			tolua_error(tolua_S, "invalid arguments in function 'lua_cocos2dx_CGame_CGame_HttpDownloadImage'", nullptr);
+			return 0;
+		}
+		CGame::HttpDownloadImage(arg0, arg1, arg2);
+		lua_settop(tolua_S, 1);
+		return 1;
+	}
+	luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "CGame:HttpDownloadImage", argc, 3);
+	return 0;
+#if COCOS2D_DEBUG >= 1
+	tolua_lerror:
+				tolua_error(tolua_S, "#ferror in function 'lua_cocos2dx_CGame_CGame_HttpDownloadImage'.", &tolua_err);
+#endif
+				return 0;
+}
+
 int lua_register_CGame_CGame(lua_State* tolua_S)
 {
     tolua_usertype(tolua_S,"CGame");
@@ -917,6 +1088,10 @@ int lua_register_CGame_CGame(lua_State* tolua_S)
         tolua_function(tolua_S,"getUUID", lua_CGame_CGame_getUUID);
         tolua_function(tolua_S,"hello", lua_CGame_CGame_hello);
         tolua_function(tolua_S,"HttpSetConnectTimeOut", lua_CGame_CGame_HttpSetConnectTimeOut);
+		tolua_function(tolua_S, "HttpDownloadImage", lua_cocos2dx_CGame_CGame_HttpDownloadImage);
+		tolua_function(tolua_S, "HttpDownloadFile", lua_cocos2dx_CGame_CGame_HttpDownloadFile);
+		tolua_function(tolua_S, "getMD5", lua_cocos2dx_CGame_CGame_getMD5);
+		tolua_function(tolua_S, "bitOperate", lua_cocos2dx_CGame_CGame_bitOperate);
     tolua_endmodule(tolua_S);
     std::string typeName = typeid(CGame).name();
     g_luaType[typeName] = "CGame";

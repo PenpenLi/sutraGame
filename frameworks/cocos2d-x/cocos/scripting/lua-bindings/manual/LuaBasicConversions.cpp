@@ -72,7 +72,7 @@ extern int lua_isusertype (lua_State* L, int lo, const char* type);
 
 bool luaval_is_usertype(lua_State* L,int lo,const char* type, int def)
 {
-    if (def && lua_gettop(L)<abs(lo))
+    if (def && lua_gettop(L)<std::abs(lo))
         return true;
 
     if (lua_isnil(L,lo) || lua_isusertype(L,lo,type))
@@ -287,6 +287,29 @@ bool luaval_to_std_string(lua_State* L, int lo, std::string* outValue, const cha
     }
 
     return ok;
+}
+bool luaval_to_std_pchar(lua_State* L, int lo, const char** outValue, const char* funcName)
+{
+	if (NULL == L)
+		return false;
+
+	bool ok = true;
+
+	tolua_Error tolua_err;
+	if (!tolua_iscppstring(L, lo, 0, &tolua_err))
+	{
+#if COCOS2D_DEBUG >=1
+		luaval_to_native_err(L, "#ferror:", &tolua_err, funcName);
+#endif
+		ok = false;
+	}
+
+	if (ok)
+	{
+		*outValue = tolua_tocppstring(L, lo, NULL);
+	}
+
+	return ok;
 }
 
 bool luaval_to_vec2(lua_State* L,int lo,cocos2d::Vec2* outValue, const char* funcName)
@@ -2727,7 +2750,7 @@ void array_to_luaval(lua_State* L,__Array* inValue)
         }
         else
         {
-            CCASSERT(false, "the type isn't suppored.");
+            CCASSERT(false, "the type isn't supported.");
         }
     }
 }
@@ -2811,7 +2834,7 @@ void dictionary_to_luaval(lua_State* L, __Dictionary* dict)
         }
         else
         {
-            CCASSERT(false, "the type isn't suppored.");
+            CCASSERT(false, "the type isn't supported.");
         }
     }
 }

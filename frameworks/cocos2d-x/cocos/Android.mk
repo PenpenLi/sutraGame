@@ -231,8 +231,8 @@ navmesh/CCNavMeshUtils.cpp \
 ../external/poly2tri/sweep/cdt.cc \
 ../external/poly2tri/sweep/sweep_context.cc \
 ../external/poly2tri/sweep/sweep.cc \
-../external/clipper/clipper.cpp
-
+../external/clipper/clipper.cpp \
+../cocos/game/GameRunClassManager.cpp
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/. \
@@ -246,7 +246,8 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/../external/poly2tri \
                     $(LOCAL_PATH)/../external/poly2tri/common \
                     $(LOCAL_PATH)/../external/poly2tri/sweep \
-                    $(LOCAL_PATH)/../external/clipper
+                    $(LOCAL_PATH)/../external/clipper \
+					$(LOCAL_PATH)/../cocos/game
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/../external \
