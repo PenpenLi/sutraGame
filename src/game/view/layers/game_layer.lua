@@ -487,6 +487,9 @@ end
 
 function GameLayer:songjing_btnClick(event)
 	if UserData.selectSongId > 0 then
+		local musicInfo = UserData:loadMusicRhythmData()
+		audioCtrl:preloadMusic("res/audio/song/" .. musicInfo[UserData.selectSongId].songId .. ".mp3")
+		
 		self.bottomMenuPanel:setVisible(false)
 		
 		self.woodenFishPanel:removeAllChildren()

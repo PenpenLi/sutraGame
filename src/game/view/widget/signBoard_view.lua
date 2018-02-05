@@ -21,7 +21,7 @@ function signBoardView:onCreate(param)
 	self.signSuccessCallback = param.signCallback
 	self:dispatchEvent({name = GlobalEvent.SIGN_VIEW_SHOW, data={view=self}})
 	
-	local first_wday = (UserData.monthWeekDay[1].wday)%(7+1)
+	local first_wday = UserData.monthWeekDay[1].wday
 	local cnt = 1
 	local showSignIndex = true
 	for j=1, 5 do

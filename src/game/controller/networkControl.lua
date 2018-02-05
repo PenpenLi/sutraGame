@@ -14,7 +14,7 @@ function networkControl:init()
 end
 
 function networkControl:authUser()
-	local uuid = UserData:getUuid()
+	local uuid = UserData:getUUID()
 	
 	local function loginCallback(event)
 		log("###############loginCallback result: ", event)
@@ -27,7 +27,10 @@ function networkControl:authUser()
 			
 		end
 	end
-	self.auser.start_login(uuid, TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS and "windows" or "unknown", loginCallback)
+	local phone = "windows"
+	if TARGET_PLATFORM == cc.PLATFORM_OS_ANDROID then phone = "android" end
+	if TARGET_PLATFORM == cc.PLATFORM_OS_IPHONE or TARGET_PLATFORM == cc.PLATFORM_OS_IPAD then phone = "ios" end
+	self.auser.start_login(uuid, phone, loginCallback)
 end
 
 function networkControl:sendMessage(msgName, msgData)

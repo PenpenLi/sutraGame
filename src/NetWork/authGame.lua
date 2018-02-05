@@ -63,7 +63,7 @@ function authGame:connectServerCallback(data)
 		
 		performWithDelayG( function()
 			networkManager.request("totalPush",
-			{uuid=UserData:getUuid()}, 
+			{uuid=UserData:getUUID()}, 
 			handler(self, self.totalPushCallback))
 				end, 0)
 	else

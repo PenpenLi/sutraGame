@@ -89,7 +89,6 @@ function UserData:init( ... )
 	
 	self.monthWeekDay = {}
 	
-	self.uuid = "ABCDEFG123456789"
 	
 	self.today = {month=0, day=0, year=0}
 	self:setToday(os.time())
@@ -112,7 +111,7 @@ function UserData:saveSignData( ... )
 	CacheUtil:setCacheVal(CacheType.signDay, self.signDay)
 	
 	--同步到服务器
-	self.signLine = CGame:bitOperate(2, self.signLine, CGame:bitOperate(5, 1, self.today.day-1))
+	self.signLine = CGame:bitOperate(2, self.signLine, CGame:bitOperate(5, self.today.day-1, 1))
 	networkControl:sendMessage("updateUserData", {type="signLine", data=self.signLine, ostime=self.ostime})
 end
 
@@ -146,8 +145,8 @@ function UserData:calcSign( ... )
 		for i=1, 31 do self.signDay[self.today.year][self.today.month][i] = false end
 	end
 	
-	log("self.today", self.today)
 	--當月
+	self.todayCanSign = true
 	for i=1, 31 do
 		local dayTime = self:getTimeByDay(self.today.year, self.today.month, i)
 		if not dayTime then
@@ -164,7 +163,7 @@ function UserData:calcSign( ... )
 			sign = true
 		else
 		end
-		self.monthWeekDay[i] = {wday=day.wday, sign=sign}--星期天为1
+		self.monthWeekDay[i] = {wday = (day.wday==1) and 7 or day.wday-1, sign=sign}--星期天为1
 	end
 	
 	
@@ -365,10 +364,13 @@ end
 function UserData:loadMusicRhythmData()
 	if not self.musicData then
 		local ret = csvParse.LoadMusicRhythm("res/songData.csv")
-		
 		for k,v in pairs(ret) do
 			v.score = 0
 		end
+		
+		table.sort(ret, function (a, b)
+			return a.id < b.id
+		end)
 		
 		self.musicData = ret
 		return ret
@@ -401,7 +403,7 @@ function UserData:setJingtuOpenData(jingtuName, openNum)
 	self.jingtuOpenData[jingtuName] = openNum
 end
 function UserData:getJingtuOpenData(jingtuName)
-	for k,v in pairs(self.jingtuOpenData ) do
+	for k,v in pairs( self.jingtuOpenData ) do
 		if k == jingtuName then
 			return v
 		end
@@ -440,8 +442,13 @@ function UserData:setSignDayInfo(data)
 	self.signDay[self.today.year] = {}
 	self.signDay[self.today.year][self.today.month] = {}
 	
+	
+	
 	for i=1, 32 do
-		self.signDay[self.today.year][self.today.month][i] = 1 == CGame:bitOperate(1, data, i)
+		local oper = CGame:bitOperate(5, i-1, 1)
+		local bit = CGame:bitOperate(1, data, oper)
+		local ret = oper == bit
+		self.signDay[self.today.year][self.today.month][i] = ret
 	end
 	self.signLine = data
 	
@@ -491,9 +498,9 @@ function UserData:setSutraLastTime(t)
 	
 	local last = self:getDayByTime(t)	
 	if last.year == self.today.year and last.month == self.today.month and last.day == self.today.day then
-		self.todayCanSign = false
+		self.todayCanSong = false
 	else
-		self.todayCanSign = true
+		self.todayCanSong = true
 	end
 end
 
@@ -517,8 +524,10 @@ function UserData:setIncenseLastTime(d)
 	end
 end
 
-function UserData:getUuid()
-	return self.uuid
+function UserData:getUUID()
+	local uuid = AdManager:getUUID()
+	print("uuid", uuid)
+	return uuid
 end
 
 

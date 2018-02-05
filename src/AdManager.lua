@@ -1,30 +1,39 @@
 AdManager = {}
 local isLoaded = false
+local ad
+
 if TARGET_PLATFORM == cc.PLATFORM_OS_ANDROID then
-	AdManager.ad = HotRequire("src.androidAd")
+	ad = HotRequire("src.androidAd")
 end
 function AdManager:loadAd(extendCallback)
-	if self.ad then
-		self.ad:loadAd(extendCallback)
+	if ad then
+		ad:loadAd(extendCallback)
 	end
 end
 
 function AdManager:showAd()
-	if self.ad then
-		self.ad:showAd()
+	if ad then
+		ad:showAd()
 	end
 end
 
 function AdManager:hideAd()
-	if self.ad then
-		self.ad:hideAd()
+	if ad then
+		ad:hideAd()
 	end
 end
 
 function AdManager:stateAd()
-	if self.ad then
-		self.ad:stateAd()
+	if ad then
+		ad:stateAd()
 	end
+end
+
+function AdManager:getUUID()
+	if ad then
+		return ad:getUUID()
+	end
+	return "ABCDEFG123456789"
 end
 
 AdManager:stateAd()

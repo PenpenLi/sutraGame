@@ -13,7 +13,7 @@ closeBtn        = {event = "click", method = "touchPanelClick"},
 
 function jingtuView:onCreate(param)
 	local jingtu = param.jingtu or "jlsj"
-	local openBlockNum = math.random(0, 12)
+	local openBlockNum = UserData:getJingtuOpenData(jingtu) or 0
 	log("openBlockNum", openBlockNum)
 	
 	local jingtuNode = cc.CSLoader:createNode("jingtuNode_" .. jingtu .. ".csb")

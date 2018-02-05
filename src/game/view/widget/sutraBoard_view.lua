@@ -20,13 +20,15 @@ function sutraBoardView:onCreate(param)
 	self.musicInfo = musicInfo
 	
 	local kuaiban, manban = {}, {}
-	for i=1, #musicInfo do
+	local i=1
+	for k,v in pairs(musicInfo) do
 		local ban = (i%2) == 1 and kuaiban or manban
-		ban[#ban+1] = musicInfo[i]
+		ban[#ban+1] = v
 		
-		if musicInfo[i].id == UserData.selectSongId then
-			self.lastSelectName = musicInfo[i].songName
+		if v.id == UserData.selectSongId then
+			self.lastSelectName = v.songName
 		end
+		i=i+1
 	end
 	
 	self.pages_kuaiban={}
@@ -167,8 +169,7 @@ function sutraBoardView:sureBtnClick(event)
 		return
 	end
 	
-	--ccexp.AudioEngine:preload("res/audio/song/" .. musicInfo[UserData.selectSongId].songId .. ".mp3")
-	audioCtrl:preloadMusic("res/audio/song/" .. musicInfo[key].songId .. ".mp3")
+	
 	if self.selectCallback then self.selectCallback(key) end
 	
 	LayerManager.closeFloat(self)

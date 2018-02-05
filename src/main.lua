@@ -25,11 +25,10 @@ require "DDZ_Define"
 
 local gamescene = nil
 local function main()
-    
+    TARGET_PLATFORM = cc.Application:getInstance():getTargetPlatform()
 	require("preload")
 	
 	cc.FileUtils:getInstance():setPopupNotify(false)
-	TARGET_PLATFORM = cc.Application:getInstance():getTargetPlatform()
 	cc.FileUtils:getInstance():addSearchPath("src/")
 	cc.FileUtils:getInstance():addSearchPath("res/")
 

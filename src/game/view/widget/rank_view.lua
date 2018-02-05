@@ -15,6 +15,11 @@ function rankView:onCreate(param)
 	self.incenseCount:setString(UserData:getCenserNum())
 	self.signCount:setString(UserData:getSignNum())
 	
+	self.signNo:setString(UserData:getSignRank())
+	self.incenseNo:setString(UserData:getCenserRank())
+	self.songNo:setString(UserData:getSutraRank())
+	self.rankNo:setString(UserData:getTotalRank())
+	
 	
 	self:dispatchEvent({name = GlobalEvent.RANK_VIEW_SHOW, data={view=self}})
 end

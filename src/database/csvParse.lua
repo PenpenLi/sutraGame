@@ -8,7 +8,7 @@ end
   
 -- 去掉字符串右空白  
 local function trim_right(s)  
-    return string.gsub(s, "%s+$", "");  
+    return string.gsub(s, "%s+$", "");
 end  
   
 -- 解析一行  
@@ -178,7 +178,7 @@ function csvParse.LoadMusicRhythm(fileName)
 	for i=1, #ids do ret[i] = {} end
 
 	for i=1, #ids do
-		ret[i].id = ids[i]
+		ret[i].id = tonumber(ids[i])
 	end
 	
 	local songNames = parseline(xx[2])	

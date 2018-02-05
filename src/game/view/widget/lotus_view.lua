@@ -12,7 +12,7 @@ lotusView.ui_binding_file = {
 
 
 function lotusView:onCreate(param)
-	local openlotusNum = math.random(0, 9)
+	local openlotusNum = UserData:getLotusNum()
 	log("openlotusNum", openlotusNum)
 
 	local xx = cocosMake.newSprite("res/homeUI/xingguang.png")
