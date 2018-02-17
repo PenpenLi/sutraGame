@@ -342,6 +342,9 @@
     <ClCompile Include="..\..\..\..\external\lua\stringex\stringex.c">
       <Filter>stringex</Filter>
     </ClCompile>
+    <ClCompile Include="..\auto\lua_CGame_auto.cpp">
+      <Filter>auto</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\auto\lua_cocos2dx_auto.hpp">
@@ -601,6 +604,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\external\lua\stringex\stringex.h">
       <Filter>stringex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\auto\lua_CGame_auto.hpp">
+      <Filter>auto</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
