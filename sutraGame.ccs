@@ -197,6 +197,7 @@
         <Image Name="bg.jpg" />
         <Image Name="exit.png" />
         <Project Name="exitGameBoardNode.csd" Type="Node" />
+        <Project Name="exitSutraNode.csd" Type="Node" />
         <Project Name="GameLayerNode.csd" Type="Layer" />
         <Image Name="icon.png" />
         <Image Name="icon01.png" />

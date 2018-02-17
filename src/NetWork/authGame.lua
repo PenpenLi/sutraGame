@@ -40,6 +40,13 @@ function authGame:serverMessageCallback(name, data)
 		if data.type == "lotusNum" then
 			UserData:setLotusNum(data.data)
 		end
+		if data.type == "incenseLastTime" then
+			UserData:setIncenseLastTime(tonumber(data.data))
+		end
+		if data.type == "sutraLastTime" then
+			UserData:setSutraLastTime(tonumber(data.data))
+		end
+		
 		if data.type == "fohaoGroup" then
 			local musicScoreList = string.split(data.data, ",")
 			for k, v in pairs(musicScoreList) do

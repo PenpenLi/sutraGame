@@ -90,7 +90,7 @@ function signBoardView:jingtuBtnClick(event)
 	audioCtrl:playSound(audioData.buttonClick, false)
 	
 	local songData = UserData:loadMusicRhythmData()
-	local buddhas = UserData:getBuddhas()
+	local buddhas = string.lower(UserData:getBuddhas())
 	log("buddhas", buddhas)
 	for k,v in pairs(songData) do
 		if  v.buddhaId == buddhas then

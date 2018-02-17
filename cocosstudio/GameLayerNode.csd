@@ -227,6 +227,19 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
+              <AbstractNodeData Name="musicPlayerPanel" ActionTag="1697664810" Tag="66" IconVisible="False" LeftMargin="-363.1459" RightMargin="-156.8541" TopMargin="-94.5255" BottomMargin="-5.4744" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
+                <Size X="720.0000" Y="300.0000" />
+                <AnchorPoint />
+                <Position X="-363.1459" Y="-5.4744" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="-1.8157" Y="-0.0274" />
+                <PreSize X="3.6000" Y="1.5000" />
+                <SingleColor A="255" R="150" G="200" B="255" />
+                <FirstColor A="255" R="150" G="200" B="255" />
+                <EndColor A="255" R="255" G="255" B="255" />
+                <ColorVector ScaleY="1.0000" />
+              </AbstractNodeData>
             </Children>
             <AnchorPoint />
             <Position X="360.0000" />

@@ -31,11 +31,12 @@
     <Item Key="TabsParamsKey">
       <Value ctype="TabsInfo">
         <OpenedDocuments>
-          <FilePathData Path="jingtuNode_jlsj.csd" />
+          <FilePathData Path="sutraOverBoardNode.csd" />
+          <FilePathData Path="exitSutraNode.csd" />
+          <FilePathData Path="exitGameBoardNode.csd" />
           <FilePathData Path="GameLayerNode.csd" />
-          <FilePathData Path="jingtuNode_llsj.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="jingtuNode_llsj.csd" />
+        <ActiveDocument Path="GameLayerNode.csd" />
       </Value>
     </Item>
   </Properties>

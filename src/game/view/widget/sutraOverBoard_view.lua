@@ -38,9 +38,10 @@ function sutraOverBoardView:onCreate(param)
 	end
 	
 	--胜利
-	if result == 0 then
-		self.sutraTotalCount:setString(UserData.songCount)
-		local animateNode = new_class(luaFile.AnimationSprite, {
+	if result then
+		local snum = UserData:getSutraNum() + (UserData.todayCanSong and 1 or 0)
+		self.sutraTotalCount:setString(snum)
+		--[[local animateNode = new_class(luaFile.AnimationSprite, {
 			startFrameIndex = 1,                             -- 开始帧索引
 			isReversed = false,                              -- 是否反转
 			plistFileName = "signBoard/tool/lianhua.plist", -- plist文件
@@ -60,9 +61,10 @@ function sutraOverBoardView:onCreate(param)
 			lastspr:setPosition(720/2, 1280/2+270)
 			self:addChild(lastspr)
 			lastspr:runAction(cc.Sequence:create(cc.FadeOut:create(1.0), cc.CallFunc:create(function() lastspr:removeFromParent() end)))
-		end)
-		UserData:setTool_lotus( 1 )
+		end)--]]
 		
+		--UserData:setTool_lotus( 1 )
+		UserData:songToday(param.id, param.fojuScore)
 	else
 		self.sutraOverBoard:loadTexture("songOver/sb_02.png")
 		

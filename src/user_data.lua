@@ -17,7 +17,7 @@ function UserData:init( ... )
 	self.buddhasLightLevel = CacheUtil:getCacheVal(CacheType.buddhasLightLevel)
 	self.buddhasLightDay = CacheUtil:getCacheVal(CacheType.buddhasLightDay)
 	
-	self.incenseDay = CacheUtil:getCacheVal(CacheType.incenseDay)
+	--self.incenseDay = CacheUtil:getCacheVal(CacheType.incenseDay)
 
 	self.songDay = CacheUtil:getCacheVal(CacheType.songDay)
 	
@@ -94,7 +94,7 @@ function UserData:init( ... )
 	self:setToday(os.time())
 	
 	self:calcSign()
-	self:calcIncense()
+	--self:calcIncense()
 	
 	self:loadMusicRhythmData()
 end
@@ -111,13 +111,13 @@ function UserData:saveSignData( ... )
 	CacheUtil:setCacheVal(CacheType.signDay, self.signDay)
 	
 	--同步到服务器
-	self.signLine = CGame:bitOperate(2, self.signLine, CGame:bitOperate(5, self.today.day-1, 1))
-	networkControl:sendMessage("updateUserData", {type="signLine", data=self.signLine, ostime=self.ostime})
+	local signLine = CGame:bitOperate(2, self.signLine, CGame:bitOperate(5, self.today.day-1, 1))
+	networkControl:sendMessage("updateUserData", {type="signLine", data=signLine, ostime=self.ostime})
 end
 
 --保存点香数据
 function UserData:saveIncenseData( ... )
-	CacheUtil:setCacheVal(CacheType.incenseDay, self.incenseDay)
+	--CacheUtil:setCacheVal(CacheType.incenseDay, self.incenseDay)
 	self.buddhasLightLevel = 3--佛光定为3级
 	CacheUtil:setCacheVal(CacheType.buddhasLightLevel, self.buddhasLightLevel)
 	CacheUtil:setCacheVal(CacheType.buddhasLightDay, self.buddhasLightDay)
@@ -129,7 +129,9 @@ end
 
 --保存诵经数据
 function UserData:saveSongData( id, score )
-	CacheUtil:setCacheVal(CacheType.songDay, self.songDay)
+	--CacheUtil:setCacheVal(CacheType.songDay, self.songDay)
+
+	
 	
 	self.sutraLastTime = self.ostime
 	networkControl:sendMessage("updateUserData", {type="songScore", data=id..":"..score, ostime=self.ostime})
@@ -195,7 +197,7 @@ end
 --计算点香数据
 function UserData:calcIncense( ... )
 	
-	local incenseDay = self.incenseDay
+	--[[local incenseDay = self.incenseDay
 	if not self.incenseDay[self.today.year] then self.incenseDay[self.today.year] = {} end
 	if not self.incenseDay[self.today.year][self.today.month] then
 		self.incenseDay[self.today.year][self.today.month] = {}
@@ -244,7 +246,7 @@ function UserData:calcIncense( ... )
 			self.buddhasLightLevel = math.min(3, math.max(0, self.buddhasLightLevel + (lastInc and 1 or -1)))
 			self.buddhasLightLevel = 3--佛光定为3级
 		end
-	end
+	end--]]
 end
 
 function UserData:calcSong( ... )
@@ -290,25 +292,31 @@ function UserData:signToday(  )
 		self.signDay[self.today.year][self.today.month][self.today.day] = true
 		self:calcSign()
 		self:saveSignData()
+		
+		self.todayCanSign = false
 	end
 end
 
 function UserData:incenseToday(  )
 	if self.todayCanIncense then
-		self.incenseDay[self.today.year][self.today.month][self.today.day] = true
-		self:calcIncense()
+		--self.incenseDay[self.today.year][self.today.month][self.today.day] = true
+		--self:calcIncense()
 		self:saveIncenseData()
 		
+		self.todayCanIncense = false
 	end
 end
 
-function UserData:songToday()
-	if self.todayCanSong then
+function UserData:songToday(id, score)
+	self:saveSongData(id, score)
+	
+	self.todayCanSong = false
+	--[[if self.todayCanSong then
 		self.songDay[self.today.year][self.today.month][self.today.day] = true
-		self:calcSong()
-		self:saveSongData()
+		self:calcSong()--]]
 		
-		--1 玉石木鱼
+		
+		--[[--1 玉石木鱼
 		--2 白玉木鱼
 		--3 莲花
 		if self.songContinueCount >= 7 and self.songContinueCount < 30 then if not self.toolList["1"] then TipViewEx:showTip(TipViewEx.tipType.getTool) end self.toolList["1"] = 1 end
@@ -317,6 +325,7 @@ function UserData:songToday()
 		
 		--if self.songContinueCount >= 108 then if not self.toolList["3"] then TipViewEx:showTip(TipViewEx.tipType.getTool) end self.toolList["3"] = 108 end
 	end
+	--]]
 end
 
 function UserData:setTool_lotus( cnt )
@@ -522,6 +531,7 @@ function UserData:setIncenseLastTime(d)
 	else
 		self.todayCanIncense = true
 	end
+	self.gameLayer:updateCenserState()
 end
 
 function UserData:getUUID()
@@ -530,5 +540,7 @@ function UserData:getUUID()
 	return uuid
 end
 
-
+function UserData:setGameLayer(l)
+	self.gameLayer = l
+end
 return UserData

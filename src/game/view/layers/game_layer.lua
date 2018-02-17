@@ -15,6 +15,8 @@ GameLayer.ui_binding_file = {
 
 function GameLayer:onCreate(param)
 	
+	UserData:setGameLayer(self)
+	
 	self:initUI()
 	
 	self:return_key()
@@ -30,9 +32,8 @@ end
 
 function GameLayer:initUI()
 	self.censerPanel:setVisible(true)
-	self.censer_on:setVisible(not UserData.todayCanIncense)
-	self.censer_off:setVisible(UserData.todayCanIncense)
-	if not UserData.todayCanIncense then self:showCenserFire() end
+	
+	self:updateCenserState()
 	
 	--点击上香
 	self.censerPanel:setTouchEnabled(true)
@@ -197,16 +198,19 @@ function GameLayer:exitGameBtnClick(event)
 	]]--
 	audioCtrl:playSound(audioData.buttonClick, false)
 	
-	LayerManager.showFloat(luaFile.exitGameBoardView, {modal=true, player=self.musicPlayerCtrl})
+	if not self.musicPlayerCtrl:isPlaying() then
+		LayerManager.showFloat(luaFile.exitGameBoardView, {modal=true, player=self.musicPlayerCtrl})
+	else
+		LayerManager.showFloat(luaFile.exitSutraView, {modal=true, player=self.musicPlayerCtrl})
+	end
 end
 
 function GameLayer:continueBtnClick()
 	
 	self.continueBtn:setVisible(false)
 	self.pauseBtn:setVisible(true)
-	
-	self.touchMaskPanel:setSwallowTouches(false)
-	self.touchMaskPanel:setVisible(false)
+
+	self:setTouchMaskPanelVisible(false)
 	
 	self.musicPlayerCtrl:resume()
 	
@@ -217,12 +221,16 @@ function GameLayer:pauseBtnClick()
 	self.continueBtn:setVisible(true)
 	self.pauseBtn:setVisible(false)
 	
-	self.touchMaskPanel:setSwallowTouches(true)
-	self.touchMaskPanel:setVisible(true)
+	self:setTouchMaskPanelVisible(true)
 
 	self.musicPlayerCtrl:pause()
 	
 	AdManager:showAd()
+end
+
+function GameLayer:setTouchMaskPanelVisible(b)
+	self.touchMaskPanel:setSwallowTouches(b)
+	self.touchMaskPanel:setVisible(b)
 end
 
 function GameLayer:showCenserFire()
@@ -309,6 +317,8 @@ function GameLayer:startClickWoodenFish()
 	local btn_touch = cocosMake.newSprite("woodenFish/"..def.."/".."m_02.png")
 	btn_normal:setVisible(true)
 	btn_touch:setVisible(false)
+	self.woodenFish_btn_normal = btn_normal
+	self.woodenFish_btn_touch = btn_touch
 	
 	self.woodenFishPanel:onTouch(function(event)
 		if event.name == "began" then
@@ -331,9 +341,9 @@ function GameLayer:startClickWoodenFish()
 	self.woodenFishPanel:addChild(btn_normal)
 	self.woodenFishPanel:addChild(btn_touch)
 	local fsize = self.woodenFishPanel:getContentSize()
-	btn_normal:setPosition(cc.p(fsize.width/2.0+30, 230))
-	btn_touch:setPosition(cc.p(fsize.width/2.0+30, 230))
-	self.bottomMenuPanel:setVisible(false)
+	btn_normal:setPosition(cc.p(fsize.width/2.0 + 30, 230))
+	btn_touch:setPosition(cc.p(fsize.width/2.0 + 30, 230))
+	
 	
 	
 	audioCtrl:stopMusic()
@@ -348,10 +358,10 @@ function GameLayer:startClickWoodenFish()
 	
 	--播放经文
 	--startPos, endPos, speed, containWidget
-	self.musicPlayerCtrl:setParam(cc.p(720.0, 250.0), cc.p(0.0, 250.0), 150.0, self)
+	self.musicPlayerCtrl:setParam(cc.p(720.0, 250.0), cc.p(0.0, 250.0), 150.0, self.musicPlayerPanel)
 	self.musicPlayerCtrl:setClickValidCallback(clickCallback)
 	local musicData = UserData:getSelectSongInfo()
-	self.musicPlayerCtrl:playMusic(musicData.songId, musicData.songTime, 
+	self.musicPlayerCtrl:playMusic(musicData.id, musicData.songId, musicData.songTime, 
 		musicData.rhythm, musicData.foju)
 		
 	--更换佛祖图像
@@ -490,12 +500,10 @@ function GameLayer:songjing_btnClick(event)
 		local musicInfo = UserData:loadMusicRhythmData()
 		audioCtrl:preloadMusic("res/audio/song/" .. musicInfo[UserData.selectSongId].songId .. ".mp3")
 		
-		self.bottomMenuPanel:setVisible(false)
-		
+		self.bottomMenuPanel:setVisible(false)		
 		self.woodenFishPanel:removeAllChildren()
-		self.woodenFishPanel:setVisible(true)
-		self.woodenFishPanel:setTouchEnabled(true)
-		
+		self.woodenFishPanel:setVisible(true)	
+	
 		performWithDelay(self, function()
 					self:startClickWoodenFish()
 					self:startClickWoodenFishEffect()
@@ -557,7 +565,7 @@ end
 
 function GameLayer:stopClickWoodenFishEffect()
 	if self.clickWoodenFishEffect then
-		self:removeAction(self.clickWoodenFishEffect)
+		self:stopAction(self.clickWoodenFishEffect)
 		self.clickWoodenFishEffect = nil
 	end
 end
@@ -570,8 +578,12 @@ function GameLayer:return_key()
             if self.floatView then 
 				LayerManager.closeFloat(self.floatView) 
 				self.floatView = nil
-			else
-				LayerManager.showFloat(luaFile.exitGameBoardView, {modal=true})
+			else				
+				if not self.musicPlayerCtrl:isPlaying() then
+					LayerManager.showFloat(luaFile.exitGameBoardView, {modal=true, player=self.musicPlayerCtrl})
+				else
+					LayerManager.showFloat(luaFile.exitSutraView, {modal=true, player=self.musicPlayerCtrl})
+				end
 			end
         elseif code == cc.KeyCode.KEY_HOME then
         end
@@ -608,10 +620,39 @@ function GameLayer:return_key()
 	GameController:addEventListener(GlobalEvent.JINGTU_VIEW_SHOW,function(event)
 		self.floatView = event.data and event.data.view or nil
     end)
+	GameController:addEventListener(GlobalEvent.EXITSUTRA_NOTIFY,function(event)
+		if self.woodenFish_btn_normal then
+			self.woodenFish_btn_normal:removeFromParent()
+			self.woodenFish_btn_normal = nil
+		end
+		if self.woodenFish_btn_touch then
+			self.woodenFish_btn_touch:removeFromParent()
+			self.woodenFish_btn_touch = nil
+		end
+		
+		self.bottomMenuPanel:setVisible(true)
+		
+		self.woodenFishPanel:setTouchEnabled(false)
+		self.clickSuccessIcon:setVisible(false)
+		self.clickCountEffNode:removeAllChildren()
+		self.woodenFishClickCount:setVisible(false)
+		self.woodenFishClickCount.cnt = 0
+		self.pauseBtn:setVisible(false)
+		
+		self:stopClickWoodenFishEffect()
+		self:setTouchMaskPanelVisible(false)
+		
+		audioCtrl:playMusic(audioData.background, true)
+    end)
 	
-	GameController:addEventListener(GlobalEvent.CLICK_WOODENFINISH_SUCCESS, handler(self, self.clickWoodenFinishSuccessEvent))	
+	
+	GameController:addEventListener(GlobalEvent.CLICK_WOODENFINISH_SUCCESS, handler(self, self.clickWoodenFinishSuccessEvent))
 end
 
+function GameLayer:updateCenserState()
+	self.censer_on:setVisible(not UserData.todayCanIncense)
+	self.censer_off:setVisible(UserData.todayCanIncense)
+	if not UserData.todayCanIncense then self:showCenserFire() end
+end
 
-	
 return GameLayer
