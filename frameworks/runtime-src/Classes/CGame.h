@@ -7,8 +7,8 @@
 //#include "CCLuaValue.h"
 #include <string>
 
-#include <spine/spine-cocos2dx.h>
-using namespace spine;
+//#include <spine/spine-cocos2dx.h>
+//using namespace spine;
 
 using namespace std;
 
@@ -59,6 +59,8 @@ public:
 	static void HttpDownloadFile(const std::string &url, const std::string &fileName, const int &callBackFunc);
 
 	static const std::string getMD5(std::string src);
+    
+    static void exitAppForce();
 };
 
 
