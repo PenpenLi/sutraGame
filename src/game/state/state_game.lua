@@ -13,14 +13,6 @@ end
 function StateGame:Enter(gameType,...)
     log("进入房间状态",gameType)
     
-	--切换到后台
-    if self.background_handler then
-        GameController:removeEventListener(self.background_handler)
-        self.background_handler = nil
-    end
-    self.background_handler = GameController:addEventListener(GlobalEvent.ENTER_BACKGROUND,function()
-		
-    end)
 	
 	LayerManager.show(luaFile.GameLayer)
 end

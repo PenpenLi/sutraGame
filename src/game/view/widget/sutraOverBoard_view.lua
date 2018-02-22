@@ -34,7 +34,9 @@ function sutraOverBoardView:onCreate(param)
 	self.effectNode:addChild(animateNode)
 	--]]
 	for i=0,2 do
-		performWithDelay(cocosMake.getRunningScene(), function() audioCtrl:playSound(audioData.win, false) end, i*5.0)
+		performWithDelay(cocosMake.getRunningScene(), function()
+            ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.win, false), 70)
+        end, i*5.0)
 	end
 	
 	--胜利
@@ -83,8 +85,7 @@ function sutraOverBoardView:bgTouch()
 end
 
 function sutraOverBoardView:closeBtnClick(event)
-	audioCtrl:playSound(audioData.buttonClick, false)
-	
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	LayerManager.closeFloat(self)
 end
 

@@ -78,7 +78,7 @@ function toolView:bgTouch()
 end
 
 function toolView:closeBtnClick(event)
-	audioCtrl:playSound(audioData.buttonClick, false)
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
 	LayerManager.closeFloat(self)
 end

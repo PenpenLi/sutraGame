@@ -24,7 +24,7 @@ function WidgetHelp:RegWidgetAndEvent(class_obj,root,widget_list)
 						
 					elseif nodeBinding.event == "click" then--button clicked
 						local func = handler(class_obj, class_obj[nodeBinding.method])
-						cur_widget:onClicked(function(...) audioCtrl:btnClick(nodeBinding.sound) func(...) end)
+						cur_widget:onClicked(function(...) ccexp.AudioEngine:play2d(nodeBinding.sound) func(...) end)
 					end
                 end
             end

@@ -69,6 +69,7 @@ end
 
 function signBoardView:onClose( ... )
 	AdManager:hideAd()
+    AdManager:loadAd()
 	self:dispatchEvent({name = GlobalEvent.SIGN_VIEW_SHOW, data={view=nil}})
 end
 
@@ -76,18 +77,17 @@ function signBoardView:signOn()
 	if self.signSuccessCallback then
 		self.signSuccessCallback()
 	end
-	audioCtrl:playSound(audioData.signDay, false)
+    ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.signDay, false), 70)
 	LayerManager.closeFloat(self)
 end
 
 function signBoardView:touchPanelClick(event)
-	audioCtrl:playSound(audioData.buttonClick, false)
-	
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	LayerManager.closeFloat(self)
 end
 
 function signBoardView:jingtuBtnClick(event)
-	audioCtrl:playSound(audioData.buttonClick, false)
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
 	local songData = UserData:loadMusicRhythmData()
 	local buddhas = string.lower(UserData:getBuddhas())
@@ -104,7 +104,7 @@ function signBoardView:jingtuBtnClick(event)
 end
 
 function signBoardView:rankBtnClick(event)
-	audioCtrl:playSound(audioData.buttonClick, false)
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
 	--LayerManager.closeFloat(self)
 	
@@ -112,7 +112,7 @@ function signBoardView:rankBtnClick(event)
 end
 
 function signBoardView:lotusBtnClick(event)
-	audioCtrl:playSound(audioData.buttonClick, false)
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
 	--LayerManager.closeFloat(self)
 	

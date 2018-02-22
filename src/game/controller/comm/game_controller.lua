@@ -37,11 +37,6 @@ function GameController:startManager( ... )
     -- 登录控制器
     --LoginCtrl = new_class(luaFile.LoginCtrl)
 	
-	--聲音Ctrl
-	audioCtrl = new_class(luaFile.audioCtrl)
-	--gameSoundCtrl = new_class(luaFile.gameSoundCtrl)
-	
-	
 end
 
 function GameController:connectTcp(ip, port, domain, userdata)

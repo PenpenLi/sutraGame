@@ -85,7 +85,6 @@ add("toolView", "game.view.widget.tool_view")
 
 add("CtrlBase", "game.controller.comm.ctrl_base")
 add("GameController", "game.controller.comm.game_controller")
-add("audioCtrl", "game.controller.audio_ctrl")
 add("gameSoundCtrl", "game.controller.sound_ctrl")
 add("loadingTipsCtrl", "game.controller.loadingTips_ctrl")
 add("ImageCacheCtrl", "game.controller.image_cache_ctrl")

@@ -32,7 +32,7 @@ require "cocos.cocos2d.functions"
 require "cocos.cocos2d.Opengl"
 require "cocos.cocos2d.OpenglConstants"
 -- audio
-require "cocos.cocosdenshion.AudioEngine"
+--require "cocos.cocosdenshion.AudioEngine"
 -- cocosstudio
 if nil ~= ccs then
     require "cocos.cocostudio.CocoStudio"

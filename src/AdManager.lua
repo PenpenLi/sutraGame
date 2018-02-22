@@ -4,6 +4,8 @@ local ad
 
 if TARGET_PLATFORM == cc.PLATFORM_OS_ANDROID then
 	ad = HotRequire("src.androidAd")
+elseif TARGET_PLATFORM == cc.PLATFORM_OS_IPHONE or TARGET_PLATFORM == cc.PLATFORM_OS_IPAD then
+    ad = HotRequire("src.iosAd")
 end
 function AdManager:loadAd(extendCallback)
 	if ad then

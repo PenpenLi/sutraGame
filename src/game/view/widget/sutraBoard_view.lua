@@ -120,6 +120,7 @@ end
 
 function sutraBoardView:onClose( ... )
 	AdManager:hideAd()
+    AdManager:loadAd()
 	self:dispatchEvent({name = GlobalEvent.SUTRA_VIEW_SHOW, data={view=nil}})
 end
 
@@ -127,12 +128,12 @@ function sutraBoardView:bgTouch()
 end
 
 function sutraBoardView:closeBtnClick(event)
-	audioCtrl:playSound(audioData.buttonClick, false)
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
 	LayerManager.closeFloat(self)
 end
 function sutraBoardView:preBtnClick(event)
-	audioCtrl:playSound(audioData.buttonClick, false)
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
 	if (self.currPage-1) >= 1 then
 		self.currPage=self.currPage-1
@@ -141,7 +142,7 @@ function sutraBoardView:preBtnClick(event)
 	
 end
 function sutraBoardView:nextBtnClick(event)
-	audioCtrl:playSound(audioData.buttonClick, false)
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
 	
 	if (self.currPage+1) <= math.max(#self.pages_kuaiban, #self.pages_manban) then
@@ -152,7 +153,7 @@ function sutraBoardView:nextBtnClick(event)
 	--LayerManager.closeFloat(self)
 end
 function sutraBoardView:sureBtnClick(event)
-	audioCtrl:playSound(audioData.buttonClick, false)
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
 	
 	local key

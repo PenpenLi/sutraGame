@@ -73,7 +73,10 @@ public class inMobiUnit extends adBaseUnit {
                 bannerAdRequestListener = new InMobiBanner.BannerAdRequestListener() {
                     @Override
                     public void onAdRequestCompleted(InMobiAdRequestStatus inMobiAdRequestStatus, InMobiBanner inMobiBanner) {
-                        if (inMobiAdRequestStatus.getStatusCode() == InMobiAdRequestStatus.StatusCode.NO_ERROR &&
+                        InMobiAdRequestStatus.StatusCode st = inMobiAdRequestStatus.getStatusCode();
+                        String errMsg = inMobiAdRequestStatus.getMessage();
+                        Log.d(TAG_INMOBI_LISTENER, String.format("onAdRequestCompleted：%d, %s", st, errMsg));
+                        if (st == InMobiAdRequestStatus.StatusCode.NO_ERROR &&
                                 null != inMobiBanner) {
                             setupBanner(inMobiBanner);
                         } else {
@@ -199,7 +202,8 @@ public class inMobiUnit extends adBaseUnit {
 
                 callbackLuaLoadedAd("success", true);
 
-                if (isRequireShow())
+                //if (isRequireShow())
+                if(true)//这里写死，只要有广告来就展示
                 {
                     showADView();
                     requireShow(false);

@@ -51,6 +51,7 @@ end
 
 function exitGameBoardView:onClose( ... )
 	AdManager:hideAd()
+    AdManager:loadAd()
 	self:dispatchEvent({name = GlobalEvent.EXITGAME_VIEW_SHOW, data={view=nil}})
 	
 	self.player:resume()
@@ -60,21 +61,20 @@ function exitGameBoardView:bgTouch()
 end
 
 function exitGameBoardView:closeBtnClick(event)
-	audioCtrl:playSound(audioData.buttonClick, false)
-	
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
+
 	LayerManager.closeFloat(self)
 end
 
 function exitGameBoardView:noBtnClick(event)
-	audioCtrl:playSound(audioData.buttonClick, false)
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
 	LayerManager.closeFloat(self)
 end
 
 function exitGameBoardView:yesBtnClick(event)
-	--audioCtrl:playSound(audioData.buttonClick, false)
 	
-	cocosMake.Director:endToLua()
+	cocosMake.endToLua()
 end
 
 

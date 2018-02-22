@@ -472,6 +472,14 @@ function cocosMake.getFullPathForFileName(fileName)
     return fullpath
 end
 
+function cocosMake.endToLua()
+	if TARGET_PLATFORM == cc.PLATFORM_OS_IPHONE or TARGET_PLATFORM == cc.PLATFORM_OS_IPAD then
+		CGame:exitAppForce()
+	else
+		cocosMake.Director:endToLua()
+	end
+end
+
 
 cocosMake.viewBase = require(luaFile.ViewBase)
 cocosMake.DialogBase = require(luaFile.DialogBase)

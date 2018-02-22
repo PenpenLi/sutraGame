@@ -50,6 +50,25 @@ local function main()
 end
 
 
+function applicationDidEnterBackground()
+    print("applicationDidEnterBackground")
+    GameController:dispatchEvent({name = GlobalEvent.ENTER_BACKGROUND, data={}})
+end
+
+function applicationWillEnterForeground()
+    print("applicationWillEnterForeground")
+    GameController:dispatchEvent({name = GlobalEvent.ENTER_FOREGROUND, data={}})
+end
+
+local eventDispatcher = cc.Director:getInstance():getEventDispatcher()
+local backgroundListener = cc.EventListenerCustom:create("APP_ENTER_BACKGROUND_EVENT",
+applicationDidEnterBackground)
+eventDispatcher:addEventListenerWithFixedPriority(backgroundListener, 1)
+local foregroundListener = cc.EventListenerCustom:create("APP_ENTER_FOREGROUND_EVENT",
+applicationWillEnterForeground)
+eventDispatcher:addEventListenerWithFixedPriority(foregroundListener, 1)
+
+
 local status, msg = xpcall(main, __G__TRACKBACK__)
 if not status then
     print(msg)

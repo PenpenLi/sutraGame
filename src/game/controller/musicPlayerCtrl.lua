@@ -64,14 +64,6 @@ function musicPlayerCtrl:setParam(startPos, endPos, speed, containWidget)
 end
 
 function musicPlayerCtrl:playMusic(musicId, musicRes, musicTime, musicClickData, fohaoNum)
-	local action_list = {}
-	self.songPlayDelayTime = self.moveMiddleTime - 0.2 - musicClickData[1]
-	action_list[#action_list + 1] = cc.DelayTime:create(self.songPlayDelayTime)
-	action_list[#action_list + 1] = cc.CallFunc:create(function ()
-			--audioCtrl:playMusic("res/audio/song/" .. musicRes .. ".mp3", true)
-			ccexp.AudioEngine:play2d("res/audio/song/" .. musicRes .. ".mp3", true)
-		end)
-	 --self.containWidget:runAction(cc.Sequence:create(unpack(action_list)))
 	self.musicId = musicId
 	self.musicRes = musicRes
 	self.clickScore = {}
@@ -79,6 +71,7 @@ function musicPlayerCtrl:playMusic(musicId, musicRes, musicTime, musicClickData,
 	for i=1, fohaoNum do self.clickScore[i] = 0 end
 	self.clickLegalSprs = {}
 	self.musicRhythm = DeepCopy(musicClickData)
+    self.musicRunRhythm = DeepCopy(musicClickData)
 	self.musicRhythmCount = #musicClickData
 	self.musicTime = musicTime
 	self.fohaoNum = fohaoNum
@@ -90,60 +83,73 @@ function musicPlayerCtrl:playMusic(musicId, musicRes, musicTime, musicClickData,
 	
 	self.songSuccessIndex = false
 	
-	AudioEngine.preloadMusic("res/audio/song/" .. self.musicRes .. ".mp3")
+    ccexp.AudioEngine:preload("res/audio/song/" .. self.musicRes .. ".mp3")
 end
 
 function musicPlayerCtrl:update(ft)
 	self.clock=self.clock+ft
-	--log("update", ft, self.clock, self.curStep, self.musicRhythm[self.curStep])
-	
+	log("update", ft, self.clock, self.curStep, self.musicRunRhythm[self.curStep], os.clock())
+
 	if ft <= 0.0 then
 		return
 	end
-	
+
+    if self.state == "pause" then
+        self.state = ""
+    elseif self.state == "resume" then
+        audio.resumeSound(self.musicHandle)
+        self.state = ""
+    end
+
+
 	if self.musicRhythmCount < self.curStep then
 		if self.clock >= self.musicTime + self.errTime then
 			self.curStep = -2--歌曲连续播放的时候，用来对齐时间轴用的缓冲帧数
 			self.clock = 0.0
+            self.musicRunRhythm = DeepCopy(self.musicRhythm)
 		end
 		return
 	end
 	
-	if not self.musicRhythm[self.curStep] then
+	if not self.musicRunRhythm[self.curStep] then
 		self.curStep = self.curStep + 1
 		self.clock = 0.0
-		
-		if self.musicRhythm[self.curStep] then
-			--audioCtrl:resumeMusic()
+        log("not self.curStep", self.curStep)
+
+		if self.musicRunRhythm[self.curStep] then
 			local action_list = {}
-			self.errTime = 0.005
-			self.songPlayDelayTime = self.moveMiddleTime - self.errTime
+			self.errTime = ft
+			self.songPlayDelayTime = self.moveMiddleTime + 0.05
+            log("self.songPlayDelayTime", self.songPlayDelayTime)
 			action_list[#action_list + 1] = cc.DelayTime:create(self.songPlayDelayTime)
 			action_list[#action_list + 1] = cc.CallFunc:create(function ()
-					log("play music")
-					AudioEngine.playMusic("res/audio/song/" .. self.musicRes .. ".mp3")
+                    local musicres = "res/audio/song/" .. self.musicRes .. ".mp3"
+					log("play music", musicres)
+                    self.musicHandle = ccexp.AudioEngine:play2d(musicres, false)
+                    ccexp.AudioEngine:setVolume(self.musicHandle, 100)
 				end)
 			 self.containWidget:runAction(cc.Sequence:create(unpack(action_list)))
 		end
 		return 
 	end
-		
-	
-	if self.clock >= self.musicRhythm[self.curStep] then
-		local curStep = self.curStep
+
+	if self.clock >= self.musicRunRhythm[self.curStep] then
+        local curStep = self.curStep
 		local xx = self:getxx()
 		xx:setVisible(true)
 		xx:setPosition(self.startPos)
-		
+
+        local offt = 1*(self.clock - self.musicRunRhythm[self.curStep])
+        offt = 0.0
 		local action_list = {}
-		action_list[#action_list + 1] = cc.MoveTo:create(self.moveTime, self.endPos)
+		action_list[#action_list + 1] = cc.MoveTo:create(self.moveTime - offt, self.endPos)
 		action_list[#action_list + 1] = cc.CallFunc:create(function () self:recyclexx(xx) end)
 		local moveLineAction = xx:runAction(cc.Sequence:create(unpack(action_list)))
 		xx.moveLineAction = moveLineAction
 		
 		--移动到中心位置，左右0.2秒
 		local action_clickLegal = {}
-		action_clickLegal[#action_clickLegal + 1] = cc.DelayTime:create(math.max(0, self.moveMiddleTime-0.2+self.validOffsetTime))
+		action_clickLegal[#action_clickLegal + 1] = cc.DelayTime:create(math.max(0, self.moveMiddleTime- 0.2 + self.validOffsetTime - offt/2))
 		action_clickLegal[#action_clickLegal + 1] = cc.CallFunc:create(function ()
 			self.clickLegalSprs[#self.clickLegalSprs+1] = {xx=xx, index=curStep}
 		end)
@@ -164,7 +170,7 @@ function musicPlayerCtrl:update(ft)
 		--查找离此次最近的佛句时间点
 		self.curStep=self.curStep+1
 		for i=self.curStep, self.musicRhythmCount do
-			if self.clock <= self.musicRhythm[i] then
+			if self.clock <= self.musicRunRhythm[i] then
 				self.curStep = i
 				break
 			end
@@ -240,16 +246,19 @@ function musicPlayerCtrl:setClickScore(val)
 end
 
 function musicPlayerCtrl:pause()
+    log("musicPlayerCtrl:pause", os.clock())
 	if self.playing then
+    ccexp.AudioEngine:pause(self.musicHandle)
 		cocosMake.setGameSpeed(0)
-		AudioEngine:pauseMusic()
+        self.state = "pause"
 	end
 end
 
 function musicPlayerCtrl:resume()
+    log("musicPlayerCtrl:resume", os.clock())
 	if self.playing then
 		cocosMake.setGameSpeed(1)
-		AudioEngine:resumeMusic()
+        self.state = "resume"
 	end
 end
 
@@ -258,7 +267,7 @@ function musicPlayerCtrl:stop()
 	if self.playing then
 		self.containWidget:unscheduleUpdate()
 		cocosMake.setGameSpeed(1)
-		AudioEngine.stopMusic()
+        ccexp.AudioEngine:stop(self.musicHandle)
 		self.playing = false		
 	end
 end

@@ -20,13 +20,11 @@ function GameLayer:onCreate(param)
 	self:initUI()
 	
 	self:return_key()
-	
-	
-	audioCtrl:setMusicVolume(100)
-	audioCtrl:setVolumn(70)
-	
-	audioCtrl:playMusic(audioData.background, true)
-	
+
+    self.audio_background_handle = ccexp.AudioEngine:play2d(audioData.background, true)
+	ccexp.AudioEngine:setVolume(self.audio_background_handle, 100)
+
+
 	self.musicPlayerCtrl = new_class(luaFile.musicPlayerCtrl)
 end
 
@@ -42,12 +40,12 @@ function GameLayer:initUI()
 			self.censer_on:setVisible(true)
 			self.censer_off:setVisible(false)
 			self:showCenserFire()
-			audioCtrl:playSound(audioData.censer, false)
+			ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.censer, false), 70)
 			UserData:incenseToday(  )
 			
 		elseif UserData.todayCanSign then
 			TipViewEx:showTip(TipViewEx.tipType.signTip)
-			audioCtrl:playSound(audioData.error, false)
+            ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.error, false), 70)
 		end
 	end)
 	
@@ -107,6 +105,8 @@ function GameLayer:initUI()
 	cc.SpriteFrameCache:getInstance():addSpriteFrames("signBoard/clickNumberEffect.plist")
 	cocosMake.newSprite("woodenFish/"..UserData.usedTool.."/".."m_01.png")
 	cocosMake.newSprite("woodenFish/"..UserData.usedTool.."/".."m_02.png")
+
+    
 end
 
 function GameLayer:showStartSpeak()
@@ -196,7 +196,7 @@ function GameLayer:exitGameBtnClick(event)
 		if hval > 1.0 then hval = 0.0 end
 	end, 0.03)	
 	]]--
-	audioCtrl:playSound(audioData.buttonClick, false)
+    ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
 	if not self.musicPlayerCtrl:isPlaying() then
 		LayerManager.showFloat(luaFile.exitGameBoardView, {modal=true, player=self.musicPlayerCtrl})
@@ -215,6 +215,7 @@ function GameLayer:continueBtnClick()
 	self.musicPlayerCtrl:resume()
 	
 	AdManager:hideAd()
+    AdManager:loadAd()
 end
 function GameLayer:pauseBtnClick()
 	
@@ -271,8 +272,7 @@ function GameLayer:showCenserFire()
 end
 
 function GameLayer:qiandao_btnClick(event)
-	audioCtrl:playSound(audioData.buttonClick, false)
-	
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	local function signCallback()
 	
 	end
@@ -326,7 +326,7 @@ function GameLayer:startClickWoodenFish()
 			btn_touch:setVisible(true)
 			local soundfile = audioData.woodenFish
 			--if songData[UserData.selectSongId].B then soundfile = audioData.woodenFishB end
-			audioCtrl:playSound(soundfile, false)
+            ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(soundfile, false), 70)
 			self.musicPlayerCtrl:clickEvent()
 			
 			
@@ -345,8 +345,7 @@ function GameLayer:startClickWoodenFish()
 	btn_touch:setPosition(cc.p(fsize.width/2.0 + 30, 230))
 	
 	
-	
-	audioCtrl:stopMusic()
+    ccexp.AudioEngine:stop(self.audio_background_handle)
 	
 	local function clickCallback()
 		self.woodenFishClickCount.cnt = self.woodenFishClickCount.cnt + 1
@@ -412,8 +411,7 @@ end
 
 
 function GameLayer:jingwen_btnClick(event)
-	audioCtrl:playSound(audioData.buttonClick, false)
-	
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
 	
 	local function callback()
@@ -498,8 +496,7 @@ end
 function GameLayer:songjing_btnClick(event)
 	if UserData.selectSongId > 0 then
 		local musicInfo = UserData:loadMusicRhythmData()
-		audioCtrl:preloadMusic("res/audio/song/" .. musicInfo[UserData.selectSongId].songId .. ".mp3")
-		
+
 		self.bottomMenuPanel:setVisible(false)		
 		self.woodenFishPanel:removeAllChildren()
 		self.woodenFishPanel:setVisible(true)	
@@ -509,13 +506,12 @@ function GameLayer:songjing_btnClick(event)
 					self:startClickWoodenFishEffect()
 					self.continueBtn:setVisible(false)
 					self.pauseBtn:setVisible(true)
-				end, 28)
-		audioCtrl:playMusic(audioData.startSong, true)
-		
-		self:jingwenAnim(28)
+				end, 0)
+		ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.startSong, true), 100)
+		self:jingwenAnim(0)
 		
 	else
-		audioCtrl:playSound(audioData.error, false)
+        ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.error, true), 70)
 		TipViewEx:showTip(TipViewEx.tipType.songTip)
 	end
 end
@@ -642,11 +638,16 @@ function GameLayer:return_key()
 		self:stopClickWoodenFishEffect()
 		self:setTouchMaskPanelVisible(false)
 		
-		audioCtrl:playMusic(audioData.background, true)
+        self.audio_background_handle = ccexp.AudioEngine:play2d(audioData.background, true)
+        ccexp.AudioEngine:setVolume(self.audio_background_handle, 100)
     end)
 	
 	
 	GameController:addEventListener(GlobalEvent.CLICK_WOODENFINISH_SUCCESS, handler(self, self.clickWoodenFinishSuccessEvent))
+
+    GameController:addEventListener(GlobalEvent.ENTER_FOREGROUND, handler(self, self.appEnterForeground))
+
+    GameController:addEventListener(GlobalEvent.ENTER_BACKGROUND, handler(self, self.appEnterBackground))
 end
 
 function GameLayer:updateCenserState()
@@ -654,5 +655,14 @@ function GameLayer:updateCenserState()
 	self.censer_off:setVisible(UserData.todayCanIncense)
 	if not UserData.todayCanIncense then self:showCenserFire() end
 end
+
+function GameLayer:appEnterBackground()
+    self.musicPlayerCtrl:pause()
+end
+
+function GameLayer:appEnterForeground()
+    self.musicPlayerCtrl:resume()
+end
+
 
 return GameLayer

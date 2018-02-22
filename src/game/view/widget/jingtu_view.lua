@@ -44,7 +44,7 @@ function jingtuView:onClose( ... )
 end
 
 function jingtuView:touchPanelClick(event)
-	audioCtrl:playSound(audioData.buttonClick, false)
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
 	LayerManager.closeFloat(self)
 end

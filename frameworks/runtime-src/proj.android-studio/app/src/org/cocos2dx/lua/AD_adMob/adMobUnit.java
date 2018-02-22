@@ -63,7 +63,8 @@ public class adMobUnit extends adBaseUnit {
                 Log.d(TAG_ADMOB_LISTENER, "onAdLoaded");
                 callbackLuaLoadedAd("success", true);
 
-                if (isRequireShow())
+                //if (isRequireShow())
+                if (true)//这里写死只要有广告回馈过来就显示
                 {
                     showADView();
                     requireShow(false);
@@ -134,6 +135,7 @@ public class adMobUnit extends adBaseUnit {
             public void run()
             {
                 Display display = appActivity.getWindowManager().getDefaultDisplay();
+                Log.d(TAG_ADMOB_LISTENER, String.format("setTranslationY. %d",display.getHeight()));
                 mAdView.setTranslationY(display.getHeight() - mAdView.getHeight());
             }
         });
@@ -150,7 +152,7 @@ public class adMobUnit extends adBaseUnit {
                 // mAdView.setVisibility(View.INVISIBLE);
                 Display display = appActivity.getWindowManager().getDefaultDisplay();
                 Log.d(TAG_ADMOB_LISTENER, String.format("setTranslationY.%d, %d",display.getHeight() , mAdView.getHeight()));
-                //mAdView.setTranslationY(display.getHeight() - 1);
+                mAdView.setTranslationY(display.getHeight() - 1);
             }
         });
     }
