@@ -7,7 +7,6 @@ lotusView.ui_resource_file = {"lotusNode"}
 
 					
 lotusView.ui_binding_file = {
-	closeBtn        = {event = "click", method = "touchPanelClick"},
 }
 
 
@@ -71,6 +70,11 @@ function lotusView:onCreate(param)
 		-- 获取事件派发器然后设置触摸绑定到精灵，优先级为默认的0    
 		accelLayer:getEventDispatcher():addEventListenerWithSceneGraphPriority(listerner,accelLayer)
 	end
+	
+	self.touchPanel:setTouchEnabled(true)
+	self.touchPanel:onClicked(function ()
+		self:touchPanelClick()
+	end)
 end
 
 

@@ -7,7 +7,7 @@ jingtuView.ui_resource_file = {"jingtuNode"}
 
 					
 jingtuView.ui_binding_file = {
-closeBtn        = {event = "click", method = "touchPanelClick"},
+
 }
 
 
@@ -35,6 +35,12 @@ function jingtuView:onCreate(param)
 		self["block"..i]:setOpacity(0)
 		self["block"..i]:runAction(action1)
 	end
+	
+	self.touchPanel:setTouchEnabled(true)
+	self.touchPanel:onClicked(function ()
+		self:touchPanelClick()
+	end)
+	
 end
 
 

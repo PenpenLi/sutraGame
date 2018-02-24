@@ -248,7 +248,7 @@ end
 function musicPlayerCtrl:pause()
     log("musicPlayerCtrl:pause", os.clock())
 	if self.playing then
-    ccexp.AudioEngine:pause(self.musicHandle)
+		ccexp.AudioEngine:pause(self.musicHandle or 0)
 		cocosMake.setGameSpeed(0)
         self.state = "pause"
 	end
@@ -267,7 +267,7 @@ function musicPlayerCtrl:stop()
 	if self.playing then
 		self.containWidget:unscheduleUpdate()
 		cocosMake.setGameSpeed(1)
-        ccexp.AudioEngine:stop(self.musicHandle)
+        ccexp.AudioEngine:stop(self.musicHandle or 0)
 		self.playing = false		
 	end
 end

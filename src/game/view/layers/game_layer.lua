@@ -136,6 +136,8 @@ function GameLayer:playClickCountNumberEff()
 	})
 	self.clickCountEffNode:addChild(animateNode)
 	animateNode:playOnce(true, 0)	
+	
+	self:playClickWoodenFishEffect()
 end
 
 
@@ -503,7 +505,6 @@ function GameLayer:songjing_btnClick(event)
 	
 		performWithDelay(self, function()
 					self:startClickWoodenFish()
-					self:startClickWoodenFishEffect()
 					self.continueBtn:setVisible(false)
 					self.pauseBtn:setVisible(true)
 				end, 0)
@@ -516,53 +517,69 @@ function GameLayer:songjing_btnClick(event)
 	end
 end
 
-function GameLayer:startClickWoodenFishEffect()
-	self.clickWoodenFishEffect = performWithDelay(self, function()
-		local musicData = UserData:loadMusicRhythmData()
-		local eff = musicData[UserData.selectSongId].clickEffect
+function GameLayer:playClickWoodenFishEffect()
+	local musicData = UserData:loadMusicRhythmData()
+	local eff = musicData[UserData.selectSongId].clickEffect
+	
+	if eff == "hb" then
+		local moveTime = math.random(3, 4)
+		local rate = 0.06
+		local animNode = cocosMake.newNode()
+		self:addChild(animNode)
+		local animateNode = new_class(luaFile.AnimationSprite, {
+			startFrameIndex = 1,                             -- 开始帧索引
+			isReversed = false,                              -- 是否反转
+			plistFileName = "res/woodenFish/hb.plist", -- plist文件
+			pngFileName = "res/woodenFish/hb.png",     -- png文件
+			pattern = "hb/",                      -- 帧名称模式串
+			frameNum = 8,                                   -- 帧数
+			rate = rate,                                     -- 
+			stay = true,                                    -- 是否停留（是否从cache中移除纹理）
+			indexFormat = 4,                                 -- 整数位数
+		})		
+		animateNode:playOnce(false, 0)
+		animNode:addChild(animateNode)
+		animNode:setPosition(math.random(100, 620), math.random(980, 1180))			
+		animNode:runAction(cc.MoveTo:create(moveTime, cc.p(math.random(10, 700), math.random(10, 100))))
 		
-		if eff == "hb" then
-			local animateNode = new_class(luaFile.AnimationSprite, {
-				startFrameIndex = 1,                             -- 开始帧索引
+		
+		local action_list = {}
+		action_list[#action_list + 1] = cc.DelayTime:create(moveTime-3*rate)
+		action_list[#action_list + 1] = cc.CallFunc:create(function () 
+			animateNode:removeFromParent()
+			local animateNodeB = new_class(luaFile.AnimationSprite, {
+				startFrameIndex = 9,                             -- 开始帧索引
 				isReversed = false,                              -- 是否反转
 				plistFileName = "res/woodenFish/hb.plist", -- plist文件
 				pngFileName = "res/woodenFish/hb.png",     -- png文件
 				pattern = "hb/",                      -- 帧名称模式串
-				frameNum = 11,                                   -- 帧数
-				rate = 0.10,                                     -- 
+				frameNum = 3,                                   -- 帧数
+				rate = rate,                                     -- 
 				stay = true,                                    -- 是否停留（是否从cache中移除纹理）
 				indexFormat = 4,                                 -- 整数位数
-			})
-			self:addChild(animateNode)
-			animateNode:playOnce(true, 0)
-			animateNode:setPosition(math.random(100, 620), math.random(980, 1180))			
-			animateNode:runAction(cc.MoveBy:create(math.random(1.5, 2), cc.p(math.random(0, 200)-100, -math.random(200, 380))))
-			
-		elseif eff == "ym" then
-			local ymSpr = cocosMake.newSprite("res/woodenFish/ym.png")
-			self:addChild(ymSpr)
-			ymSpr:setPosition(math.random(100, 620), math.random(980, 1180))	
-				
-			local moveTime = math.random(2.5, 4)
-			ymSpr:runAction(cc.MoveBy:create(moveTime, cc.p(math.random(0, 200)-100, -math.random(200, 380))))
-			
-			local action_list2 = {}
-			action_list2[#action_list2 + 1] = cc.FadeIn:create(0.3)
-			action_list2[#action_list2 + 1] = cc.DelayTime:create(moveTime-0.5-0.3)
-			action_list2[#action_list2 + 1] = cc.FadeOut:create(0.5)
-			action_list2[#action_list2 + 1] = cc.CallFunc:create(function () ymSpr:removeFromParent() end)
-			ymSpr:setOpacity(0)
-			ymSpr:runAction(cc.Sequence:create(unpack(action_list2)))
-		end
+			})		
+			animateNodeB:playOnce(true, 0)
+			animNode:addChild(animateNodeB)
+		end)
+		action_list[#action_list + 1] = cc.DelayTime:create(0.5)
+		action_list[#action_list + 1] = cc.RemoveSelf:create()
+		animNode:runAction(cc.Sequence:create(unpack(action_list)))
 		
-		self:startClickWoodenFishEffect()
-	end, math.random(200, 1000)/100)
-end
-
-function GameLayer:stopClickWoodenFishEffect()
-	if self.clickWoodenFishEffect then
-		self:stopAction(self.clickWoodenFishEffect)
-		self.clickWoodenFishEffect = nil
+	elseif eff == "ym" then
+		local ymSpr = cocosMake.newSprite("res/woodenFish/ym.png")
+		self:addChild(ymSpr)
+		ymSpr:setPosition(math.random(100, 620), math.random(980, 1180))	
+			
+		local moveTime = math.random(3.5, 4)
+		ymSpr:runAction(cc.MoveTo:create(moveTime, cc.p(math.random(10, 700), math.random(10, 100))))
+		
+		local action_list2 = {}
+		action_list2[#action_list2 + 1] = cc.FadeIn:create(0.3)
+		action_list2[#action_list2 + 1] = cc.DelayTime:create(moveTime-0.5-0.3)
+		action_list2[#action_list2 + 1] = cc.FadeOut:create(0.5)
+		action_list2[#action_list2 + 1] = cc.RemoveSelf:create()
+		ymSpr:setOpacity(0)
+		ymSpr:runAction(cc.Sequence:create(unpack(action_list2)))
 	end
 end
 
@@ -635,7 +652,8 @@ function GameLayer:return_key()
 		self.woodenFishClickCount.cnt = 0
 		self.pauseBtn:setVisible(false)
 		
-		self:stopClickWoodenFishEffect()
+		self:jingwenAnim(28)
+		
 		self:setTouchMaskPanelVisible(false)
 		
         self.audio_background_handle = ccexp.AudioEngine:play2d(audioData.background, true)
@@ -664,5 +682,6 @@ function GameLayer:appEnterForeground()
     self.musicPlayerCtrl:resume()
 end
 
+cocosMake.Director:setDisplayStats(TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS)
 
 return GameLayer

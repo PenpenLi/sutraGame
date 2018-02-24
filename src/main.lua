@@ -46,6 +46,7 @@ local function main()
 	if TARGET_PLATFORM ~= cc.PLATFORM_OS_WINDOWS then
 		AdManager:loadAd()
 	end
+	
     --startCocosDegbugTicker()
 end
 
