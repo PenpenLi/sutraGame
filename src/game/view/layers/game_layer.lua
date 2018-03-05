@@ -503,13 +503,18 @@ function GameLayer:songjing_btnClick(event)
 		self.woodenFishPanel:removeAllChildren()
 		self.woodenFishPanel:setVisible(true)	
 	
+		local startSongHandle
 		performWithDelay(self, function()
 					self:startClickWoodenFish()
 					self.continueBtn:setVisible(false)
 					self.pauseBtn:setVisible(true)
-				end, 0)
-		ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.startSong, true), 100)
-		self:jingwenAnim(0)
+					ccexp.AudioEngine:stop(startSongHandle or 0)
+				end, 28)
+		startSongHandle = ccexp.AudioEngine:play2d(audioData.startSong, true)
+		ccexp.AudioEngine:setVolume(startSongHandle, 100)
+		ccexp.AudioEngine:stop(self.audio_background_handle)
+		
+		self:jingwenAnim(28)
 		
 	else
         ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.error, true), 70)
@@ -675,10 +680,16 @@ function GameLayer:updateCenserState()
 end
 
 function GameLayer:appEnterBackground()
+	if self.audio_background_handle then
+		ccexp.AudioEngine:pause(self.audio_background_handle)
+	end
     self.musicPlayerCtrl:pause()
 end
 
 function GameLayer:appEnterForeground()
+	if self.audio_background_handle then
+		ccexp.AudioEngine:resume(self.audio_background_handle)
+	end
     self.musicPlayerCtrl:resume()
 end
 

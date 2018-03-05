@@ -14,7 +14,7 @@ function musicPlayerCtrl:Init( ... )
 	self.fojuScore = 0
 	self.clickValidCallback = nil
 	self.songSuccessIndex = false
-	self.validOffsetTime = -0.15--敲击有效时间偏移
+	self.validOffsetTime = -0.10--敲击有效时间偏移
 end
 
 function musicPlayerCtrl:recyclexx(xx)
@@ -88,16 +88,20 @@ end
 
 function musicPlayerCtrl:update(ft)
 	self.clock=self.clock+ft
-	log("update", ft, self.clock, self.curStep, self.musicRunRhythm[self.curStep], os.clock())
+	--log("update", ft, self.clock, self.curStep, self.musicRunRhythm[self.curStep], os.clock())
 
 	if ft <= 0.0 then
 		return
 	end
 
-    if self.state == "pause" then
-        self.state = ""
-    elseif self.state == "resume" then
-        audio.resumeSound(self.musicHandle)
+    if self.state == "resume" then
+		if self.musicHandle then
+			log("musicPlayerCtrl:update.state.resume", self.musicHandle, self.musicPauseTime)
+			ccexp.AudioEngine:resume(self.musicHandle)
+			if self.musicPauseTime>=self.songPlayDelayTime then
+				ccexp.AudioEngine:setCurrentTime(self.musicHandle, self.musicPauseTime-self.songPlayDelayTime)
+			end
+		end
         self.state = ""
     end
 
@@ -114,17 +118,17 @@ function musicPlayerCtrl:update(ft)
 	if not self.musicRunRhythm[self.curStep] then
 		self.curStep = self.curStep + 1
 		self.clock = 0.0
-        log("not self.curStep", self.curStep)
+        log("musicPlayerCtrl not self.curStep", self.curStep)
 
 		if self.musicRunRhythm[self.curStep] then
 			local action_list = {}
 			self.errTime = ft
-			self.songPlayDelayTime = self.moveMiddleTime + 0.05
-            log("self.songPlayDelayTime", self.songPlayDelayTime)
+			self.songPlayDelayTime = self.moveMiddleTime - self.errTime
+            log("musicPlayerCtrl self.songPlayDelayTime", self.songPlayDelayTime)
 			action_list[#action_list + 1] = cc.DelayTime:create(self.songPlayDelayTime)
 			action_list[#action_list + 1] = cc.CallFunc:create(function ()
                     local musicres = "res/audio/song/" .. self.musicRes .. ".mp3"
-					log("play music", musicres)
+					log("musicPlayerCtrl play music", musicres)
                     self.musicHandle = ccexp.AudioEngine:play2d(musicres, false)
                     ccexp.AudioEngine:setVolume(self.musicHandle, 100)
 				end)
@@ -140,7 +144,6 @@ function musicPlayerCtrl:update(ft)
 		xx:setPosition(self.startPos)
 
         local offt = 1*(self.clock - self.musicRunRhythm[self.curStep])
-        offt = 0.0
 		local action_list = {}
 		action_list[#action_list + 1] = cc.MoveTo:create(self.moveTime - offt, self.endPos)
 		action_list[#action_list + 1] = cc.CallFunc:create(function () self:recyclexx(xx) end)
@@ -149,7 +152,7 @@ function musicPlayerCtrl:update(ft)
 		
 		--移动到中心位置，左右0.2秒
 		local action_clickLegal = {}
-		action_clickLegal[#action_clickLegal + 1] = cc.DelayTime:create(math.max(0, self.moveMiddleTime- 0.2 + self.validOffsetTime - offt/2))
+		action_clickLegal[#action_clickLegal + 1] = cc.DelayTime:create(math.max(0, self.moveMiddleTime - 0.2 + self.validOffsetTime - offt/2))
 		action_clickLegal[#action_clickLegal + 1] = cc.CallFunc:create(function ()
 			self.clickLegalSprs[#self.clickLegalSprs+1] = {xx=xx, index=curStep}
 		end)
@@ -246,16 +249,18 @@ function musicPlayerCtrl:setClickScore(val)
 end
 
 function musicPlayerCtrl:pause()
-    log("musicPlayerCtrl:pause", os.clock())
+    log("musicPlayerCtrl:pause", self.clock)
 	if self.playing then
-		ccexp.AudioEngine:pause(self.musicHandle or 0)
 		cocosMake.setGameSpeed(0)
-        self.state = "pause"
+		if self.musicHandle then
+			ccexp.AudioEngine:pause(self.musicHandle)
+			self.musicPauseTime = self.clock
+		end
 	end
 end
 
 function musicPlayerCtrl:resume()
-    log("musicPlayerCtrl:resume", os.clock())
+    log("musicPlayerCtrl:resume", self.clock)
 	if self.playing then
 		cocosMake.setGameSpeed(1)
         self.state = "resume"
@@ -268,7 +273,8 @@ function musicPlayerCtrl:stop()
 		self.containWidget:unscheduleUpdate()
 		cocosMake.setGameSpeed(1)
         ccexp.AudioEngine:stop(self.musicHandle or 0)
-		self.playing = false		
+		self.playing = false
+		self.musicHandle = nil
 	end
 end
 
