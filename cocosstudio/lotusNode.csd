@@ -6,6 +6,19 @@
       <ObjectData Name="Node" Tag="193" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
+          <AbstractNodeData Name="touchPanel" ActionTag="640697842" Tag="148" IconVisible="False" LeftMargin="-995.6029" RightMargin="-1004.3971" TopMargin="-995.7207" BottomMargin="-1004.2793" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+            <Size X="2000.0000" Y="2000.0000" />
+            <AnchorPoint />
+            <Position X="-995.6029" Y="-1004.2793" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
+            <SingleColor A="255" R="150" G="200" B="255" />
+            <FirstColor A="255" R="150" G="200" B="255" />
+            <EndColor A="255" R="255" G="255" B="255" />
+            <ColorVector ScaleY="1.0000" />
+          </AbstractNodeData>
           <AbstractNodeData Name="Image_1" ActionTag="83010487" Tag="194" IconVisible="False" LeftMargin="-329.0000" RightMargin="-329.0000" TopMargin="-447.5000" BottomMargin="-447.5000" LeftEage="217" RightEage="217" TopEage="295" BottomEage="295" Scale9OriginX="217" Scale9OriginY="295" Scale9Width="224" Scale9Height="305" ctype="ImageViewObjectData">
             <Size X="658.0000" Y="895.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
@@ -115,22 +128,7 @@
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
           </AbstractNodeData>
-          <AbstractNodeData Name="closeBtn" ActionTag="1457099321" Tag="205" IconVisible="False" LeftMargin="250.1376" RightMargin="-338.1376" TopMargin="-490.3012" BottomMargin="404.3012" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="58" Scale9Height="64" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
-            <Size X="88.0000" Y="86.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="294.1376" Y="447.3012" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition />
-            <PreSize X="0.0000" Y="0.0000" />
-            <TextColor A="255" R="65" G="65" B="70" />
-            <DisabledFileData Type="Normal" Path="off.png" Plist="" />
-            <PressedFileData Type="Normal" Path="off.png" Plist="" />
-            <NormalFileData Type="Normal" Path="off.png" Plist="" />
-            <OutlineColor A="255" R="255" G="0" B="0" />
-            <ShadowColor A="255" R="110" G="110" B="110" />
-          </AbstractNodeData>
-          <AbstractNodeData Name="lotus1Collision" ActionTag="928579771" Tag="14" IconVisible="False" LeftMargin="-226.7605" RightMargin="196.7605" TopMargin="296.0165" BottomMargin="-326.0165" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
+          <AbstractNodeData Name="lotus1Collision" ActionTag="928579771" Tag="14" IconVisible="False" LeftMargin="-226.7605" RightMargin="196.7605" TopMargin="296.0165" BottomMargin="-326.0165" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="30.0000" Y="30.0000" />
             <AnchorPoint />
             <Position X="-226.7605" Y="-326.0165" />
@@ -246,6 +244,16 @@
             <FirstColor A="255" R="150" G="200" B="255" />
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Image_2" ActionTag="-1323529821" Tag="152" IconVisible="False" LeftMargin="-276.2431" RightMargin="-277.7569" TopMargin="440.6222" BottomMargin="-496.6222" LeftEage="182" RightEage="182" TopEage="18" BottomEage="18" Scale9OriginX="182" Scale9OriginY="18" Scale9Width="190" Scale9Height="20" ctype="ImageViewObjectData">
+            <Size X="554.0000" Y="56.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="0.7569" Y="-468.6222" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="Normal" Path="signBoard/lotus/lhz.png" Plist="" />
           </AbstractNodeData>
         </Children>
       </ObjectData>

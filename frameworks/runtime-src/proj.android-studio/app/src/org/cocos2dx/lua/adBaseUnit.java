@@ -18,123 +18,59 @@ import static com.google.android.gms.internal.zzahg.runOnUiThread;
 public abstract  class adBaseUnit {
     protected static AppActivity appActivity;
 
-    protected int loadAdLuaCallback = 0;
-    protected int showAdLuaCallback = 0;
-    protected int hideAdLuaCallback = 0;
-    protected int stateAdLuaCallback = 0;
-    protected boolean showing = false;
     protected boolean loaded = false;
-    protected boolean requireShowIndex = false;
 
-    public boolean isShowing(){return showing;}
+    public boolean getLoaded(){return loaded;}
+    public void setLoaded(boolean b){loaded=b;}
 
-    public boolean isRequireShow(){return requireShowIndex;}
-
-    public boolean isLoaded(){return loaded;}
-
-    public void requireShow(boolean b){requireShowIndex = b;}
 
     public void luaLoadAd(final String param,final int luaFunc){
-        loadAdLuaCallback = luaFunc;
-
         runOnUiThread(new Runnable()
         {
 
             @Override
             public void run()
             {
-                if(!isLoaded())
+                if(!getLoaded())
                 {
                     requestLoadAd();
-                }
-                else
-                {
-                    callbackLuaLoadedAd("success", true);
                 }
             }
         });
     }
 
     public void luaShowAd(final String param,final int luaFunc){
-        showAdLuaCallback = luaFunc;
-        requireShowIndex = true;
         runOnUiThread(new Runnable()
         {
             @Override
             public void run()
             {
-                if (isLoaded())
+                if (!getLoaded())
                 {
-                    showADView();
-                    callbackLuaShowedAd("");
+                    requestLoadAd();
                 }
                 else
                 {
-                    requestLoadAd();
+                    showADView();
+                    setLoaded(false);
                 }
             }
         });
     }
 
     public void luaHideAd(final String param,final int luaFunc){
-        hideAdLuaCallback = luaFunc;
-        requireShowIndex = false;
+        if (!getLoaded())
+        {
+            requestLoadAd();
+        }
 
         hideADView();
-        callbackLuaHidedAd("");
     }
 
     public void luaStateAd(final String param,final int luaFunc){
-        stateAdLuaCallback = luaFunc;
+
     }
 
-    public void callbackLuaLoadedAd(final String res, boolean succ)
-    {
-        loaded = succ;
-
-        if(loadAdLuaCallback != 0)
-        {
-            Cocos2dxLuaJavaBridge.callLuaFunctionWithString(loadAdLuaCallback, res);
-            Cocos2dxLuaJavaBridge.releaseLuaFunction(loadAdLuaCallback);
-
-            loadAdLuaCallback = 0;
-        }
-    }
-    public void callbackLuaShowedAd(final String res)
-    {
-        showing = true;
-
-        if(showAdLuaCallback != 0)
-        {
-            Cocos2dxLuaJavaBridge.callLuaFunctionWithString(showAdLuaCallback, res);
-            Cocos2dxLuaJavaBridge.releaseLuaFunction(showAdLuaCallback);
-
-            showAdLuaCallback = 0;
-        }
-    }
-    public void callbackLuaHidedAd(final String res)
-    {
-        showing = false;
-        loaded = false;
-
-        if(hideAdLuaCallback != 0)
-        {
-            Cocos2dxLuaJavaBridge.callLuaFunctionWithString(hideAdLuaCallback, res);
-            Cocos2dxLuaJavaBridge.releaseLuaFunction(hideAdLuaCallback);
-
-            hideAdLuaCallback = 0;
-        }
-    }
-    public void callbackLuaStateAd(final String res)
-    {
-        if(stateAdLuaCallback != 0)
-        {
-            Cocos2dxLuaJavaBridge.callLuaFunctionWithString(stateAdLuaCallback, res);
-            Cocos2dxLuaJavaBridge.releaseLuaFunction(stateAdLuaCallback);
-
-            stateAdLuaCallback = 0;
-        }
-    }
 
     public abstract void showADView();
     public abstract void hideADView();

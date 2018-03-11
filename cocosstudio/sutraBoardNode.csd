@@ -9,14 +9,14 @@
           <AbstractNodeData Name="sutraBoard" ActionTag="-1293335051" Tag="93" IconVisible="False" LeftMargin="-366.7444" RightMargin="-360.2556" TopMargin="-355.0815" BottomMargin="-352.9185" LeftEage="205" RightEage="205" TopEage="138" BottomEage="138" Scale9OriginX="205" Scale9OriginY="138" Scale9Width="317" Scale9Height="432" ctype="ImageViewObjectData">
             <Size X="727.0000" Y="708.0000" />
             <Children>
-              <AbstractNodeData Name="Text_1" ActionTag="216329575" Tag="94" IconVisible="False" LeftMargin="296.5092" RightMargin="430.4908" TopMargin="287.4382" BottomMargin="420.5618" FontSize="26" LabelText="" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                <Size X="0.0000" Y="0.0000" />
+              <AbstractNodeData Name="Text_1" ActionTag="216329575" Tag="94" IconVisible="False" LeftMargin="35.4076" RightMargin="421.5924" TopMargin="269.1600" BottomMargin="371.8400" IsCustomSize="True" FontSize="30" LabelText="" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="270.0000" Y="67.0000" />
                 <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-                <Position X="296.5092" Y="420.5618" />
+                <Position X="305.4076" Y="405.3400" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="0" G="0" B="0" />
-                <PrePosition X="0.4079" Y="0.5940" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PrePosition X="0.4201" Y="0.5725" />
+                <PreSize X="0.3714" Y="0.0946" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
@@ -34,14 +34,14 @@
                 <NodeNormalFileData Type="Normal" Path="selectSutra/j_on.png" Plist="" />
                 <NodeDisableFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_2" ActionTag="-1444098972" Tag="96" IconVisible="False" LeftMargin="296.5092" RightMargin="430.4908" TopMargin="359.7842" BottomMargin="348.2158" FontSize="26" LabelText="" HorizontalAlignmentType="HT_Right" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                <Size X="0.0000" Y="0.0000" />
+              <AbstractNodeData Name="Text_2" ActionTag="-1444098972" Tag="96" IconVisible="False" LeftMargin="41.4078" RightMargin="421.5922" TopMargin="343.2836" BottomMargin="297.7164" IsCustomSize="True" FontSize="30" LabelText="" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="264.0000" Y="67.0000" />
                 <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-                <Position X="296.5092" Y="348.2158" />
+                <Position X="305.4078" Y="331.2164" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="0" G="0" B="0" />
-                <PrePosition X="0.4079" Y="0.4918" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PrePosition X="0.4201" Y="0.4678" />
+                <PreSize X="0.3631" Y="0.0946" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
@@ -59,14 +59,14 @@
                 <NodeNormalFileData Type="Normal" Path="selectSutra/j_on.png" Plist="" />
                 <NodeDisableFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_8" ActionTag="2126827146" Tag="98" IconVisible="False" LeftMargin="635.3156" RightMargin="91.6844" TopMargin="429.9394" BottomMargin="278.0606" FontSize="26" LabelText="" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                <Size X="0.0000" Y="0.0000" />
+              <AbstractNodeData Name="Text_8" ActionTag="2126827146" Tag="98" IconVisible="False" LeftMargin="374.3157" RightMargin="82.6843" TopMargin="411.6287" BottomMargin="229.3713" IsCustomSize="True" FontSize="30" LabelText="" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="270.0000" Y="67.0000" />
                 <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-                <Position X="635.3156" Y="278.0606" />
+                <Position X="644.3157" Y="262.8713" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="0" G="0" B="0" />
-                <PrePosition X="0.8739" Y="0.3927" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PrePosition X="0.8863" Y="0.3713" />
+                <PreSize X="0.3714" Y="0.0946" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
@@ -84,14 +84,14 @@
                 <NodeNormalFileData Type="Normal" Path="selectSutra/j_on.png" Plist="" />
                 <NodeDisableFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_3" ActionTag="-2127267057" Tag="100" IconVisible="False" LeftMargin="296.5092" RightMargin="430.4908" TopMargin="429.1292" BottomMargin="278.8708" FontSize="26" LabelText="" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                <Size X="0.0000" Y="0.0000" />
+              <AbstractNodeData Name="Text_3" ActionTag="-2127267057" Tag="100" IconVisible="False" LeftMargin="45.4075" RightMargin="421.5925" TopMargin="411.6287" BottomMargin="229.3713" IsCustomSize="True" FontSize="30" LabelText="" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="260.0000" Y="67.0000" />
                 <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-                <Position X="296.5092" Y="278.8708" />
+                <Position X="305.4075" Y="262.8713" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="0" G="0" B="0" />
-                <PrePosition X="0.4079" Y="0.3939" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PrePosition X="0.4201" Y="0.3713" />
+                <PreSize X="0.3576" Y="0.0946" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
@@ -109,14 +109,14 @@
                 <NodeNormalFileData Type="Normal" Path="selectSutra/j_on.png" Plist="" />
                 <NodeDisableFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_4" ActionTag="-366195502" Tag="102" IconVisible="False" LeftMargin="296.5092" RightMargin="430.4908" TopMargin="500.4751" BottomMargin="207.5249" FontSize="26" LabelText="" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                <Size X="0.0000" Y="0.0000" />
+              <AbstractNodeData Name="Text_4" ActionTag="-366195502" Tag="102" IconVisible="False" LeftMargin="45.4075" RightMargin="421.5925" TopMargin="480.9752" BottomMargin="160.0248" IsCustomSize="True" FontSize="30" LabelText="" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="260.0000" Y="67.0000" />
                 <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-                <Position X="296.5092" Y="207.5249" />
+                <Position X="305.4075" Y="193.5248" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="0" G="0" B="0" />
-                <PrePosition X="0.4079" Y="0.2931" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PrePosition X="0.4201" Y="0.2733" />
+                <PreSize X="0.3576" Y="0.0946" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
@@ -134,14 +134,14 @@
                 <NodeNormalFileData Type="Normal" Path="selectSutra/j_on.png" Plist="" />
                 <NodeDisableFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_5" ActionTag="-1599538718" Tag="104" IconVisible="False" LeftMargin="296.5092" RightMargin="430.4908" TopMargin="574.8221" BottomMargin="133.1779" FontSize="26" LabelText="" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                <Size X="0.0000" Y="0.0000" />
+              <AbstractNodeData Name="Text_5" ActionTag="-1599538718" Tag="104" IconVisible="False" LeftMargin="48.4074" RightMargin="421.5926" TopMargin="559.4900" BottomMargin="81.5100" IsCustomSize="True" FontSize="30" LabelText="" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="257.0000" Y="67.0000" />
                 <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-                <Position X="296.5092" Y="133.1779" />
+                <Position X="305.4074" Y="115.0100" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="0" G="0" B="0" />
-                <PrePosition X="0.4079" Y="0.1881" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PrePosition X="0.4201" Y="0.1624" />
+                <PreSize X="0.3535" Y="0.0946" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
@@ -159,14 +159,14 @@
                 <NodeNormalFileData Type="Normal" Path="selectSutra/j_on.png" Plist="" />
                 <NodeDisableFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_6" ActionTag="2011091192" Tag="106" IconVisible="False" LeftMargin="635.3157" RightMargin="91.6843" TopMargin="287.4382" BottomMargin="420.5618" FontSize="26" LabelText="" HorizontalAlignmentType="HT_Right" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                <Size X="0.0000" Y="0.0000" />
+              <AbstractNodeData Name="Text_6" ActionTag="2011091192" Tag="106" IconVisible="False" LeftMargin="374.3159" RightMargin="82.6841" TopMargin="269.1600" BottomMargin="371.8400" IsCustomSize="True" FontSize="30" LabelText="" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="270.0000" Y="67.0000" />
                 <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-                <Position X="635.3157" Y="420.5618" />
+                <Position X="644.3159" Y="405.3400" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="0" G="0" B="0" />
-                <PrePosition X="0.8739" Y="0.5940" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PrePosition X="0.8863" Y="0.5725" />
+                <PreSize X="0.3714" Y="0.0946" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
@@ -184,14 +184,14 @@
                 <NodeNormalFileData Type="Normal" Path="selectSutra/j_on.png" Plist="" />
                 <NodeDisableFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_7" ActionTag="588163241" Tag="108" IconVisible="False" LeftMargin="635.3153" RightMargin="91.6847" TopMargin="361.5943" BottomMargin="346.4057" FontSize="26" LabelText="" HorizontalAlignmentType="HT_Right" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                <Size X="0.0000" Y="0.0000" />
+              <AbstractNodeData Name="Text_7" ActionTag="588163241" Tag="108" IconVisible="False" LeftMargin="374.3158" RightMargin="82.6842" TopMargin="343.2838" BottomMargin="297.7162" IsCustomSize="True" FontSize="30" LabelText="" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="270.0000" Y="67.0000" />
                 <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-                <Position X="635.3153" Y="346.4057" />
+                <Position X="644.3158" Y="331.2162" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="0" G="0" B="0" />
-                <PrePosition X="0.8739" Y="0.4893" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PrePosition X="0.8863" Y="0.4678" />
+                <PreSize X="0.3714" Y="0.0946" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
@@ -209,14 +209,14 @@
                 <NodeNormalFileData Type="Normal" Path="selectSutra/j_on.png" Plist="" />
                 <NodeDisableFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_9" ActionTag="-877635195" Tag="110" IconVisible="False" LeftMargin="635.3154" RightMargin="91.6846" TopMargin="501.2578" BottomMargin="206.7422" FontSize="26" LabelText="" HorizontalAlignmentType="HT_Right" VerticalAlignmentType="VT_Bottom" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                <Size X="0.0000" Y="0.0000" />
+              <AbstractNodeData Name="Text_9" ActionTag="-877635195" Tag="110" IconVisible="False" LeftMargin="374.3157" RightMargin="82.6843" TopMargin="480.9752" BottomMargin="160.0248" IsCustomSize="True" FontSize="30" LabelText="" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="270.0000" Y="67.0000" />
                 <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-                <Position X="635.3154" Y="206.7422" />
+                <Position X="644.3157" Y="193.5248" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="0" G="0" B="0" />
-                <PrePosition X="0.8739" Y="0.2920" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PrePosition X="0.8863" Y="0.2733" />
+                <PreSize X="0.3714" Y="0.0946" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
@@ -234,14 +234,14 @@
                 <NodeNormalFileData Type="Normal" Path="selectSutra/j_on.png" Plist="" />
                 <NodeDisableFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Text_10" ActionTag="1723521966" Tag="136" IconVisible="False" LeftMargin="635.3154" RightMargin="91.6846" TopMargin="574.8222" BottomMargin="133.1778" FontSize="26" LabelText="" HorizontalAlignmentType="HT_Right" VerticalAlignmentType="VT_Bottom" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                <Size X="0.0000" Y="0.0000" />
+              <AbstractNodeData Name="Text_10" ActionTag="1723521966" Tag="136" IconVisible="False" LeftMargin="374.3157" RightMargin="82.6843" TopMargin="559.4900" BottomMargin="81.5100" IsCustomSize="True" FontSize="30" LabelText="" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="270.0000" Y="67.0000" />
                 <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-                <Position X="635.3154" Y="133.1778" />
+                <Position X="644.3157" Y="115.0100" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="0" G="0" B="0" />
-                <PrePosition X="0.8739" Y="0.1881" />
-                <PreSize X="0.0000" Y="0.0000" />
+                <PrePosition X="0.8863" Y="0.1624" />
+                <PreSize X="0.3714" Y="0.0946" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
@@ -283,10 +283,10 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="preBtn" ActionTag="-125985129" Tag="68" IconVisible="False" LeftMargin="-285.3221" RightMargin="176.3221" TopMargin="260.3400" BottomMargin="-309.3400" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="79" Scale9Height="27" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+          <AbstractNodeData Name="preBtn" ActionTag="-125985129" Tag="68" IconVisible="False" LeftMargin="-285.3213" RightMargin="176.3213" TopMargin="278.3400" BottomMargin="-327.3400" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="79" Scale9Height="27" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
             <Size X="109.0000" Y="49.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="-230.8221" Y="-284.8400" />
+            <Position X="-230.8213" Y="-302.8400" />
             <Scale ScaleX="1.2000" ScaleY="1.2000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
@@ -298,10 +298,10 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="nextBtn" ActionTag="-365668031" Tag="69" IconVisible="False" LeftMargin="-132.3422" RightMargin="23.3422" TopMargin="260.3400" BottomMargin="-309.3400" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="79" Scale9Height="27" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+          <AbstractNodeData Name="nextBtn" ActionTag="-365668031" Tag="69" IconVisible="False" LeftMargin="-132.3422" RightMargin="23.3422" TopMargin="278.3400" BottomMargin="-327.3400" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="79" Scale9Height="27" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
             <Size X="109.0000" Y="49.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="-77.8422" Y="-284.8400" />
+            <Position X="-77.8422" Y="-302.8400" />
             <Scale ScaleX="1.2000" ScaleY="1.2000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
@@ -313,10 +313,10 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="sureBtn" ActionTag="-1795423660" Tag="70" IconVisible="False" LeftMargin="142.0416" RightMargin="-251.0416" TopMargin="260.3400" BottomMargin="-309.3400" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="79" Scale9Height="27" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+          <AbstractNodeData Name="sureBtn" ActionTag="-1795423660" Tag="70" IconVisible="False" LeftMargin="142.0416" RightMargin="-251.0416" TopMargin="278.3400" BottomMargin="-327.3400" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="79" Scale9Height="27" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
             <Size X="109.0000" Y="49.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="196.5416" Y="-284.8400" />
+            <Position X="196.5416" Y="-302.8400" />
             <Scale ScaleX="1.2000" ScaleY="1.2000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />

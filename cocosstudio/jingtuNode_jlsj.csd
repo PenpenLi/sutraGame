@@ -16,7 +16,7 @@
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="signBoard/jingtu/jlsj/jlsj_gray.png" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="blockPanel" ActionTag="-755828540" Tag="5" IconVisible="False" LeftMargin="-299.0000" RightMargin="-289.0000" TopMargin="-156.0000" BottomMargin="-128.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
+          <AbstractNodeData Name="blockPanel" ActionTag="-755828540" Tag="5" IconVisible="False" LeftMargin="-299.0000" RightMargin="-289.0000" TopMargin="-156.0000" BottomMargin="-128.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="588.0000" Y="284.0000" />
             <Children>
               <AbstractNodeData Name="block1" ActionTag="-413978245" VisibleForFrame="False" Tag="4" IconVisible="False" LeftMargin="1.0000" RightMargin="488.0000" TopMargin="2.0000" BottomMargin="141.0000" LeftEage="32" RightEage="32" TopEage="46" BottomEage="46" Scale9OriginX="32" Scale9OriginY="46" Scale9Width="35" Scale9Height="49" ctype="ImageViewObjectData">
@@ -150,6 +150,29 @@
             <FirstColor A="255" R="150" G="200" B="255" />
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="touchPanel" ActionTag="-1778547668" Tag="126" IconVisible="False" LeftMargin="-858.2117" RightMargin="658.2117" TopMargin="484.5459" BottomMargin="-684.5459" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+            <Size X="200.0000" Y="200.0000" />
+            <AnchorPoint />
+            <Position X="-858.2117" Y="-684.5459" />
+            <Scale ScaleX="8.2608" ScaleY="7.2163" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
+            <SingleColor A="255" R="150" G="200" B="255" />
+            <FirstColor A="255" R="150" G="200" B="255" />
+            <EndColor A="255" R="255" G="255" B="255" />
+            <ColorVector ScaleY="1.0000" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Image_2" ActionTag="1536616876" Tag="153" IconVisible="False" LeftMargin="-277.1162" RightMargin="-277.8838" TopMargin="253.7429" BottomMargin="-310.7429" LeftEage="183" RightEage="183" TopEage="18" BottomEage="18" Scale9OriginX="183" Scale9OriginY="18" Scale9Width="189" Scale9Height="21" ctype="ImageViewObjectData">
+            <Size X="555.0000" Y="57.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="0.3838" Y="-282.2429" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="Normal" Path="signBoard/jingtu/jtz.png" Plist="" />
           </AbstractNodeData>
         </Children>
       </ObjectData>

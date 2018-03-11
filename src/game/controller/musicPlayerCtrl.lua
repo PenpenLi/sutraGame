@@ -8,46 +8,59 @@ end
 
 function musicPlayerCtrl:Init( ... )
 	self.super.Init(self)
-	self.xxSprites = {}
+	self.xxSprites = {show={}, unshow={}}
 	self.clickScore = {}
 	self.clickLegalSprs = {}
 	self.fojuScore = 0
+	self.clickValidEventCount = 0
 	self.clickValidCallback = nil
 	self.songSuccessIndex = false
+	self.songPlayDelayTime = 0
 	self.validOffsetTime = -0.10--敲击有效时间偏移
+	self.validAdjustTime = 0.1--敲击容差时间
 end
 
 function musicPlayerCtrl:recyclexx(xx)
-	self.xxSprites[#self.xxSprites+1] = xx
+	self.xxSprites.unshow[#self.xxSprites.unshow+1] = xx
 	if xx.moveLineAction then
 		xx:stopAction(xx.moveLineAction)
 		xx.moveLineAction = nil
 	end
-	xx:setTexture("res/homeUI/xingguang.png")
+	xx:setTexture("res/homeUI/muyu.png")
 	xx:setVisible(false)
+	
+	for i=1, #self.xxSprites.show do
+		if self.xxSprites.show[i] == xx then
+			table.remove(self.xxSprites.show, i)
+			break
+		end
+	end
 end
 
 function musicPlayerCtrl:createxx()
-	local xx = cocosMake.newSprite("res/homeUI/xingguang.png")
-	xx:runAction(cc.RepeatForever:create(cc.RotateBy:create(1.0, 360)))
+	local xx = cocosMake.newSprite("res/homeUI/muyu.png")
 	return xx
 end
 
 function musicPlayerCtrl:getxx()
-	if #self.xxSprites == 0 then
+	if #self.xxSprites.unshow == 0 then
 		local xx = self:createxx()
 		self.containWidget:addChild(xx)
-		self.xxSprites[#self.xxSprites+1] = xx
+		self.xxSprites.unshow[#self.xxSprites.unshow+1] = xx
 	end
-	local spr = self.xxSprites[#self.xxSprites]
-	self.xxSprites[#self.xxSprites] = nil
+	local spr = self.xxSprites.unshow[#self.xxSprites.unshow]
+	self.xxSprites.unshow[#self.xxSprites.unshow] = nil
+	self.xxSprites.show[#self.xxSprites.show+1] = spr
 	return spr
 end
 function musicPlayerCtrl:clearxx()
 	for k,v in pairs(self.xxSprites) do
-		v:removeFromParent()
+		for kk,vv in pairs(v) do
+			vv:removeFromParent()
+		end
 	end
-	self.xxSprites = {}
+	
+	self.xxSprites = {show={}, unshow={}}
 end
 
 
@@ -99,7 +112,7 @@ function musicPlayerCtrl:update(ft)
 			log("musicPlayerCtrl:update.state.resume", self.musicHandle, self.musicPauseTime)
 			ccexp.AudioEngine:resume(self.musicHandle)
 			if self.musicPauseTime>=self.songPlayDelayTime then
-				ccexp.AudioEngine:setCurrentTime(self.musicHandle, self.musicPauseTime-self.songPlayDelayTime)
+				ccexp.AudioEngine:setCurrentTime(self.musicHandle, self.musicPauseTime-self.songPlayDelayTime-ft)
 			end
 		end
         self.state = ""
@@ -150,13 +163,13 @@ function musicPlayerCtrl:update(ft)
 		local moveLineAction = xx:runAction(cc.Sequence:create(unpack(action_list)))
 		xx.moveLineAction = moveLineAction
 		
-		--移动到中心位置，左右0.2秒
+		--移动到中心位置，左右self.validAdjustTime秒
 		local action_clickLegal = {}
-		action_clickLegal[#action_clickLegal + 1] = cc.DelayTime:create(math.max(0, self.moveMiddleTime - 0.2 + self.validOffsetTime - offt/2))
+		action_clickLegal[#action_clickLegal + 1] = cc.DelayTime:create(math.max(0, self.moveMiddleTime - self.validAdjustTime + self.validOffsetTime - offt/2))
 		action_clickLegal[#action_clickLegal + 1] = cc.CallFunc:create(function ()
 			self.clickLegalSprs[#self.clickLegalSprs+1] = {xx=xx, index=curStep}
 		end)
-		action_clickLegal[#action_clickLegal + 1] = cc.DelayTime:create(0.2*2)
+		action_clickLegal[#action_clickLegal + 1] = cc.DelayTime:create(self.validAdjustTime*2)
 		action_clickLegal[#action_clickLegal + 1] = cc.CallFunc:create(function ()
 			for lk,lv in pairs(self.clickLegalSprs) do
 				if lv.xx == xx then
@@ -165,7 +178,6 @@ function musicPlayerCtrl:update(ft)
 				end
 			end
 			self:setClickScore(-1)
-			xx:setTexture("res/homeUI/xingguang2.png")
 		end)
 		local clickLegalAction = xx:runAction(cc.Sequence:create(unpack(action_clickLegal)))
 		xx.clickLegalAction = clickLegalAction
@@ -187,8 +199,39 @@ function musicPlayerCtrl:run()
 		self:update(os.clock() - self.beginClock)
 	end, 0.0)
 	--]]
+	AdManager:hideAd()
+	
 	self.clock = 0.0
+	self.containWidget:setVisible(true)
 	self.containWidget:onUpdate(handler(self, self.update))
+	
+	
+	
+	if not self.yuepuPos1 then self.yuepuPos1 = cc.p(self.containWidget.yuepu1:getPosition()) end
+	if not self.yuepuPos2 then self.yuepuPos2 = cc.p(self.containWidget.yuepu2:getPosition()) end
+
+	self.containWidget.yuepu1:setPosition(self.yuepuPos1)
+	self.containWidget.yuepu2:setPosition(self.yuepuPos2)
+	
+	
+	local function yuepuMoveRepeat(yuepu)
+		local action_list = {}
+		action_list[#action_list + 1] = cc.MoveBy:create(self.moveTime*2, cc.p(-stage_width*2, 0))
+		action_list[#action_list + 1] = cc.CallFunc:create(function() 
+				yuepu:setPosition(self.yuepuPos2)
+		end)
+		local action = cc.RepeatForever:create(cc.Sequence:create(unpack(action_list)))
+		yuepu:runAction(action)
+	end
+	
+	local action_list1 = {}
+	action_list1[#action_list1 + 1] = cc.MoveBy:create(self.moveTime, cc.p(-stage_width, 0))
+	action_list1[#action_list1 + 1] = cc.CallFunc:create(function() 
+			self.containWidget.yuepu1:setPosition(self.yuepuPos2)
+			yuepuMoveRepeat(self.containWidget.yuepu1) end)
+	self.containWidget.yuepu1:runAction(cc.Sequence:create(unpack(action_list1)))
+	
+	yuepuMoveRepeat(self.containWidget.yuepu2)
 end
 
 function musicPlayerCtrl:clickEvent()
@@ -205,6 +248,7 @@ function musicPlayerCtrl:clickEvent()
 			self:recyclexx(xx)
 		end)
 		xx:runAction(cc.Sequence:create(unpack(action_list)))
+		xx:setTexture("res/homeUI/xingguang.png")
 		
 		local idx = self.clickLegalSprs[1].index
 		table.remove(self.clickLegalSprs, 1)
@@ -214,6 +258,9 @@ function musicPlayerCtrl:clickEvent()
 			self.clickValidCallback()
 		end
 		return idx
+		
+	else
+		ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.clickWoodenFishError, false), 70)
 	end
 	return 0
 end
@@ -235,17 +282,18 @@ function musicPlayerCtrl:setClickScore(val)
 				break
 			end
 		end
-		if not failed then
+		if not failed6 then
 			self.fojuScore = self.fojuScore + 1
-		end
-		if self.fojuScore == 100 then
-			GameController:dispatchEvent({name = GlobalEvent.CLICK_WOODENFINISH_SUCCESS, data={}})
-			self.songSuccessIndex = true
 		end
 		self.clickScoreIndex = 1
 		logc("playMusicOver_calcFoju, fohaoScore:", self.fojuScore)
 	end
 	
+	if val == 1 then self.clickValidEventCount = self.clickValidEventCount + 1 end
+	if self.clickValidEventCount == 100 then
+		GameController:dispatchEvent({name = GlobalEvent.CLICK_WOODENFINISH_SUCCESS, data={}})
+		self.songSuccessIndex = true
+	end
 end
 
 function musicPlayerCtrl:pause()
@@ -256,6 +304,7 @@ function musicPlayerCtrl:pause()
 			ccexp.AudioEngine:pause(self.musicHandle)
 			self.musicPauseTime = self.clock
 		end
+		self.state = "pause"
 	end
 end
 
@@ -267,10 +316,18 @@ function musicPlayerCtrl:resume()
 	end
 end
 
+function musicPlayerCtrl:getState()
+	return self.state
+end
 
 function musicPlayerCtrl:stop()
 	if self.playing then
 		self.containWidget:unscheduleUpdate()
+		self.containWidget:setVisible(false)
+		
+		self.containWidget.yuepu1:stopAllActions()
+		self.containWidget.yuepu2:stopAllActions()
+	
 		cocosMake.setGameSpeed(1)
         ccexp.AudioEngine:stop(self.musicHandle or 0)
 		self.playing = false
@@ -283,7 +340,7 @@ function musicPlayerCtrl:clear()
 	self:clearxx()
 	self.clickValidCallback = nil
 	self.fojuScore = 0
-	self.containWidget:removeAllChildren()
+	self.clickValidEventCount = 0
 	
 	
 	self.musicId = 0

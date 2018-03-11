@@ -59,6 +59,7 @@
           <Image Name="one.png" />
           <Image Name="pause.png" />
           <Image Name="rw_01.png" />
+          <Image Name="tuichu.png" />
           <Image Name="UI_BG.png" />
           <Image Name="UI_D00.png" />
           <Image Name="UI_D01.png" />
@@ -67,8 +68,11 @@
           <Image Name="UI_x01.png" />
           <Image Name="UI_x02.png" />
           <Image Name="UI_x03.png" />
+          <Image Name="xingguang1.png" />
+          <Image Name="xingguang2.png" />
           <Image Name="y01.png" />
           <Image Name="y02.png" />
+          <Image Name="yuepu.png" />
           <Image Name="zi.png" />
         </Folder>
         <Folder Name="selectSutra">
@@ -128,6 +132,7 @@
               <Image Name="llsj_12.png" />
               <Image Name="llsj_gray.png" />
             </Folder>
+            <Image Name="jtz.png" />
           </Folder>
           <Folder Name="lotus">
             <Image Name="lh_01.png" />
@@ -140,6 +145,7 @@
             <Image Name="lh_08.png" />
             <Image Name="lh_09.png" />
             <Image Name="lh_bg.png" />
+            <Image Name="lhz.png" />
           </Folder>
           <Folder Name="rank">
             <Image Name="phb_bg.png" />
@@ -186,6 +192,7 @@
           <Image Name="s_x01.png" />
           <Image Name="s_x02.png" />
           <Image Name="s_x03.png" />
+          <Image Name="sb_02.png" />
         </Folder>
         <Folder Name="woodenFish">
           <Image Name="m_01.png" />

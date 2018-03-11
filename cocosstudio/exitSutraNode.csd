@@ -63,16 +63,15 @@
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="signBoard/T_BG.png" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Text_1" ActionTag="-855676278" Tag="35" IconVisible="False" LeftMargin="-155.0000" RightMargin="-125.0000" TopMargin="-33.0000" BottomMargin="-7.0000" FontSize="40" LabelText="是否退出诵经？" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-            <Size X="280.0000" Y="40.0000" />
+          <AbstractNodeData Name="Image_1" ActionTag="-777449729" Tag="123" IconVisible="False" LeftMargin="-131.0701" RightMargin="-132.9299" TopMargin="-31.5000" BottomMargin="-31.5000" LeftEage="87" RightEage="87" TopEage="20" BottomEage="20" Scale9OriginX="87" Scale9OriginY="20" Scale9Width="90" Scale9Height="23" ctype="ImageViewObjectData">
+            <Size X="264.0000" Y="63.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="-15.0000" Y="13.0000" />
+            <Position X="0.9299" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="0" G="0" B="0" />
+            <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
-            <OutlineColor A="255" R="255" G="0" B="0" />
-            <ShadowColor A="255" R="110" G="110" B="110" />
+            <FileData Type="Normal" Path="homeUI/tuichu.png" Plist="" />
           </AbstractNodeData>
         </Children>
       </ObjectData>

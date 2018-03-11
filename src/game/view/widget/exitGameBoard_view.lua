@@ -16,7 +16,7 @@ exitGameBoardView.ui_binding_file = {
 function exitGameBoardView:onCreate(param)
 	
 	local tiplist = {}
-	if UserData.todayCanSong then
+	if UserData:getTodayCanSong() then
 		tiplist[#tiplist+1] = cocosMake.newSprite("signBoard/T_02.png")
 	end
 	if UserData.todayCanIncense then

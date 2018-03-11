@@ -6,10 +6,10 @@
       <ObjectData Name="Node" Tag="89" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="touchPanel" ActionTag="-1867111035" Tag="142" IconVisible="False" LeftMargin="-1501.8113" RightMargin="-1498.1887" TopMargin="-1500.0000" BottomMargin="-1500.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+          <AbstractNodeData Name="touchPanel" ActionTag="-1867111035" Tag="142" IconVisible="False" LeftMargin="2031.6450" RightMargin="-5031.6450" TopMargin="815.3691" BottomMargin="-3815.3691" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="3000.0000" Y="3000.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="-1.8113" />
+            <Position X="3531.6450" Y="-2315.3691" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
@@ -19,7 +19,7 @@
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
           </AbstractNodeData>
-          <AbstractNodeData Name="signBoard" ActionTag="1320521375" Tag="99" IconVisible="False" LeftMargin="-380.0000" RightMargin="-380.0000" TopMargin="-368.5000" BottomMargin="-368.5000" LeftEage="203" RightEage="203" TopEage="243" BottomEage="243" Scale9OriginX="203" Scale9OriginY="243" Scale9Width="354" Scale9Height="251" ctype="ImageViewObjectData">
+          <AbstractNodeData Name="signBoard" ActionTag="1320521375" Tag="99" IconVisible="False" LeftMargin="-379.9995" RightMargin="-380.0005" TopMargin="-424.2822" BottomMargin="-312.7178" LeftEage="203" RightEage="203" TopEage="243" BottomEage="243" Scale9OriginX="203" Scale9OriginY="243" Scale9Width="354" Scale9Height="251" ctype="ImageViewObjectData">
             <Size X="760.0000" Y="737.0000" />
             <Children>
               <AbstractNodeData Name="day11" ActionTag="250363230" VisibleForFrame="False" Tag="100" IconVisible="False" LeftMargin="104.1776" RightMargin="587.8224" TopMargin="86.3582" BottomMargin="575.6418" CharWidth="34" CharHeight="75" LabelText="99" StartChar="0" ctype="TextAtlasObjectData">
@@ -372,13 +372,13 @@
                 <PreSize X="0.0895" Y="0.1018" />
                 <LabelAtlasFileImage_CNB Type="Normal" Path="signBoard/q_zi.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="jingtuBtn" ActionTag="-1492801796" Tag="113" IconVisible="False" LeftMargin="116.9767" RightMargin="500.0233" TopMargin="528.2848" BottomMargin="68.7152" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="113" Scale9Height="118" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="jingtuBtn" ActionTag="-1492801796" Tag="113" IconVisible="False" LeftMargin="134.4099" RightMargin="482.5901" TopMargin="543.5393" BottomMargin="53.4607" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="113" Scale9Height="118" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="143.0000" Y="140.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="188.4767" Y="138.7152" />
-                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <Position X="205.9099" Y="123.4607" />
+                <Scale ScaleX="0.8000" ScaleY="0.8000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.2480" Y="0.1882" />
+                <PrePosition X="0.2709" Y="0.1675" />
                 <PreSize X="0.1882" Y="0.1900" />
                 <TextColor A="255" R="65" G="65" B="70" />
                 <DisabledFileData Type="Normal" Path="signBoard/q_01.png" Plist="" />
@@ -387,13 +387,13 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="rankBtn" ActionTag="148569247" Tag="114" IconVisible="False" LeftMargin="317.4895" RightMargin="333.5105" TopMargin="525.6599" BottomMargin="69.3401" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="79" Scale9Height="120" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="rankBtn" ActionTag="148569247" Tag="114" IconVisible="False" LeftMargin="323.2996" RightMargin="327.7004" TopMargin="541.6412" BottomMargin="53.3588" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="79" Scale9Height="120" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="109.0000" Y="142.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="371.9895" Y="140.3401" />
-                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <Position X="377.7996" Y="124.3588" />
+                <Scale ScaleX="0.8000" ScaleY="0.8000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.4895" Y="0.1904" />
+                <PrePosition X="0.4971" Y="0.1687" />
                 <PreSize X="0.1434" Y="0.1927" />
                 <TextColor A="255" R="65" G="65" B="70" />
                 <DisabledFileData Type="Normal" Path="signBoard/q_02.png" Plist="" />
@@ -402,13 +402,13 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="lotusBtn" ActionTag="-143447148" Tag="115" IconVisible="False" LeftMargin="490.2003" RightMargin="115.7997" TopMargin="540.2838" BottomMargin="64.7162" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="124" Scale9Height="110" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="lotusBtn" ActionTag="-143447148" Tag="115" IconVisible="False" LeftMargin="505.4540" RightMargin="100.5460" TopMargin="552.6328" BottomMargin="52.3672" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="124" Scale9Height="110" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="154.0000" Y="132.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="567.2003" Y="130.7162" />
-                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <Position X="582.4540" Y="118.3672" />
+                <Scale ScaleX="0.8000" ScaleY="0.8000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.7463" Y="0.1774" />
+                <PrePosition X="0.7664" Y="0.1606" />
                 <PreSize X="0.2026" Y="0.1791" />
                 <TextColor A="255" R="65" G="65" B="70" />
                 <DisabledFileData Type="Normal" Path="signBoard/q_03.png" Plist="" />
@@ -419,17 +419,28 @@
               </AbstractNodeData>
             </Children>
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position />
+            <Position X="0.0005" Y="55.7822" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="signBoard/q_bg.png" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="closeBtn" ActionTag="1688473213" Tag="66" IconVisible="False" LeftMargin="270.7039" RightMargin="-358.7039" TopMargin="-411.8947" BottomMargin="325.8947" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="58" Scale9Height="64" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+          <AbstractNodeData Name="fohaoMonthNum" ActionTag="2082666714" Tag="112" IconVisible="False" LeftMargin="95.1755" RightMargin="-164.1755" TopMargin="78.8466" BottomMargin="-124.8466" FontSize="46" LabelText="000" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+            <Size X="69.0000" Y="46.0000" />
+            <AnchorPoint ScaleY="0.5000" />
+            <Position X="95.1755" Y="-101.8466" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="236" G="195" B="6" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="closeBtn" ActionTag="1688473213" Tag="66" IconVisible="False" LeftMargin="274.1292" RightMargin="-362.1292" TopMargin="-425.6969" BottomMargin="339.6969" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="58" Scale9Height="64" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
             <Size X="88.0000" Y="86.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="314.7039" Y="368.8947" />
+            <Position X="318.1292" Y="382.6969" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />

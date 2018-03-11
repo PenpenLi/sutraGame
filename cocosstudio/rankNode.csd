@@ -16,10 +16,10 @@
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="signBoard/rank/phb_bg.png" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="rankNo" ActionTag="129638793" Tag="106" IconVisible="False" LeftMargin="67.0874" RightMargin="-101.0874" TopMargin="-214.8813" BottomMargin="139.8813" CharWidth="34" CharHeight="75" LabelText="0" StartChar="0" ctype="TextAtlasObjectData">
+          <AbstractNodeData Name="rankNo" ActionTag="129638793" Tag="106" IconVisible="False" LeftMargin="67.0874" RightMargin="-101.0874" TopMargin="-200.8810" BottomMargin="125.8810" CharWidth="34" CharHeight="75" LabelText="0" StartChar="0" ctype="TextAtlasObjectData">
             <Size X="34.0000" Y="75.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="84.0874" Y="177.3813" />
+            <Position X="84.0874" Y="163.3810" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
@@ -86,10 +86,10 @@
             <PreSize X="0.0000" Y="0.0000" />
             <LabelAtlasFileImage_CNB Type="Normal" Path="signBoard/q_zi.png" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="closeBtn" ActionTag="1843327932" Tag="125" IconVisible="False" LeftMargin="-269.5209" RightMargin="181.5209" TopMargin="-348.6037" BottomMargin="262.6037" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="58" Scale9Height="64" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+          <AbstractNodeData Name="closeBtn" ActionTag="1843327932" Tag="125" IconVisible="False" LeftMargin="148.4522" RightMargin="-236.4522" TopMargin="-326.2332" BottomMargin="240.2332" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="58" Scale9Height="64" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
             <Size X="88.0000" Y="86.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="-225.5209" Y="305.6037" />
+            <Position X="192.4522" Y="283.2332" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />

@@ -17,11 +17,17 @@ function exitSutraView:onCreate(param)
 	
 	self.player = param.player
 	self.player:pause()
+	
+	AdManager:showAd()
 end
 
+function exitSutraView:appEnterForeground()
+	LayerManager.closeFloat(self)
+end
 
 function exitSutraView:onClose( ... )
-	
+	self.player.exitSutraShowing = false
+	AdManager:hideAd()
 end
 
 function exitSutraView:bgTouch()

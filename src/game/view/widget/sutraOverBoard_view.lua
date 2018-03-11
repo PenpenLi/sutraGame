@@ -40,8 +40,8 @@ function sutraOverBoardView:onCreate(param)
 	end
 	
 	--胜利
-	if result then
-		local snum = UserData:getSutraNum() + (UserData.todayCanSong and 1 or 0)
+	if result or not UserData:getTodayCanSong() then
+		local snum = UserData:getSutraNum() + (UserData:getTodayCanSong() and 1 or 0)
 		self.sutraTotalCount:setString(snum)
 		--[[local animateNode = new_class(luaFile.AnimationSprite, {
 			startFrameIndex = 1,                             -- 开始帧索引
@@ -66,16 +66,53 @@ function sutraOverBoardView:onCreate(param)
 		end)--]]
 		
 		--UserData:setTool_lotus( 1 )
-		UserData:songToday(param.id, param.fojuScore)
 	else
-		self.sutraOverBoard:loadTexture("songOver/sb_02.png")
-		
+		self.sutraOverBoard:setVisible(false)
+		self.shibaiBoard:setVisible(true)
 	end
+	UserData:songToday(param.id, param.fojuScore)
 	
-	
+	self:jingwenAnim(12)
 	self:dispatchEvent({name = GlobalEvent.SUTRAOVER_VIEW_SHOW, data={view=self}})
 end
 
+
+function sutraOverBoardView:jingwenAnim(overTime)
+	local txtNum = 4
+	local moveX = -10
+	local degeX = 720/(txtNum)
+	local movetime = 1.3
+	local moveDelayInFront = 0
+	if txtNum*movetime <= overTime then
+		moveDelayInFront = overTime - (txtNum*movetime)
+		moveDelayInFront = moveDelayInFront/txtNum
+	else
+		movetime = overTime/txtNum
+	end
+	for i=1, txtNum do
+		local sprpath = string.format("res/songOver/%02d.png", i)
+		local txt = cocosMake.newSprite(sprpath)
+		txt:setPosition(degeX*(txtNum-i)-moveX+degeX/2, 800)
+		txt:setOpacity(0)
+		self:addChild(txt)
+		
+		local function callBackFunc()
+			local actionMove = cc.MoveBy:create(movetime, cc.p(moveX, 0))
+			local actionFade = cc.FadeOut:create(movetime)
+			local actionSpawn = cc.Spawn:create(actionMove, actionFade)
+			txt:runAction(cc.Sequence:create(actionSpawn, cc.RemoveSelf:create()))
+		end
+		
+		local actionMove = cc.MoveBy:create(movetime, cc.p(moveX, 0))
+		local actionFade = cc.FadeIn:create(movetime)
+		local actionSpawn = cc.Spawn:create(actionMove, actionFade)
+		local delay1 = cc.DelayTime:create((i-1)*movetime + (i-1)*moveDelayInFront)
+		txt:runAction(cc.Sequence:create(delay1, actionSpawn))
+		
+		local delay2 = cc.DelayTime:create(overTime)
+		txt:runAction(cc.Sequence:create(delay2, cc.CallFunc:create(callBackFunc)))
+	end
+end
 
 function sutraOverBoardView:onClose( ... )
 	self:dispatchEvent({name = GlobalEvent.SUTRAOVER_VIEW_SHOW, data={view=nil}})

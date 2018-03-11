@@ -15,6 +15,7 @@ signBoardView.ui_binding_file = {
 }
 
 function signBoardView:onCreate(param)
+	self.fohaoMonthNum:setString(UserData:getFohaoMonthNum())
 	local ndy = self.signBoardNode:getPositionY()
 	self.signBoardNode:setPositionY(ndy+100)
 	
@@ -68,8 +69,8 @@ end
 
 
 function signBoardView:onClose( ... )
+	AdManager:loadAd()
 	AdManager:hideAd()
-    AdManager:loadAd()
 	self:dispatchEvent({name = GlobalEvent.SIGN_VIEW_SHOW, data={view=nil}})
 end
 

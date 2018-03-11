@@ -19,21 +19,6 @@
                 <PreSize X="0.0569" Y="0.1248" />
                 <LabelAtlasFileImage_CNB Type="Normal" Path="signBoard/q_zi.png" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="closeBtn" ActionTag="308960107" Tag="115" IconVisible="False" LeftMargin="508.9998" RightMargin="1.0002" TopMargin="-15.5817" BottomMargin="530.5817" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="58" Scale9Height="64" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
-                <Size X="88.0000" Y="86.0000" />
-                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="552.9998" Y="573.5817" />
-                <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.9247" Y="0.9544" />
-                <PreSize X="0.1472" Y="0.1431" />
-                <TextColor A="255" R="65" G="65" B="70" />
-                <DisabledFileData Type="Normal" Path="off.png" Plist="" />
-                <PressedFileData Type="Normal" Path="off.png" Plist="" />
-                <NormalFileData Type="Normal" Path="off.png" Plist="" />
-                <OutlineColor A="255" R="255" G="0" B="0" />
-                <ShadowColor A="255" R="110" G="110" B="110" />
-              </AbstractNodeData>
             </Children>
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position />
@@ -42,6 +27,31 @@
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="songOver/s_bg.png" Plist="" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="shibaiBoard" ActionTag="-348388501" VisibleForFrame="False" Tag="40" IconVisible="False" LeftMargin="-299.0000" RightMargin="-299.0000" TopMargin="-300.5000" BottomMargin="-300.5000" LeftEage="197" RightEage="197" TopEage="198" BottomEage="198" Scale9OriginX="197" Scale9OriginY="198" Scale9Width="204" Scale9Height="205" ctype="ImageViewObjectData">
+            <Size X="598.0000" Y="601.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="Normal" Path="songOver/sb_02.png" Plist="" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="closeBtn" ActionTag="308960107" Tag="115" IconVisible="False" LeftMargin="218.6364" RightMargin="-306.6364" TopMargin="-329.4189" BottomMargin="243.4189" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="58" Scale9Height="64" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+            <Size X="88.0000" Y="86.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="262.6364" Y="286.4189" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
+            <TextColor A="255" R="65" G="65" B="70" />
+            <DisabledFileData Type="Normal" Path="off.png" Plist="" />
+            <PressedFileData Type="Normal" Path="off.png" Plist="" />
+            <NormalFileData Type="Normal" Path="off.png" Plist="" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
         </Children>
       </ObjectData>

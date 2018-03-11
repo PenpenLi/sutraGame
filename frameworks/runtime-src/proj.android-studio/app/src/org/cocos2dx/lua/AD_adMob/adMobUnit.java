@@ -27,8 +27,14 @@ import static com.google.android.gms.internal.zzahg.runOnUiThread;
 public class adMobUnit extends adBaseUnit {
     static final String TAG_ADMOB_LISTENER = "TAG_ADMOB_LISTENER";
 
-    public static String bannerAdIds = "ca-app-pub-3455499373106199/5139731645";
-    public static String appIds = "ca-app-pub-3455499373106199~3754497781";
+
+
+    public static String bannerAdIds = "ca-app-pub-3455499373106199/5139731645";//正式ID
+    //public static String bannerAdIds = "ca-app-pub-3940256099942544/6300978111";//测试ID
+
+    public static String appIds = "ca-app-pub-3455499373106199~3754497781";//正式
+    //public static String appIds = "ca-app-pub-3940256099942544~3347511713";//测试
+
 
     public AdView mAdView;
 
@@ -61,14 +67,12 @@ public class adMobUnit extends adBaseUnit {
                 // Code to be executed when an ad finishes loading.
                 super.onAdOpened();
                 Log.d(TAG_ADMOB_LISTENER, "onAdLoaded");
-                callbackLuaLoadedAd("success", true);
+                setLoaded(true);
 
-                //if (isRequireShow())
-                if (true)//这里写死只要有广告回馈过来就显示
+                if (appActivity.adMgr.getNeedShow())
                 {
                     showADView();
-                    requireShow(false);
-                    callbackLuaShowedAd("");
+                    appActivity.adMgr.setNeedShow(false);
                 }
                 else
                 {
@@ -80,7 +84,6 @@ public class adMobUnit extends adBaseUnit {
             public void onAdFailedToLoad(int errorCode) {
                 super.onAdFailedToLoad(errorCode);
                 Log.d(TAG_ADMOB_LISTENER, "onAdFailedToLoad, errorCode=" + errorCode);
-                callbackLuaLoadedAd("failed", false);
 
                 requestLoadAd();
             }
@@ -88,7 +91,6 @@ public class adMobUnit extends adBaseUnit {
             @Override
             public void onAdOpened() {
                 super.onAdOpened();
-                callbackLuaStateAd("opened");
                 Log.d(TAG_ADMOB_LISTENER, "onAdOpened");
             }
 
@@ -96,7 +98,6 @@ public class adMobUnit extends adBaseUnit {
             public void onAdLeftApplication() {
                 // Code to be executed when the user has left the app.
                 super.onAdLeftApplication();
-                callbackLuaStateAd("LeftApplication");
                 Log.d(TAG_ADMOB_LISTENER, "onAdLeftApplication");
             }
 
@@ -104,13 +105,13 @@ public class adMobUnit extends adBaseUnit {
             public void onAdClosed() {
                 // Code to be executed when when the user is about to return
                 // to the app after tapping on an ad.
-                callbackLuaStateAd("closed");
                 super.onAdClosed();
+
+                setLoaded(false);
             }
 
             @Override
             public  void onAdClicked(){
-                callbackLuaStateAd("clicked");
                 super.onAdClicked();
             }
         });
@@ -167,7 +168,7 @@ public class adMobUnit extends adBaseUnit {
             {
                 //AdRequest request = new AdRequest.Builder().build();
                 AdRequest request = new AdRequest.Builder()
-                        //.addTestDevice("7A04A9E4CE4F262D8C76B0E8772A1C82")
+                        //.addTestDevice("33BE2250B43518CCDA7DE426D04EE231")
                         .build();
                 mAdView.loadAd(request);
             }
@@ -178,8 +179,6 @@ public class adMobUnit extends adBaseUnit {
     @Override
     public void luaHideAd(final String param,final int luaFunc){
         super.luaHideAd(param, luaFunc);
-
-        requestLoadAd();
     }
 
     public void onResume() {

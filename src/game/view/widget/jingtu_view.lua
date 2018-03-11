@@ -22,6 +22,10 @@ function jingtuView:onCreate(param)
 		jingtuNode:setPosition(display.center)
 		self.jingtuNode = jingtuNode
 		 WidgetHelp:dealChildren(self)
+		
+		jingtuNode.touchPanel:onClicked(function ()
+			self:touchPanelClick()
+		end)
 	end
 	
 	self:dispatchEvent({name = GlobalEvent.JINGTU_VIEW_SHOW, data={view=self}})
@@ -30,10 +34,10 @@ function jingtuView:onCreate(param)
 		local action_list1 = {}
 		action_list1[#action_list1 + 1] = cc.DelayTime:create((i-1)*2)
 		action_list1[#action_list1 + 1] = cc.FadeIn:create(1)
-		local action1 = cc.RepeatForever:create(cc.Sequence:create(unpack(action_list1)))
+		--local action1 = cc.RepeatForever:create(cc.Sequence:create(unpack(action_list1)))
 		self["block"..i]:setVisible(true)
-		self["block"..i]:setOpacity(0)
-		self["block"..i]:runAction(action1)
+		--self["block"..i]:setOpacity(0)
+		--self["block"..i]:runAction(action1)
 	end
 	
 	self.touchPanel:setTouchEnabled(true)

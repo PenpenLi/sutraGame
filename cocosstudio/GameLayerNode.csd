@@ -56,80 +56,80 @@
               <AbstractNodeData Name="censerPanel" ActionTag="-1404718970" Tag="13" IconVisible="False" LeftMargin="-203.4400" RightMargin="3.4400" TopMargin="-410.1000" BottomMargin="210.1000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="400.0000" Y="400.0000" />
                 <Children>
-                  <AbstractNodeData Name="censer_on" ActionTag="1830038603" Tag="14" IconVisible="False" LeftMargin="-34.5000" RightMargin="-46.5000" TopMargin="-54.6400" BottomMargin="-18.3600" LeftEage="158" RightEage="158" TopEage="156" BottomEage="156" Scale9OriginX="158" Scale9OriginY="156" Scale9Width="165" Scale9Height="161" ctype="ImageViewObjectData">
-                    <Size X="481.0000" Y="473.0000" />
+                  <AbstractNodeData Name="censer_on" ActionTag="1830038603" Tag="14" IconVisible="False" LeftMargin="-82.5527" RightMargin="-94.4473" TopMargin="-161.2836" BottomMargin="-6.7164" LeftEage="158" RightEage="158" TopEage="156" BottomEage="156" Scale9OriginX="158" Scale9OriginY="156" Scale9Width="261" Scale9Height="256" ctype="ImageViewObjectData">
+                    <Size X="577.0000" Y="568.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                    <Position X="206.0000" Y="218.1400" />
+                    <Position X="205.9473" Y="277.2836" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.5150" Y="0.5454" />
-                    <PreSize X="1.2025" Y="1.1825" />
+                    <PrePosition X="0.5149" Y="0.6932" />
+                    <PreSize X="1.4425" Y="1.4200" />
                     <FileData Type="Normal" Path="censer/on.png" Plist="" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="censer_off" ActionTag="286787875" Tag="15" IconVisible="False" LeftMargin="-34.5000" RightMargin="-46.5000" TopMargin="-54.6400" BottomMargin="-18.3600" LeftEage="40" RightEage="40" TopEage="47" BottomEage="47" Scale9OriginX="40" Scale9OriginY="47" Scale9Width="401" Scale9Height="379" ctype="ImageViewObjectData">
-                    <Size X="481.0000" Y="473.0000" />
+                  <AbstractNodeData Name="censer_off" ActionTag="286787875" Tag="15" IconVisible="False" LeftMargin="-82.5527" RightMargin="-94.4473" TopMargin="-161.2836" BottomMargin="-6.7164" LeftEage="40" RightEage="40" TopEage="47" BottomEage="47" Scale9OriginX="40" Scale9OriginY="47" Scale9Width="497" Scale9Height="474" ctype="ImageViewObjectData">
+                    <Size X="577.0000" Y="568.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                    <Position X="206.0000" Y="218.1400" />
+                    <Position X="205.9473" Y="277.2836" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.5150" Y="0.5454" />
-                    <PreSize X="1.2025" Y="1.1825" />
+                    <PrePosition X="0.5149" Y="0.6932" />
+                    <PreSize X="1.4425" Y="1.4200" />
                     <FileData Type="Normal" Path="censer/off.png" Plist="" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="clickSuccessIcon" ActionTag="-1522836662" VisibleForFrame="False" Tag="33" IconVisible="False" LeftMargin="163.0570" RightMargin="140.9430" TopMargin="128.4531" BottomMargin="168.5469" LeftEage="31" RightEage="31" TopEage="33" BottomEage="33" Scale9OriginX="31" Scale9OriginY="33" Scale9Width="34" Scale9Height="37" ctype="ImageViewObjectData">
+                  <AbstractNodeData Name="clickSuccessIcon" ActionTag="-1522836662" VisibleForFrame="False" Tag="33" IconVisible="False" LeftMargin="163.8654" RightMargin="140.1346" TopMargin="68.0973" BottomMargin="228.9027" LeftEage="31" RightEage="31" TopEage="33" BottomEage="33" Scale9OriginX="31" Scale9OriginY="33" Scale9Width="34" Scale9Height="37" ctype="ImageViewObjectData">
                     <Size X="96.0000" Y="103.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                    <Position X="211.0570" Y="220.0469" />
+                    <Position X="211.8654" Y="280.4027" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.5276" Y="0.5501" />
+                    <PrePosition X="0.5297" Y="0.7010" />
                     <PreSize X="0.2400" Y="0.2575" />
                     <FileData Type="Normal" Path="songOver/lh11.png" Plist="" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="clickCountEffNode" ActionTag="-1843232484" Tag="32" IconVisible="True" LeftMargin="208.7300" RightMargin="191.2700" TopMargin="228.0500" BottomMargin="171.9500" ctype="SingleNodeObjectData">
-                    <Size X="0.0000" Y="0.0000" />
-                    <AnchorPoint />
-                    <Position X="208.7300" Y="171.9500" />
-                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                    <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.5218" Y="0.4299" />
-                    <PreSize X="0.0000" Y="0.0000" />
-                  </AbstractNodeData>
-                  <AbstractNodeData Name="woodenFishClickCount" ActionTag="-485230891" VisibleForFrame="False" Tag="27" IconVisible="False" LeftMargin="177.2319" RightMargin="159.7681" TopMargin="195.5458" BottomMargin="139.4542" CharWidth="63" CharHeight="65" LabelText="0" StartChar="0" ctype="TextAtlasObjectData">
+                  <AbstractNodeData Name="woodenFishClickCount" ActionTag="-485230891" VisibleForFrame="False" Tag="27" IconVisible="False" LeftMargin="178.2318" RightMargin="158.7682" TopMargin="177.7947" BottomMargin="157.2053" CharWidth="63" CharHeight="65" LabelText="0" StartChar="0" ctype="TextAtlasObjectData">
                     <Size X="63.0000" Y="65.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                    <Position X="208.7319" Y="171.9542" />
-                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <Position X="209.7318" Y="189.7053" />
+                    <Scale ScaleX="0.7000" ScaleY="0.7000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.5218" Y="0.4299" />
+                    <PrePosition X="0.5243" Y="0.4743" />
                     <PreSize X="0.1575" Y="0.1625" />
                     <LabelAtlasFileImage_CNB Type="Normal" Path="homeUI/zi.png" Plist="" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="censer_fire1" ActionTag="-538305314" Tag="20" RotationSkewX="8.0000" RotationSkewY="8.0000" IconVisible="True" LeftMargin="207.2100" RightMargin="192.7900" TopMargin="-148.1900" BottomMargin="548.1900" ctype="SingleNodeObjectData">
+                  <AbstractNodeData Name="clickCountEffNode" ActionTag="-1843232484" Tag="32" IconVisible="True" LeftMargin="209.7299" RightMargin="190.2701" TopMargin="211.2948" BottomMargin="188.7052" ctype="SingleNodeObjectData">
                     <Size X="0.0000" Y="0.0000" />
                     <AnchorPoint />
-                    <Position X="207.2100" Y="548.1900" />
+                    <Position X="209.7299" Y="188.7052" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.5180" Y="1.3705" />
+                    <PrePosition X="0.5243" Y="0.4718" />
                     <PreSize X="0.0000" Y="0.0000" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="censer_fire2" ActionTag="-2084881277" Tag="110" RotationSkewX="4.0000" RotationSkewY="4.0000" IconVisible="True" LeftMargin="172.1300" RightMargin="227.8700" TopMargin="-136.6200" BottomMargin="536.6200" ctype="SingleNodeObjectData">
+                  <AbstractNodeData Name="censer_fire1" ActionTag="-538305314" Tag="20" RotationSkewX="5.0000" RotationSkewY="5.0001" IconVisible="True" LeftMargin="206.0500" RightMargin="193.9500" TopMargin="-197.4000" BottomMargin="597.4000" ctype="SingleNodeObjectData">
                     <Size X="0.0000" Y="0.0000" />
                     <AnchorPoint />
-                    <Position X="172.1300" Y="536.6200" />
+                    <Position X="206.0500" Y="597.4000" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.4303" Y="1.3415" />
+                    <PrePosition X="0.5151" Y="1.4935" />
                     <PreSize X="0.0000" Y="0.0000" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="censer_fire3" ActionTag="-1324501022" Tag="111" RotationSkewX="3.0000" RotationSkewY="3.0000" IconVisible="True" LeftMargin="234.1200" RightMargin="165.8800" TopMargin="-136.5400" BottomMargin="536.5400" ctype="SingleNodeObjectData">
+                  <AbstractNodeData Name="censer_fire2" ActionTag="-2084881277" Tag="110" RotationSkewX="4.0004" RotationSkewY="4.0004" IconVisible="True" LeftMargin="171.9673" RightMargin="228.0327" TopMargin="-190.8300" BottomMargin="590.8300" ctype="SingleNodeObjectData">
                     <Size X="0.0000" Y="0.0000" />
                     <AnchorPoint />
-                    <Position X="234.1200" Y="536.5400" />
+                    <Position X="171.9673" Y="590.8300" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.5853" Y="1.3413" />
+                    <PrePosition X="0.4299" Y="1.4771" />
+                    <PreSize X="0.0000" Y="0.0000" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="censer_fire3" ActionTag="-1324501022" Tag="111" RotationSkewX="3.0000" RotationSkewY="2.9984" IconVisible="True" LeftMargin="233.9571" RightMargin="166.0429" TopMargin="-190.8300" BottomMargin="590.8300" ctype="SingleNodeObjectData">
+                    <Size X="0.0000" Y="0.0000" />
+                    <AnchorPoint />
+                    <Position X="233.9571" Y="590.8300" />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5849" Y="1.4771" />
                     <PreSize X="0.0000" Y="0.0000" />
                   </AbstractNodeData>
                 </Children>
@@ -214,7 +214,7 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="woodenFishPanel" ActionTag="759296959" VisibleForFrame="False" Tag="108" IconVisible="False" LeftMargin="-326.0900" RightMargin="-73.9100" TopMargin="-937.6400" BottomMargin="-62.3600" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+              <AbstractNodeData Name="woodenFishTouchPanel" ActionTag="759296959" VisibleForFrame="False" Tag="108" IconVisible="False" LeftMargin="-326.0900" RightMargin="-73.9100" TopMargin="-937.6400" BottomMargin="-62.3600" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="600.0000" Y="1200.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="-26.0900" Y="537.6400" />
@@ -227,13 +227,58 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="musicPlayerPanel" ActionTag="1697664810" Tag="66" IconVisible="False" LeftMargin="-363.1459" RightMargin="-156.8541" TopMargin="-94.5255" BottomMargin="-5.4744" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
-                <Size X="720.0000" Y="300.0000" />
+              <AbstractNodeData Name="woodenFishNode" ActionTag="-2116645549" VisibleForFrame="False" Tag="124" IconVisible="True" LeftMargin="6.9500" RightMargin="193.0500" TopMargin="-26.0500" BottomMargin="226.0500" ctype="SingleNodeObjectData">
+                <Size X="0.0000" Y="0.0000" />
+                <Children>
+                  <AbstractNodeData Name="Image_3" ActionTag="1098147393" Tag="125" IconVisible="False" LeftMargin="-29.5000" RightMargin="-37.5000" TopMargin="-147.7300" BottomMargin="68.7300" LeftEage="22" RightEage="22" TopEage="26" BottomEage="26" Scale9OriginX="22" Scale9OriginY="26" Scale9Width="23" Scale9Height="27" ctype="ImageViewObjectData">
+                    <Size X="67.0000" Y="79.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="4.0000" Y="108.2300" />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition />
+                    <PreSize X="0.0000" Y="0.0000" />
+                    <FileData Type="Normal" Path="homeUI/xingguang1.png" Plist="" />
+                  </AbstractNodeData>
+                </Children>
                 <AnchorPoint />
-                <Position X="-363.1459" Y="-5.4744" />
+                <Position X="6.9500" Y="226.0500" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="-1.8157" Y="-0.0274" />
+                <PrePosition X="0.0347" Y="1.1302" />
+                <PreSize X="0.0000" Y="0.0000" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="musicPlayerPanel" ActionTag="1697664810" VisibleForFrame="False" Tag="66" IconVisible="False" LeftMargin="-363.1500" RightMargin="-156.8500" TopMargin="-94.5256" BottomMargin="-5.4744" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+                <Size X="720.0000" Y="300.0000" />
+                <Children>
+                  <AbstractNodeData Name="yuepu1" ActionTag="1277496163" Tag="58" IconVisible="False" LeftMargin="3.0000" RightMargin="-3.0000" TopMargin="-98.9474" BottomMargin="308.9474" ctype="SpriteObjectData">
+                    <Size X="720.0000" Y="90.0000" />
+                    <AnchorPoint ScaleY="0.5000" />
+                    <Position X="3.0000" Y="353.9474" />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.0042" Y="1.1798" />
+                    <PreSize X="1.0000" Y="0.3000" />
+                    <FileData Type="Normal" Path="homeUI/yuepu.png" Plist="" />
+                    <BlendFunc Src="1" Dst="771" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="yuepu2" ActionTag="-1682407756" Tag="59" IconVisible="False" LeftMargin="722.0000" RightMargin="-722.0000" TopMargin="-99.9473" BottomMargin="309.9473" ctype="SpriteObjectData">
+                    <Size X="720.0000" Y="90.0000" />
+                    <AnchorPoint ScaleY="0.5000" />
+                    <Position X="722.0000" Y="354.9473" />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="1.0028" Y="1.1832" />
+                    <PreSize X="1.0000" Y="0.3000" />
+                    <FileData Type="Normal" Path="homeUI/yuepu.png" Plist="" />
+                    <BlendFunc Src="1" Dst="771" />
+                  </AbstractNodeData>
+                </Children>
+                <AnchorPoint />
+                <Position X="-363.1500" Y="-5.4744" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="-1.8158" Y="-0.0274" />
                 <PreSize X="3.6000" Y="1.5000" />
                 <SingleColor A="255" R="150" G="200" B="255" />
                 <FirstColor A="255" R="150" G="200" B="255" />

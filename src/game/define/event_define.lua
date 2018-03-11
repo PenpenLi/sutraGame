@@ -31,4 +31,5 @@ regGlobalEvent("TASK_VIEW_SHOW")
 regGlobalEvent("TOOL_VIEW_SHOW")
 regGlobalEvent("CLICK_WOODENFINISH_SUCCESS")
 regGlobalEvent("EXITSUTRA_NOTIFY")
+regGlobalEvent("UPDATE_NOTE_NOTIFY")
 

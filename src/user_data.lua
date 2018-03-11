@@ -23,9 +23,14 @@ function UserData:init( ... )
 	
 	self.birthday = CacheUtil:getCacheVal(CacheType.birthday)
 	
-	self.toolList = CacheUtil:getCacheVal(CacheType.tools)--我的物品
-	self.buddhasId = CacheUtil:getCacheVal(CacheType.buddhasId)--界面显示的佛祖
-	self.usedTool = "1"--改成只有一种木鱼
+	--我的物品
+	self.toolList = CacheUtil:getCacheVal(CacheType.tools)
+	
+	--界面显示的佛祖
+	self.buddhasId = CacheUtil:getCacheVal(CacheType.buddhasId)
+	
+	--改成只有一种木鱼
+	self.usedTool = "1"
 	
 	--self.chenghaoLv = 0--称号等级
 	
@@ -62,7 +67,7 @@ function UserData:init( ... )
 	self.signContinueCount = 0
 	
 	--当前选中的佛经
-	self.selectSongId = 1
+	self.selectSongId = CacheUtil:getCacheVal(CacheType.selectSongId)
 	
 	--净土已打开数据
 	self.jingtuOpenData = {}
@@ -397,6 +402,14 @@ function UserData:getSelectSongInfo()
 	return musicData[self.selectSongId]
 end
 
+function UserData:setSelectSongId(id)
+	self.selectSongId = id
+	CacheUtil:setCacheVal(CacheType.selectSongId, self.selectSongId)
+end
+function UserData:getSelectSongId()
+	return self.selectSongId
+end
+
 --设置每个music的分数
 function UserData:setMusicScoreWithID(id, score)
 	for k,v in pairs(self.musicData) do
@@ -513,6 +526,9 @@ function UserData:setSutraLastTime(t)
 	end
 end
 
+function UserData:getTodayCanSong()
+	return self.todayCanSong
+end
 
 function UserData:setLotusNum(d)
 	self.lotusNum = tonumber(d) or 0
@@ -520,6 +536,14 @@ end
 function UserData:getLotusNum()
 	return self.lotusNum
 end
+
+function UserData:setFohaoMonthNum(num)
+	self.fohaoMonthNum = num
+end
+function UserData:getFohaoMonthNum()
+	return self.fohaoMonthNum or 0
+end
+
 
 function UserData:setIncenseLastTime(d)
 	local t = tonumber(d) or 0

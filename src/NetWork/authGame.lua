@@ -13,7 +13,7 @@ end
 
 
 function authGame:serverMessageCallback(name, data)
-	print("*******serverMessageCallback", name, data)
+	log("*******serverMessageCallback", name, data)
 	
 	if name == "pushUserData" then
 		if data.type == "totalRank" then
@@ -46,6 +46,10 @@ function authGame:serverMessageCallback(name, data)
 		if data.type == "sutraLastTime" then
 			UserData:setSutraLastTime(tonumber(data.data))
 		end
+		if data.type == "fohaoMonthNum" then
+			UserData:setFohaoMonthNum(tonumber(data.data))
+		end
+		
 		
 		if data.type == "fohaoGroup" then
 			local musicScoreList = string.split(data.data, ",")
@@ -61,6 +65,13 @@ function authGame:serverMessageCallback(name, data)
 				UserData:setJingtuOpenData(sc[1], tonumber(sc[2]))
 			end
 		end
+		if data.type == "fohaoMonthNum" then
+			UserData:setFohaoMonthNum(tonumber(data.data))
+		end
+		
+		
+	elseif name == "sendNote" then
+		self:dispatchEvent({name = GlobalEvent.UPDATE_NOTE_NOTIFY, data={note=data.note}})
 	end
 end
 
@@ -72,7 +83,7 @@ function authGame:connectServerCallback(data)
 			networkManager.request("totalPush",
 			{uuid=UserData:getUUID()}, 
 			handler(self, self.totalPushCallback))
-				end, 0)
+				end, 0.5)
 	else
 		print("服务器连接失败")
 	end
@@ -97,6 +108,8 @@ function authGame:totalPushCallback(data)
 	
 	UserData:setSutraNum(data.sutraNum)
 	
+	UserData:setFohaoMonthNum(data.fohaoMonthNum)
+	
 	UserData:setSutraRank(data.sutraRank)
 	
 	UserData:setLotusNum(data.lotusNum)
@@ -118,5 +131,7 @@ function authGame:totalPushCallback(data)
 		UserData:setJingtuOpenData(sc[1], tonumber(sc[2]))
 	end
 end
+
+cc.load("event"):setEventDispatcher(authGame, GameController)
 
 return authGame

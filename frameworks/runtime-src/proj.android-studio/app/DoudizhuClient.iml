@@ -122,7 +122,6 @@
     <orderEntry type="library" exported="" name="play-services-ads-lite-11.4.2" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.5.2" level="project" />
-    <orderEntry type="library" exported="" name="InMobi-7.0.1" level="project" />
     <orderEntry type="library" exported="" name="inmobi-ads-7.0.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-gass-license-11.4.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-ads-lite-license-11.4.2" level="project" />
@@ -133,6 +132,7 @@
     <orderEntry type="library" exported="" name="multidex-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-media-compat-25.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-core-ui-25.2.0" level="project" />
+    <orderEntry type="library" exported="" name="InMobi-7.0.4" level="project" />
     <orderEntry type="library" exported="" name="play-services-basement-11.4.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-basement-license-11.4.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-gass-11.4.2" level="project" />

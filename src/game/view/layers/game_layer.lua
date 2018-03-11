@@ -49,7 +49,7 @@ function GameLayer:initUI()
 		end
 	end)
 	
-	self:setBuddhasImage(UserData:getBuddhas())
+	
 	
 	--if UserData.buddhasLightLevel == 0 then self.f_g:setVisible(false) end
 	
@@ -70,13 +70,12 @@ function GameLayer:initUI()
 	
 	--动态佛光
 	if UserData.buddhasLightLevel >= 3 then
-		local scnt = 10
-		local sp = 0.1
+		local scnt = 8
+		local sp = 0.17
 		for j=1,scnt do
 			local frameName =string.format("res/Buddhas/buddhasLightEff/%04d.png",j)
 			local s = cocosMake.newSprite(frameName, 0, 0)
 			s:setVisible(false)
-			s:setScale(1.5)
 			
 			local sequence = transition.sequence({
 				cc.DelayTime:create((j-1)*sp),
@@ -87,6 +86,7 @@ function GameLayer:initUI()
 			})
 			s:runAction(cc.RepeatForever:create(sequence))
 			self.buddhasLight:addChild(s)
+			self.buddhasLight.originalPos = cc.p(self.buddhasLight:getPosition())
 		end
 	end	
 	
@@ -106,7 +106,9 @@ function GameLayer:initUI()
 	cocosMake.newSprite("woodenFish/"..UserData.usedTool.."/".."m_01.png")
 	cocosMake.newSprite("woodenFish/"..UserData.usedTool.."/".."m_02.png")
 
-    
+    self:setBuddhasImage(UserData:getBuddhas())
+	
+	
 end
 
 function GameLayer:showStartSpeak()
@@ -116,9 +118,31 @@ function GameLayer:showStartSpeak()
 	end)
 end
 
+local buddhasPosOffset={}
+buddhasPosOffset.kqmw = cc.p(0,30)
+buddhasPosOffset.nwamtf = cc.p(0,30)
+buddhasPosOffset.nwbssjmnf = cc.p(0,5)
+buddhasPosOffset.nwdzwps = cc.p(0,70)
+buddhasPosOffset.nwgsyps = cc.p(0,60)
+buddhasPosOffset.xzysysf = cc.p(0,30)
+setmetatable(buddhasPosOffset, { __index = function(mytable, key) return cc.p(0,0) end })
+
+local buddhasScale={}
+buddhasScale.kqmw = 0.0
+buddhasScale.nwgsyps = 0.8
+buddhasScale.nwdzwps = 0.85
+buddhasScale.nwamtf = 0.77
+buddhasScale.nwbssjmnf = 0.7
+buddhasScale.xzysysf = 0.8
+setmetatable(buddhasScale, { __index = function(mytable, key) return 1.0 end })
+
 function GameLayer:setBuddhasImage(res)
 	self.buddhas:loadTexture(string.format("Buddhas/buddhas/%s.png",  res))
 	self.buddhas:setContentSize(self.buddhas:getVirtualRendererSize())
+	
+	self.buddhasLight:setPosition(self.buddhasLight.originalPos.x+buddhasPosOffset[res].x,
+								self.buddhasLight.originalPos.y+buddhasPosOffset[res].y)
+	self.buddhasLight:setScale(buddhasScale[res])
 end
 
 
@@ -203,7 +227,10 @@ function GameLayer:exitGameBtnClick(event)
 	if not self.musicPlayerCtrl:isPlaying() then
 		LayerManager.showFloat(luaFile.exitGameBoardView, {modal=true, player=self.musicPlayerCtrl})
 	else
-		LayerManager.showFloat(luaFile.exitSutraView, {modal=true, player=self.musicPlayerCtrl})
+		if self.musicPlayerCtrl:getState() ~= "pause" then
+			self.musicPlayerCtrl.exitSutraShowing = true
+			LayerManager.showFloat(luaFile.exitSutraView, {modal=true, player=self.musicPlayerCtrl})
+		end
 	end
 end
 
@@ -214,10 +241,11 @@ function GameLayer:continueBtnClick()
 
 	self:setTouchMaskPanelVisible(false)
 	
+	self.musicPlayerCtrl.exitSutraShowing = false
 	self.musicPlayerCtrl:resume()
 	
-	AdManager:hideAd()
     AdManager:loadAd()
+	AdManager:hideAd()
 end
 function GameLayer:pauseBtnClick()
 	
@@ -225,7 +253,8 @@ function GameLayer:pauseBtnClick()
 	self.pauseBtn:setVisible(false)
 	
 	self:setTouchMaskPanelVisible(true)
-
+	
+	self.musicPlayerCtrl.exitSutraShowing = true
 	self.musicPlayerCtrl:pause()
 	
 	AdManager:showAd()
@@ -322,7 +351,7 @@ function GameLayer:startClickWoodenFish()
 	self.woodenFish_btn_normal = btn_normal
 	self.woodenFish_btn_touch = btn_touch
 	
-	self.woodenFishPanel:onTouch(function(event)
+	self.woodenFishTouchPanel:onTouch(function(event)
 		if event.name == "began" then
 			btn_normal:setVisible(false)
 			btn_touch:setVisible(true)
@@ -337,15 +366,11 @@ function GameLayer:startClickWoodenFish()
 			btn_touch:setVisible(false)
 		end
 	end)
-	self.woodenFishPanel:setTouchEnabled(true)
+	self.woodenFishTouchPanel:setTouchEnabled(true)
 	
 	
-	self.woodenFishPanel:addChild(btn_normal)
-	self.woodenFishPanel:addChild(btn_touch)
-	local fsize = self.woodenFishPanel:getContentSize()
-	btn_normal:setPosition(cc.p(fsize.width/2.0 + 30, 230))
-	btn_touch:setPosition(cc.p(fsize.width/2.0 + 30, 230))
-	
+	self.woodenFishNode:addChild(btn_normal)
+	self.woodenFishNode:addChild(btn_touch)
 	
     ccexp.AudioEngine:stop(self.audio_background_handle)
 	
@@ -359,7 +384,7 @@ function GameLayer:startClickWoodenFish()
 	
 	--播放经文
 	--startPos, endPos, speed, containWidget
-	self.musicPlayerCtrl:setParam(cc.p(720.0, 250.0), cc.p(0.0, 250.0), 150.0, self.musicPlayerPanel)
+	self.musicPlayerCtrl:setParam(cc.p(730.0, 350.0), cc.p(-10.0, 350.0), 130.0, self.musicPlayerPanel)
 	self.musicPlayerCtrl:setClickValidCallback(clickCallback)
 	local musicData = UserData:getSelectSongInfo()
 	self.musicPlayerCtrl:playMusic(musicData.id, musicData.songId, musicData.songTime, 
@@ -384,9 +409,9 @@ function GameLayer:startClickWoodenFish()
 	
 	
 	local function songFinishCallback()
-		self.woodenFishPanel:removeAllChildren()
-		self.woodenFishPanel:setTouchEnabled(false)
-		self.woodenFishPanel:setVisible(false)		
+		self.woodenFishTouchPanel:removeAllChildren()
+		self.woodenFishTouchPanel:setTouchEnabled(false)
+		self.woodenFishTouchPanel:setVisible(false)		
 		self.woodenFishClickCount:setVisible(false)
 		
 		local res = 0
@@ -427,8 +452,8 @@ end
 
 function GameLayer:jingwenAnim(overTime)
 	local txtNum = 8
-	local moveX = 10
-	local degeX = 720/(txtNum+1)
+	local moveX = -10
+	local degeX = stage_width/(txtNum)
 	local movetime = 1.3
 	local moveDelayInFront = 0
 	if txtNum*movetime <= overTime then
@@ -440,7 +465,7 @@ function GameLayer:jingwenAnim(overTime)
 	for i=1, txtNum do
 		local sprpath = string.format("res/sanboyiwen/%02d.png", i)
 		local txt = cocosMake.newSprite(sprpath)
-		txt:setPosition(degeX*i, 800)
+		txt:setPosition(degeX*(txtNum-i)-moveX+degeX/2, 800)
 		txt:setOpacity(0)
 		self:addChild(txt)
 		
@@ -496,18 +521,19 @@ function GameLayer:huiwenAnim(overTime, animCallback)
 end
 
 function GameLayer:songjing_btnClick(event)
-	if UserData.selectSongId > 0 then
-		local musicInfo = UserData:loadMusicRhythmData()
-
+	if UserData:getSelectSongId() > 0 then
 		self.bottomMenuPanel:setVisible(false)		
-		self.woodenFishPanel:removeAllChildren()
-		self.woodenFishPanel:setVisible(true)	
+		self.woodenFishTouchPanel:removeAllChildren()
+		self.woodenFishTouchPanel:setVisible(true)
+		
 	
+	--test code 0 - 28
 		local startSongHandle
 		performWithDelay(self, function()
 					self:startClickWoodenFish()
 					self.continueBtn:setVisible(false)
 					self.pauseBtn:setVisible(true)
+					self.woodenFishNode:setVisible(true)
 					ccexp.AudioEngine:stop(startSongHandle or 0)
 				end, 28)
 		startSongHandle = ccexp.AudioEngine:play2d(audioData.startSong, true)
@@ -544,8 +570,8 @@ function GameLayer:playClickWoodenFishEffect()
 		})		
 		animateNode:playOnce(false, 0)
 		animNode:addChild(animateNode)
-		animNode:setPosition(math.random(100, 620), math.random(980, 1180))			
-		animNode:runAction(cc.MoveTo:create(moveTime, cc.p(math.random(10, 700), math.random(10, 100))))
+		animNode:setPosition(math.random(0, stage_width), math.random(stage_height-300, stage_height))			
+		animNode:runAction(cc.MoveTo:create(moveTime, cc.p(math.random(10, stage_width-10), math.random(10, 100))))
 		
 		
 		local action_list = {}
@@ -573,10 +599,10 @@ function GameLayer:playClickWoodenFishEffect()
 	elseif eff == "ym" then
 		local ymSpr = cocosMake.newSprite("res/woodenFish/ym.png")
 		self:addChild(ymSpr)
-		ymSpr:setPosition(math.random(100, 620), math.random(980, 1180))	
+		ymSpr:setPosition(math.random(0, stage_width), math.random(stage_height-300, stage_height))
 			
 		local moveTime = math.random(3.5, 4)
-		ymSpr:runAction(cc.MoveTo:create(moveTime, cc.p(math.random(10, 700), math.random(10, 100))))
+		ymSpr:runAction(cc.MoveTo:create(moveTime, cc.p(math.random(10, stage_width-10), math.random(10, 100))))
 		
 		local action_list2 = {}
 		action_list2[#action_list2 + 1] = cc.FadeIn:create(0.3)
@@ -584,7 +610,8 @@ function GameLayer:playClickWoodenFishEffect()
 		action_list2[#action_list2 + 1] = cc.FadeOut:create(0.5)
 		action_list2[#action_list2 + 1] = cc.RemoveSelf:create()
 		ymSpr:setOpacity(0)
-		ymSpr:runAction(cc.Sequence:create(unpack(action_list2)))
+		ymSpr:runAction(cc.Sequence:create(unpack(action_list2)))		
+		ymSpr:runAction(cc.RepeatForever:create(cc.RotateBy:create(2.1, 360)))
 	end
 end
 
@@ -600,7 +627,10 @@ function GameLayer:return_key()
 				if not self.musicPlayerCtrl:isPlaying() then
 					LayerManager.showFloat(luaFile.exitGameBoardView, {modal=true, player=self.musicPlayerCtrl})
 				else
-					LayerManager.showFloat(luaFile.exitSutraView, {modal=true, player=self.musicPlayerCtrl})
+					if self.musicPlayerCtrl:getState() ~= "pause" then
+						self.musicPlayerCtrl.exitSutraShowing = true
+						LayerManager.showFloat(luaFile.exitSutraView, {modal=true, player=self.musicPlayerCtrl})
+					end
 				end
 			end
         elseif code == cc.KeyCode.KEY_HOME then
@@ -638,6 +668,11 @@ function GameLayer:return_key()
 	GameController:addEventListener(GlobalEvent.JINGTU_VIEW_SHOW,function(event)
 		self.floatView = event.data and event.data.view or nil
     end)
+	GameController:addEventListener(GlobalEvent.UPDATE_NOTE_NOTIFY,function(event)
+		local noteStr = event.data and event.data.note or ""
+		self:showNote(noteStr)
+    end)
+	
 	GameController:addEventListener(GlobalEvent.EXITSUTRA_NOTIFY,function(event)
 		if self.woodenFish_btn_normal then
 			self.woodenFish_btn_normal:removeFromParent()
@@ -650,15 +685,14 @@ function GameLayer:return_key()
 		
 		self.bottomMenuPanel:setVisible(true)
 		
-		self.woodenFishPanel:setTouchEnabled(false)
+		self.woodenFishTouchPanel:setTouchEnabled(false)
+		self.woodenFishNode:setVisible(false)
 		self.clickSuccessIcon:setVisible(false)
 		self.clickCountEffNode:removeAllChildren()
 		self.woodenFishClickCount:setVisible(false)
 		self.woodenFishClickCount.cnt = 0
 		self.pauseBtn:setVisible(false)
-		
-		self:jingwenAnim(28)
-		
+				
 		self:setTouchMaskPanelVisible(false)
 		
         self.audio_background_handle = ccexp.AudioEngine:play2d(audioData.background, true)
@@ -690,7 +724,24 @@ function GameLayer:appEnterForeground()
 	if self.audio_background_handle then
 		ccexp.AudioEngine:resume(self.audio_background_handle)
 	end
-    self.musicPlayerCtrl:resume()
+	if not self.musicPlayerCtrl.exitSutraShowing then
+		self.musicPlayerCtrl:resume()
+	end
+end
+
+function GameLayer:showNote(noteStr)
+	if not self.noteStrWidget then
+		local beginPos = cc.p(2*stage_width, stage_height-30)
+		self.noteStrWidget = cocosMake.newLabel(noteStr, beginPos.x, beginPos.y, {size=30})
+		self.noteStrWidget:setTextColor(cc.c4b(255, 33, 33, 255))
+		LayerManager.showTipsLayer(self.noteStrWidget)
+		local action_list = {}
+		action_list[#action_list + 1] = cc.MoveBy:create(24, cc.p(-stage_width*4, 0))
+		action_list[#action_list + 1] = cc.MoveTo:create(0, beginPos)
+		local action = cc.RepeatForever:create(cc.Sequence:create(unpack(action_list)))
+		self.noteStrWidget:runAction(action)
+	end
+	self.noteStrWidget:setString(noteStr)	
 end
 
 cocosMake.Director:setDisplayStats(TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS)

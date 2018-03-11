@@ -21,11 +21,12 @@ function sutraBoardView:onCreate(param)
 	
 	local kuaiban, manban = {}, {}
 	local i=1
+	local currSelect = UserData:getSelectSongId()
 	for k,v in pairs(musicInfo) do
 		local ban = (i%2) == 1 and kuaiban or manban
 		ban[#ban+1] = v
 		
-		if v.id == UserData.selectSongId then
+		if v.id == currSelect then
 			self.lastSelectName = v.songName
 		end
 		i=i+1
@@ -160,7 +161,7 @@ function sutraBoardView:sureBtnClick(event)
 	local musicInfo = UserData:loadMusicRhythmData()
 	for k,v in pairs(musicInfo) do
 		if v.songName == self.lastSelectName then
-			UserData.selectSongId = v.id
+			UserData:setSelectSongId(v.id)
 			key = k
 			break
 		end

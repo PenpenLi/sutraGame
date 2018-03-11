@@ -43,8 +43,8 @@ public class inMobiUnit extends adBaseUnit {
     protected  int rtTimes = 1000*0;
     protected  boolean requestIndex = true;
 
-    protected long placementID = 1511238989700L;//1511238989700L 1512290525192L 1473189489298L
-    protected String accountID = "d6033153bb3d4982a35b8c349c354f68";//d6033153bb3d4982a35b8c349c354f68 123456789abcdfghjiukljnm09874
+    protected long placementID = 1473189489298L;//1511238989700L 1512290525192L 1473189489298L
+    protected String accountID = "123456789abcdfghjiukljnm09874";//d6033153bb3d4982a35b8c349c354f68 123456789abcdfghjiukljnm09874
     InMobiBanner.BannerAdRequestListener bannerAdRequestListener;
     InMobiAdRequest mInMobiAdRequest;
     LinearLayout contain;
@@ -200,14 +200,15 @@ public class inMobiUnit extends adBaseUnit {
             public void onAdLoadSucceeded(InMobiBanner inMobiBanner) {
                 Log.d(TAG_INMOBI_LISTENER, "onAdLoadSucceeded");
 
-                callbackLuaLoadedAd("success", true);
-
-                //if (isRequireShow())
+                setLoaded(true);
+                //if (appActivity.adMgr.getNeedShow())
                 if(true)//这里写死，只要有广告来就展示
                 {
                     showADView();
-                    requireShow(false);
-                    callbackLuaShowedAd("");
+                }
+                else
+                {
+                    hideADView();
                 }
             }
 
@@ -217,37 +218,32 @@ public class inMobiUnit extends adBaseUnit {
                 Log.d(TAG_INMOBI_LISTENER, "Banner ad failed to load with error: " +
                         inMobiAdRequestStatus.getMessage());
 
-                callbackLuaLoadedAd("failed", false);
+                requestLoadAd();
             }
 
             @Override
             public void onAdDisplayed(InMobiBanner inMobiBanner) {
                 Log.d(TAG_INMOBI_LISTENER, "onAdDisplayed");
-                callbackLuaStateAd("opened");
             }
 
             @Override
             public void onAdDismissed(InMobiBanner inMobiBanner) {
                 Log.d(TAG_INMOBI_LISTENER, "onAdDismissed");
-                callbackLuaStateAd("closed");
             }
 
             @Override
             public void onAdInteraction(InMobiBanner inMobiBanner, Map<Object, Object> map) {
                 Log.d(TAG_INMOBI_LISTENER, "onAdInteraction");
-                callbackLuaStateAd("clicked");
             }
 
             @Override
             public void onUserLeftApplication(InMobiBanner inMobiBanner) {
                 Log.d(TAG_INMOBI_LISTENER, "onUserLeftApplication");
-                callbackLuaStateAd("LeftApplication");
             }
 
             @Override
             public void onAdRewardActionCompleted(InMobiBanner inMobiBanner, Map<Object, Object> map) {
                 Log.d(TAG_INMOBI_LISTENER, "onAdRewardActionCompleted");
-                callbackLuaStateAd("AdRewardActionCompleted");
             }
         });
         //setBannerLayoutParams();
@@ -288,7 +284,6 @@ public class inMobiUnit extends adBaseUnit {
             {
                 if(mCurrBannerAd == null)
                 {
-                    callbackLuaLoadedAd("", false);
                     newBanner();
                 }
             }

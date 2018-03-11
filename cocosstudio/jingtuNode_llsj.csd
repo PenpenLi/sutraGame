@@ -151,6 +151,29 @@
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
           </AbstractNodeData>
+          <AbstractNodeData Name="touchPanel" ActionTag="-590826694" Tag="124" IconVisible="False" LeftMargin="-858.2117" RightMargin="658.2117" TopMargin="484.5459" BottomMargin="-684.5459" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+            <Size X="200.0000" Y="200.0000" />
+            <AnchorPoint />
+            <Position X="-858.2117" Y="-684.5459" />
+            <Scale ScaleX="8.2608" ScaleY="7.2163" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
+            <SingleColor A="255" R="150" G="200" B="255" />
+            <FirstColor A="255" R="150" G="200" B="255" />
+            <EndColor A="255" R="255" G="255" B="255" />
+            <ColorVector ScaleY="1.0000" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Image_2" ActionTag="216240874" Tag="171" IconVisible="False" LeftMargin="-276.7224" RightMargin="-278.2776" TopMargin="516.0414" BottomMargin="-573.0414" LeftEage="183" RightEage="183" TopEage="18" BottomEage="18" Scale9OriginX="183" Scale9OriginY="18" Scale9Width="189" Scale9Height="21" ctype="ImageViewObjectData">
+            <Size X="555.0000" Y="57.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="0.7776" Y="-544.5414" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="Normal" Path="signBoard/jingtu/jtz.png" Plist="" />
+          </AbstractNodeData>
         </Children>
       </ObjectData>
     </Content>
