@@ -63,8 +63,8 @@
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="signBoard/T_BG.png" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Image_1" ActionTag="-777449729" Tag="123" IconVisible="False" LeftMargin="-131.0701" RightMargin="-132.9299" TopMargin="-31.5000" BottomMargin="-31.5000" LeftEage="87" RightEage="87" TopEage="20" BottomEage="20" Scale9OriginX="87" Scale9OriginY="20" Scale9Width="90" Scale9Height="23" ctype="ImageViewObjectData">
-            <Size X="264.0000" Y="63.0000" />
+          <AbstractNodeData Name="Image_1" ActionTag="-777449729" Tag="123" IconVisible="False" LeftMargin="-131.0701" RightMargin="-132.9299" TopMargin="-22.0000" BottomMargin="-22.0000" LeftEage="87" RightEage="87" TopEage="20" BottomEage="20" Scale9OriginX="87" Scale9OriginY="20" Scale9Width="90" Scale9Height="4" ctype="ImageViewObjectData">
+            <Size X="264.0000" Y="44.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="0.9299" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />

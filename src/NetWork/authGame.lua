@@ -78,18 +78,28 @@ end
 function authGame:connectServerCallback(data)
 	if data == "open" then
 		print("服务器连接成功")
+		self:sendTotalPushRequest()
 		
-		performWithDelayG( function()
-			networkManager.request("totalPush",
-			{uuid=UserData:getUUID()}, 
-			handler(self, self.totalPushCallback))
-				end, 0.5)
 	else
 		print("服务器连接失败")
 	end
 end
 
+function authGame:sendTotalPushRequest()
+	if not self.totalPush_DelayHandle then
+		self.totalPush_DelayHandle = scheduleG( function() self:sendTotalPushRequest() end, 5)
+	end
+	
+	performWithDelayG( function()
+		networkManager.request("totalPush",
+		{uuid=UserData:getUUID()}, 
+		handler(self, self.totalPushCallback))
+			end, 0.1)
+end
+
 function authGame:totalPushCallback(data)
+	unScheduleG(self.totalPush_DelayHandle)
+	
 	log("totalPushCallback", data)
 	
 	UserData:setToday(data.serverTime)

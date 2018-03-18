@@ -20,14 +20,14 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CheckBox_1" ActionTag="-1374615057" IconVisible="False" LeftMargin="313.6967" RightMargin="391.3033" TopMargin="274.1173" BottomMargin="409.8827" TouchEnable="True" ctype="CheckBoxObjectData">
-                <Size X="22.0000" Y="24.0000" />
+              <AbstractNodeData Name="CheckBox_1" ActionTag="-1374615057" IconVisible="False" LeftMargin="311.6967" RightMargin="389.3033" TopMargin="271.6173" BottomMargin="407.3827" TouchEnable="True" ctype="CheckBoxObjectData">
+                <Size X="26.0000" Y="29.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="324.6967" Y="421.8827" />
-                <Scale ScaleX="1.4000" ScaleY="1.4000" />
+                <Scale ScaleX="1.6000" ScaleY="1.6000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.4466" Y="0.5959" />
-                <PreSize X="0.0303" Y="0.0339" />
+                <PreSize X="0.0358" Y="0.0410" />
                 <NormalBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <PressedBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <DisableBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
@@ -45,14 +45,14 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CheckBox_2" ActionTag="1531768482" IconVisible="False" LeftMargin="313.6967" RightMargin="391.3033" TopMargin="348.6693" BottomMargin="335.3307" TouchEnable="True" ctype="CheckBoxObjectData">
-                <Size X="22.0000" Y="24.0000" />
+              <AbstractNodeData Name="CheckBox_2" ActionTag="1531768482" IconVisible="False" LeftMargin="311.6967" RightMargin="389.3033" TopMargin="346.1693" BottomMargin="332.8307" TouchEnable="True" ctype="CheckBoxObjectData">
+                <Size X="26.0000" Y="29.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="324.6967" Y="347.3307" />
-                <Scale ScaleX="1.4000" ScaleY="1.4000" />
+                <Scale ScaleX="1.6000" ScaleY="1.6000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.4466" Y="0.4906" />
-                <PreSize X="0.0303" Y="0.0339" />
+                <PreSize X="0.0358" Y="0.0410" />
                 <NormalBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <PressedBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <DisableBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
@@ -70,14 +70,14 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CheckBox_8" ActionTag="-756660077" IconVisible="False" LeftMargin="652.9629" RightMargin="52.0371" TopMargin="417.2256" BottomMargin="266.7744" TouchEnable="True" ctype="CheckBoxObjectData">
-                <Size X="22.0000" Y="24.0000" />
+              <AbstractNodeData Name="CheckBox_8" ActionTag="-756660077" IconVisible="False" LeftMargin="650.9629" RightMargin="50.0371" TopMargin="414.7256" BottomMargin="264.2744" TouchEnable="True" ctype="CheckBoxObjectData">
+                <Size X="26.0000" Y="29.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="663.9629" Y="278.7744" />
-                <Scale ScaleX="1.4000" ScaleY="1.4000" />
+                <Scale ScaleX="1.6000" ScaleY="1.6000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.9133" Y="0.3937" />
-                <PreSize X="0.0303" Y="0.0339" />
+                <PreSize X="0.0358" Y="0.0410" />
                 <NormalBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <PressedBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <DisableBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
@@ -95,14 +95,14 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CheckBox_3" ActionTag="-1820056475" IconVisible="False" LeftMargin="313.6967" RightMargin="391.3033" TopMargin="417.2257" BottomMargin="266.7743" TouchEnable="True" ctype="CheckBoxObjectData">
-                <Size X="22.0000" Y="24.0000" />
+              <AbstractNodeData Name="CheckBox_3" ActionTag="-1820056475" IconVisible="False" LeftMargin="311.6967" RightMargin="389.3033" TopMargin="414.7257" BottomMargin="264.2743" TouchEnable="True" ctype="CheckBoxObjectData">
+                <Size X="26.0000" Y="29.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="324.6967" Y="278.7743" />
-                <Scale ScaleX="1.4000" ScaleY="1.4000" />
+                <Scale ScaleX="1.6000" ScaleY="1.6000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.4466" Y="0.3937" />
-                <PreSize X="0.0303" Y="0.0339" />
+                <PreSize X="0.0358" Y="0.0410" />
                 <NormalBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <PressedBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <DisableBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
@@ -120,14 +120,14 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CheckBox_4" ActionTag="1957866832" IconVisible="False" LeftMargin="313.6967" RightMargin="391.3033" TopMargin="487.7809" BottomMargin="196.2191" TouchEnable="True" ctype="CheckBoxObjectData">
-                <Size X="22.0000" Y="24.0000" />
+              <AbstractNodeData Name="CheckBox_4" ActionTag="1957866832" IconVisible="False" LeftMargin="311.6967" RightMargin="389.3033" TopMargin="485.2809" BottomMargin="193.7191" TouchEnable="True" ctype="CheckBoxObjectData">
+                <Size X="26.0000" Y="29.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="324.6967" Y="208.2191" />
-                <Scale ScaleX="1.4000" ScaleY="1.4000" />
+                <Scale ScaleX="1.6000" ScaleY="1.6000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.4466" Y="0.2941" />
-                <PreSize X="0.0303" Y="0.0339" />
+                <PreSize X="0.0358" Y="0.0410" />
                 <NormalBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <PressedBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <DisableBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
@@ -145,14 +145,14 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CheckBox_5" ActionTag="-95427398" IconVisible="False" LeftMargin="313.6967" RightMargin="391.3033" TopMargin="564.3372" BottomMargin="119.6628" TouchEnable="True" ctype="CheckBoxObjectData">
-                <Size X="22.0000" Y="24.0000" />
+              <AbstractNodeData Name="CheckBox_5" ActionTag="-95427398" IconVisible="False" LeftMargin="311.6967" RightMargin="389.3033" TopMargin="561.8372" BottomMargin="117.1628" TouchEnable="True" ctype="CheckBoxObjectData">
+                <Size X="26.0000" Y="29.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="324.6967" Y="131.6628" />
-                <Scale ScaleX="1.4000" ScaleY="1.4000" />
+                <Scale ScaleX="1.6000" ScaleY="1.6000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.4466" Y="0.1860" />
-                <PreSize X="0.0303" Y="0.0339" />
+                <PreSize X="0.0358" Y="0.0410" />
                 <NormalBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <PressedBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <DisableBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
@@ -170,14 +170,14 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CheckBox_6" ActionTag="1995845611" IconVisible="False" LeftMargin="652.0392" RightMargin="52.9608" TopMargin="274.1169" BottomMargin="409.8831" TouchEnable="True" ctype="CheckBoxObjectData">
-                <Size X="22.0000" Y="24.0000" />
+              <AbstractNodeData Name="CheckBox_6" ActionTag="1995845611" IconVisible="False" LeftMargin="650.0392" RightMargin="50.9608" TopMargin="271.6169" BottomMargin="407.3831" TouchEnable="True" ctype="CheckBoxObjectData">
+                <Size X="26.0000" Y="29.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="663.0392" Y="421.8831" />
-                <Scale ScaleX="1.4000" ScaleY="1.4000" />
+                <Scale ScaleX="1.6000" ScaleY="1.6000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.9120" Y="0.5959" />
-                <PreSize X="0.0303" Y="0.0339" />
+                <PreSize X="0.0358" Y="0.0410" />
                 <NormalBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <PressedBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <DisableBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
@@ -195,14 +195,14 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CheckBox_7" ActionTag="741006806" IconVisible="False" LeftMargin="651.9630" RightMargin="53.0370" TopMargin="348.6693" BottomMargin="335.3307" TouchEnable="True" ctype="CheckBoxObjectData">
-                <Size X="22.0000" Y="24.0000" />
+              <AbstractNodeData Name="CheckBox_7" ActionTag="741006806" IconVisible="False" LeftMargin="649.9630" RightMargin="51.0370" TopMargin="346.1693" BottomMargin="332.8307" TouchEnable="True" ctype="CheckBoxObjectData">
+                <Size X="26.0000" Y="29.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="662.9630" Y="347.3307" />
-                <Scale ScaleX="1.4000" ScaleY="1.4000" />
+                <Scale ScaleX="1.6000" ScaleY="1.6000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.9119" Y="0.4906" />
-                <PreSize X="0.0303" Y="0.0339" />
+                <PreSize X="0.0358" Y="0.0410" />
                 <NormalBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <PressedBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <DisableBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
@@ -220,14 +220,14 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CheckBox_9" ActionTag="164656429" IconVisible="False" LeftMargin="654.3533" RightMargin="50.6467" TopMargin="487.7809" BottomMargin="196.2191" TouchEnable="True" ctype="CheckBoxObjectData">
-                <Size X="22.0000" Y="24.0000" />
+              <AbstractNodeData Name="CheckBox_9" ActionTag="164656429" IconVisible="False" LeftMargin="652.3533" RightMargin="48.6467" TopMargin="485.2809" BottomMargin="193.7191" TouchEnable="True" ctype="CheckBoxObjectData">
+                <Size X="26.0000" Y="29.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="665.3533" Y="208.2191" />
-                <Scale ScaleX="1.4000" ScaleY="1.4000" />
+                <Scale ScaleX="1.6000" ScaleY="1.6000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.9152" Y="0.2941" />
-                <PreSize X="0.0303" Y="0.0339" />
+                <PreSize X="0.0358" Y="0.0410" />
                 <NormalBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <PressedBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <DisableBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
@@ -245,14 +245,14 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CheckBox_10" ActionTag="-846009171" IconVisible="False" LeftMargin="653.9297" RightMargin="51.0703" TopMargin="564.3371" BottomMargin="119.6629" TouchEnable="True" ctype="CheckBoxObjectData">
-                <Size X="22.0000" Y="24.0000" />
+              <AbstractNodeData Name="CheckBox_10" ActionTag="-846009171" IconVisible="False" LeftMargin="651.9297" RightMargin="49.0703" TopMargin="561.8371" BottomMargin="117.1629" TouchEnable="True" ctype="CheckBoxObjectData">
+                <Size X="26.0000" Y="29.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="664.9297" Y="131.6629" />
-                <Scale ScaleX="1.4000" ScaleY="1.4000" />
+                <Scale ScaleX="1.6000" ScaleY="1.6000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.9146" Y="0.1860" />
-                <PreSize X="0.0303" Y="0.0339" />
+                <PreSize X="0.0358" Y="0.0410" />
                 <NormalBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <PressedBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />
                 <DisableBackFileData Type="Normal" Path="selectSutra/j_off.png" Plist="" />

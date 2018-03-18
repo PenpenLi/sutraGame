@@ -137,6 +137,7 @@ buddhasScale.xzysysf = 0.8
 setmetatable(buddhasScale, { __index = function(mytable, key) return 1.0 end })
 
 function GameLayer:setBuddhasImage(res)
+	log(res, string.len(res))
 	self.buddhas:loadTexture(string.format("Buddhas/buddhas/%s.png",  res))
 	self.buddhas:setContentSize(self.buddhas:getVirtualRendererSize())
 	
@@ -378,7 +379,7 @@ function GameLayer:startClickWoodenFish()
 		self.woodenFishClickCount.cnt = self.woodenFishClickCount.cnt + 1
 		self.woodenFishClickCount:setString(self.woodenFishClickCount.cnt)
 		self.woodenFishClickCount:setScale(0)
-		self.woodenFishClickCount:runAction(cc.EaseExponentialOut:create(cc.ScaleTo:create(0.3, 1)))		
+		self.woodenFishClickCount:runAction(cc.EaseExponentialOut:create(cc.ScaleTo:create(0.3, 0.7)))		
 		self:playClickCountNumberEff()
 	end
 	
@@ -535,12 +536,12 @@ function GameLayer:songjing_btnClick(event)
 					self.pauseBtn:setVisible(true)
 					self.woodenFishNode:setVisible(true)
 					ccexp.AudioEngine:stop(startSongHandle or 0)
-				end, 28)
+				end, 0)
 		startSongHandle = ccexp.AudioEngine:play2d(audioData.startSong, true)
 		ccexp.AudioEngine:setVolume(startSongHandle, 100)
 		ccexp.AudioEngine:stop(self.audio_background_handle)
 		
-		self:jingwenAnim(28)
+		self:jingwenAnim(0)
 		
 	else
         ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.error, true), 70)
@@ -595,6 +596,7 @@ function GameLayer:playClickWoodenFishEffect()
 		action_list[#action_list + 1] = cc.DelayTime:create(0.5)
 		action_list[#action_list + 1] = cc.RemoveSelf:create()
 		animNode:runAction(cc.Sequence:create(unpack(action_list)))
+		animNode:runAction(cc.RepeatForever:create(cc.RotateBy:create(4, 360)))
 		
 	elseif eff == "ym" then
 		local ymSpr = cocosMake.newSprite("res/woodenFish/ym.png")
@@ -611,7 +613,7 @@ function GameLayer:playClickWoodenFishEffect()
 		action_list2[#action_list2 + 1] = cc.RemoveSelf:create()
 		ymSpr:setOpacity(0)
 		ymSpr:runAction(cc.Sequence:create(unpack(action_list2)))		
-		ymSpr:runAction(cc.RepeatForever:create(cc.RotateBy:create(2.1, 360)))
+		ymSpr:runAction(cc.RepeatForever:create(cc.RotateBy:create(4, 360)))
 	end
 end
 

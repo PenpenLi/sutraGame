@@ -12,10 +12,15 @@ local function trim_right(s)
 end  
   
 -- 解析一行  
-local function parseline(line)  
+local function parseline(l)  
     local ret = {};  
   
-    local s = line .. ",";  -- 添加逗号,保证能得到最后一个字段  
+	local line = l
+	local last = string.sub(line, -1)
+	if 13 == string.byte(last) then--换行符
+		line = string.sub(line, 1, -2)
+	end
+    local s = line .. ",";  -- 添加逗号,保证能得到最后一个字段
   
     while (s ~= "") do  
         --print(0,s);  
@@ -71,11 +76,11 @@ local function parseline(line)
             end  
         end  
   
-		
+		log("v", v, string.len(v))
         if(tl) then v = trim_left(v); end  
         if(tr) then v = trim_right(v); end  
 		
-        ret[table.getn(ret)+1] = v;  
+        ret[table.getn(ret)+1] = v;
         --print(8,"ret["..table.getn(ret).."]=".."\""..v.."\"");  
   
         if(string.find(s, "^,")) then  
@@ -191,7 +196,9 @@ function csvParse.LoadMusicRhythm(fileName)
 		ret[i].songId = songIds[i]
 	end
 	
+	log("---------------------------------------")
 	local buddhaIds = parseline(xx[4])
+	log(buddhaIds)
 	for i=1, #buddhaIds do
 		ret[i].buddhaId = buddhaIds[i]
 	end
@@ -230,6 +237,7 @@ function csvParse.LoadMusicRhythm(fileName)
 	local res = {}
 	for k,v in pairs(ret) do
 		res[v.id] = v
+		log(v)
 	end
     return res
 end

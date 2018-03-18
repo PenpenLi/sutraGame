@@ -6,17 +6,17 @@
       <ObjectData Name="Node" Tag="33" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Image_1" ActionTag="-534441695" Tag="47" IconVisible="False" LeftMargin="-360.0000" RightMargin="-360.0000" TopMargin="-514.5000" BottomMargin="-514.5000" LeftEage="237" RightEage="237" TopEage="92" BottomEage="92" Scale9OriginX="237" Scale9OriginY="92" Scale9Width="246" Scale9Height="845" ctype="ImageViewObjectData">
+          <AbstractNodeData Name="Image_1" ActionTag="-534441695" Tag="47" IconVisible="False" LeftMargin="-360.0001" RightMargin="-359.9999" TopMargin="-571.4957" BottomMargin="-457.5043" LeftEage="237" RightEage="237" TopEage="92" BottomEage="92" Scale9OriginX="237" Scale9OriginY="92" Scale9Width="246" Scale9Height="845" ctype="ImageViewObjectData">
             <Size X="720.0000" Y="1029.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position />
+            <Position X="-0.0001" Y="56.9957" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="signBoard/jingtu/llsj/llsj_gray.png" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="blockPanel" ActionTag="1261838442" Tag="34" IconVisible="False" LeftMargin="-213.0000" RightMargin="-213.0000" TopMargin="-335.0000" BottomMargin="-282.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+          <AbstractNodeData Name="blockPanel" ActionTag="1261838442" Tag="34" IconVisible="False" LeftMargin="-213.0002" RightMargin="-212.9998" TopMargin="-391.9980" BottomMargin="-225.0020" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="426.0000" Y="617.0000" />
             <Children>
               <AbstractNodeData Name="block1" ActionTag="-1640473120" VisibleForFrame="False" Tag="35" IconVisible="False" LeftMargin="2.0000" RightMargin="323.0000" TopMargin="1.0000" BottomMargin="425.0000" LeftEage="32" RightEage="32" TopEage="46" BottomEage="46" Scale9OriginX="32" Scale9OriginY="46" Scale9Width="37" Scale9Height="99" ctype="ImageViewObjectData">
@@ -141,7 +141,7 @@
               </AbstractNodeData>
             </Children>
             <AnchorPoint />
-            <Position X="-213.0000" Y="-282.0000" />
+            <Position X="-213.0002" Y="-225.0020" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
@@ -151,10 +151,10 @@
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
           </AbstractNodeData>
-          <AbstractNodeData Name="touchPanel" ActionTag="-590826694" Tag="124" IconVisible="False" LeftMargin="-858.2117" RightMargin="658.2117" TopMargin="484.5459" BottomMargin="-684.5459" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+          <AbstractNodeData Name="touchPanel" ActionTag="-590826694" Tag="124" IconVisible="False" LeftMargin="-858.2119" RightMargin="658.2119" TopMargin="427.5453" BottomMargin="-627.5453" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="200.0000" Y="200.0000" />
             <AnchorPoint />
-            <Position X="-858.2117" Y="-684.5459" />
+            <Position X="-858.2119" Y="-627.5453" />
             <Scale ScaleX="8.2608" ScaleY="7.2163" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
@@ -164,10 +164,10 @@
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Image_2" ActionTag="216240874" Tag="171" IconVisible="False" LeftMargin="-276.7224" RightMargin="-278.2776" TopMargin="516.0414" BottomMargin="-573.0414" LeftEage="183" RightEage="183" TopEage="18" BottomEage="18" Scale9OriginX="183" Scale9OriginY="18" Scale9Width="189" Scale9Height="21" ctype="ImageViewObjectData">
+          <AbstractNodeData Name="Image_2" ActionTag="216240874" Tag="171" IconVisible="False" LeftMargin="-276.7225" RightMargin="-278.2775" TopMargin="380.0413" BottomMargin="-437.0413" LeftEage="183" RightEage="183" TopEage="18" BottomEage="18" Scale9OriginX="183" Scale9OriginY="18" Scale9Width="189" Scale9Height="21" ctype="ImageViewObjectData">
             <Size X="555.0000" Y="57.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="0.7776" Y="-544.5414" />
+            <Position X="0.7775" Y="-408.5413" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />

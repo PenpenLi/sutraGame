@@ -15,9 +15,10 @@ function musicPlayerCtrl:Init( ... )
 	self.clickValidEventCount = 0
 	self.clickValidCallback = nil
 	self.songSuccessIndex = false
-	self.songPlayDelayTime = 0
-	self.validOffsetTime = -0.10--敲击有效时间偏移
-	self.validAdjustTime = 0.1--敲击容差时间
+	self.songPlayDelayTime = 0--从星星出现到屏幕中间的时间，开始播放佛经
+	self.validOffsetTime = -0.125--敲击有效时间偏移
+	self.validAdjustTime = 0.15--敲击容差时间
+	self.invalidClickIndex = nil--屏幕敲击无效标识。用来佛句计算之间，无效的敲击
 end
 
 function musicPlayerCtrl:recyclexx(xx)
@@ -177,7 +178,7 @@ function musicPlayerCtrl:update(ft)
 					break
 				end
 			end
-			self:setClickScore(-1)
+			self:addClickScore(-1)
 		end)
 		local clickLegalAction = xx:runAction(cc.Sequence:create(unpack(action_clickLegal)))
 		xx.clickLegalAction = clickLegalAction
@@ -253,7 +254,7 @@ function musicPlayerCtrl:clickEvent()
 		local idx = self.clickLegalSprs[1].index
 		table.remove(self.clickLegalSprs, 1)
 		
-		self:setClickScore(1)
+		self:addClickScore(1)
 		if self.clickValidCallback then
 			self.clickValidCallback()
 		end
@@ -261,6 +262,7 @@ function musicPlayerCtrl:clickEvent()
 		
 	else
 		ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.clickWoodenFishError, false), 70)
+		self.invalidClickIndex = true
 	end
 	return 0
 end
@@ -270,9 +272,12 @@ function musicPlayerCtrl:setClickValidCallback(callback)
 	self.clickValidCallback = callback
 end
 
-function musicPlayerCtrl:setClickScore(val)
+function musicPlayerCtrl:addClickScore(val)
 	
-	self.clickScore[self.clickScoreIndex] = val
+	self.clickScore[self.clickScoreIndex] = self.invalidClickIndex and -1 or val
+	self.invalidClickIndex = nil
+
+	
 	self.clickScoreIndex = self.clickScoreIndex + 1
 	if self.clickScoreIndex > self.fohaoNum then
 		local failed = false
@@ -282,7 +287,7 @@ function musicPlayerCtrl:setClickScore(val)
 				break
 			end
 		end
-		if not failed6 then
+		if not failed then
 			self.fojuScore = self.fojuScore + 1
 		end
 		self.clickScoreIndex = 1
@@ -341,7 +346,7 @@ function musicPlayerCtrl:clear()
 	self.clickValidCallback = nil
 	self.fojuScore = 0
 	self.clickValidEventCount = 0
-	
+	self.state = ""
 	
 	self.musicId = 0
 	self.musicRes = ""
@@ -350,6 +355,7 @@ function musicPlayerCtrl:clear()
 	self.clickLegalSprs = {}
 	self.musicTime = 0
 	self.fohaoNum = 0
+	self.invalidClickIndex = nil
 end
 
 function musicPlayerCtrl:isPlaying()

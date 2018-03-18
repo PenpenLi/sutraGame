@@ -120,8 +120,8 @@ function sutraBoardView:selectSutra( tag )
 end
 
 function sutraBoardView:onClose( ... )
-	AdManager:hideAd()
     AdManager:loadAd()
+	AdManager:hideAd()
 	self:dispatchEvent({name = GlobalEvent.SUTRA_VIEW_SHOW, data={view=nil}})
 end
 

@@ -39,8 +39,9 @@ function sutraOverBoardView:onCreate(param)
         end, i*5.0)
 	end
 	
+	
 	--胜利
-	if result or not UserData:getTodayCanSong() then
+	if result then
 		local snum = UserData:getSutraNum() + (UserData:getTodayCanSong() and 1 or 0)
 		self.sutraTotalCount:setString(snum)
 		--[[local animateNode = new_class(luaFile.AnimationSprite, {
@@ -70,17 +71,24 @@ function sutraOverBoardView:onCreate(param)
 		self.sutraOverBoard:setVisible(false)
 		self.shibaiBoard:setVisible(true)
 	end
-	UserData:songToday(param.id, param.fojuScore)
 	
 	self:jingwenAnim(12)
+	
 	self:dispatchEvent({name = GlobalEvent.SUTRAOVER_VIEW_SHOW, data={view=self}})
+	
+	UserData:songToday(param.id, param.fojuScore)
+	
+	if result then
+		UserData:setTodayCanSong(false)
+	end
 end
 
 
 function sutraOverBoardView:jingwenAnim(overTime)
 	local txtNum = 4
 	local moveX = -10
-	local degeX = 720/(txtNum)
+	local degeX = 460/(txtNum)
+	local offset = 130
 	local movetime = 1.3
 	local moveDelayInFront = 0
 	if txtNum*movetime <= overTime then
@@ -92,7 +100,7 @@ function sutraOverBoardView:jingwenAnim(overTime)
 	for i=1, txtNum do
 		local sprpath = string.format("res/songOver/%02d.png", i)
 		local txt = cocosMake.newSprite(sprpath)
-		txt:setPosition(degeX*(txtNum-i)-moveX+degeX/2, 800)
+		txt:setPosition(offset+degeX*(txtNum-i)-moveX+degeX/2, 760)
 		txt:setOpacity(0)
 		self:addChild(txt)
 		
@@ -111,6 +119,17 @@ function sutraOverBoardView:jingwenAnim(overTime)
 		
 		local delay2 = cc.DelayTime:create(overTime)
 		txt:runAction(cc.Sequence:create(delay2, cc.CallFunc:create(callBackFunc)))
+	end
+	
+	if not UserData:getTodayCanSong() then
+		self:runAction(cc.Sequence:create(cc.DelayTime:create(overTime + movetime), cc.CallFunc:create(function ()
+			LayerManager.closeFloat(self)
+		end)))
+		
+		self.sutraOverBoard:setVisible(false)
+		self.shibaiBoard:setVisible(false)
+		self.closeBtn:setVisible(false)
+		self.touchLayer:setVisible(false)
 	end
 end
 

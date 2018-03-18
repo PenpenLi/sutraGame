@@ -92,7 +92,6 @@ function signBoardView:jingtuBtnClick(event)
 	
 	local songData = UserData:loadMusicRhythmData()
 	local buddhas = string.lower(UserData:getBuddhas())
-	log("buddhas", buddhas)
 	for k,v in pairs(songData) do
 		if  v.buddhaId == buddhas then
 			LayerManager.showFloat(luaFile.jingtuView, {modal=true, jingtu=v.jingtuId})
@@ -109,7 +108,7 @@ function signBoardView:rankBtnClick(event)
 	
 	--LayerManager.closeFloat(self)
 	
-	LayerManager.showFloat(luaFile.rankView, {modal=true})
+	LayerManager.showFloat(luaFile.rankView, {offClose=true, modal=true})
 end
 
 function signBoardView:lotusBtnClick(event)

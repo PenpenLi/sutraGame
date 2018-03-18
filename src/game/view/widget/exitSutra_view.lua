@@ -27,6 +27,7 @@ end
 
 function exitSutraView:onClose( ... )
 	self.player.exitSutraShowing = false
+	AdManager:loadAd()
 	AdManager:hideAd()
 end
 

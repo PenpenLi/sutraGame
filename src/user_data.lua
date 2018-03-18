@@ -29,6 +29,7 @@ function UserData:init( ... )
 	--界面显示的佛祖
 	self.buddhasId = CacheUtil:getCacheVal(CacheType.buddhasId)
 	
+	
 	--改成只有一种木鱼
 	self.usedTool = "1"
 	
@@ -315,7 +316,7 @@ end
 function UserData:songToday(id, score)
 	self:saveSongData(id, score)
 	
-	self.todayCanSong = false
+	
 	--[[if self.todayCanSong then
 		self.songDay[self.today.year][self.today.month][self.today.day] = true
 		self:calcSong()--]]
@@ -444,6 +445,7 @@ end
 
 --当前显示的佛像
 function UserData:setBuddhas(id)
+	log("UserData:setBuddhas", id)
 	self.buddhasId = id
 	CacheUtil:setCacheVal(CacheType.buddhasId, self.buddhasId)
 end
@@ -519,16 +521,24 @@ function UserData:setSutraLastTime(t)
 	self.sutraLastTime = t
 	
 	local last = self:getDayByTime(t)	
+	log("UserData:setSutraLastTime", last)
 	if last.year == self.today.year and last.month == self.today.month and last.day == self.today.day then
 		self.todayCanSong = false
 	else
 		self.todayCanSong = true
 	end
+	
 end
 
 function UserData:getTodayCanSong()
 	return self.todayCanSong
 end
+
+function UserData:setTodayCanSong(b)
+	self.todayCanSong = b
+end
+
+
 
 function UserData:setLotusNum(d)
 	self.lotusNum = tonumber(d) or 0

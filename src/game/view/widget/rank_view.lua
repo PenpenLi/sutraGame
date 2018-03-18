@@ -7,7 +7,6 @@ rankView.ui_resource_file = {"rankNode"}
 
 					
 rankView.ui_binding_file = {
-	closeBtn        = {event = "click", method = "closeBtnClick"},
 }
 
 function rankView:onCreate(param)

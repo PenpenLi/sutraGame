@@ -86,13 +86,13 @@
                     <PreSize X="0.2400" Y="0.2575" />
                     <FileData Type="Normal" Path="songOver/lh11.png" Plist="" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="woodenFishClickCount" ActionTag="-485230891" VisibleForFrame="False" Tag="27" IconVisible="False" LeftMargin="178.2318" RightMargin="158.7682" TopMargin="177.7947" BottomMargin="157.2053" CharWidth="63" CharHeight="65" LabelText="0" StartChar="0" ctype="TextAtlasObjectData">
+                  <AbstractNodeData Name="woodenFishClickCount" ActionTag="-485230891" VisibleForFrame="False" Tag="27" IconVisible="False" LeftMargin="178.2318" RightMargin="158.7682" TopMargin="172.7900" BottomMargin="162.2100" CharWidth="63" CharHeight="65" LabelText="0" StartChar="0" ctype="TextAtlasObjectData">
                     <Size X="63.0000" Y="65.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                    <Position X="209.7318" Y="189.7053" />
+                    <Position X="209.7318" Y="194.7100" />
                     <Scale ScaleX="0.7000" ScaleY="0.7000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.5243" Y="0.4743" />
+                    <PrePosition X="0.5243" Y="0.4868" />
                     <PreSize X="0.1575" Y="0.1625" />
                     <LabelAtlasFileImage_CNB Type="Normal" Path="homeUI/zi.png" Plist="" />
                   </AbstractNodeData>
@@ -147,13 +147,13 @@
               <AbstractNodeData Name="bottomMenuPanel" ActionTag="1562555532" Tag="12" IconVisible="False" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="200.0000" Y="200.0000" />
                 <Children>
-                  <AbstractNodeData Name="Image_1" ActionTag="1610649254" Tag="4" IconVisible="False" LeftMargin="-360.0000" RightMargin="-160.0000" TopMargin="-69.0000" LeftEage="237" RightEage="237" TopEage="88" BottomEage="88" Scale9OriginX="237" Scale9OriginY="88" Scale9Width="246" Scale9Height="93" ctype="ImageViewObjectData">
+                  <AbstractNodeData Name="Image_1" ActionTag="1610649254" Tag="4" IconVisible="False" LeftMargin="-360.0000" RightMargin="-160.0000" TopMargin="-53.0000" BottomMargin="-16.0000" LeftEage="237" RightEage="237" TopEage="88" BottomEage="88" Scale9OriginX="237" Scale9OriginY="88" Scale9Width="246" Scale9Height="93" ctype="ImageViewObjectData">
                     <Size X="720.0000" Y="269.0000" />
                     <AnchorPoint ScaleX="0.5000" />
-                    <Position />
+                    <Position Y="-16.0000" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition />
+                    <PrePosition Y="-0.0800" />
                     <PreSize X="3.6000" Y="1.3450" />
                     <FileData Type="Normal" Path="homeUI/UI_BG.png" Plist="" />
                   </AbstractNodeData>

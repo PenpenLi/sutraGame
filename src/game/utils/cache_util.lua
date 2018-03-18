@@ -26,8 +26,8 @@ CacheVal = {
 	[CacheType.buddhasLightLevel] =           {default = 3, encrypt = true},
 	[CacheType.tools] =           	{default = "", encrypt = false},
 	[CacheType.usedTool] =           {default = "1", encrypt = false},
-	[CacheType.buddhasId] =           {default = "nwamtf", encrypt = false},
-	[CacheType.selectSongId] =           {default = 1, encrypt = false},
+	[CacheType.buddhasId] =           {default = "nwdzwps", encrypt = false},
+	[CacheType.selectSongId] =           {default = 0, encrypt = false},
 	
 	[CacheType.ImageCacheData] =           {default = {}, encrypt = true},
 }
@@ -71,13 +71,13 @@ end
 
 function CacheUtil:getCacheVal(key)
     -- 本地未读取到数据或读取错误，默认返回的串
-    local defaultStr = Base64.encode(valueToString(CacheVal[key].default), BASE64_ENCRYPT_KEY)
+    local defaultStr = CacheVal[key].encrypt and Base64.encode(valueToString(CacheVal[key].default), BASE64_ENCRYPT_KEY) or CacheVal[key].default
     -- 读取到的本地数据（加密的数据）
     local encodeCacheStr = cc.UserDefault:getInstance():getStringForKey(key, defaultStr)
     -- 解密读取到的本地数据
     local cacheStr = CacheVal[key].encrypt and Base64.decode(encodeCacheStr, BASE64_ENCRYPT_KEY) or encodeCacheStr
 
-	return stringToType(cacheStr, type(CacheVal[key].default)) or CacheVal[key].default
+	return stringToType(cacheStr, type(CacheVal[key].default)) or defaultStr
 end
 
 function CacheUtil:setCacheVal(key, val)

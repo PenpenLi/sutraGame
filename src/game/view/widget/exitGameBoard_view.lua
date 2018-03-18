@@ -50,8 +50,8 @@ end
 
 
 function exitGameBoardView:onClose( ... )
+	AdManager:loadAd()
 	AdManager:hideAd()
-    AdManager:loadAd()
 	self:dispatchEvent({name = GlobalEvent.EXITGAME_VIEW_SHOW, data={view=nil}})
 	
 	self.player:resume()

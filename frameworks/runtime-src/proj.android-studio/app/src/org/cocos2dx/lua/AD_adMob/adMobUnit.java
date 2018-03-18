@@ -47,7 +47,7 @@ public class adMobUnit extends adBaseUnit {
         mAdView = new AdView(appActivity);
         mAdView.setAdSize(AdSize.LARGE_BANNER);
         mAdView.setAdUnitId(bannerAdIds);
-        mAdView.setBackgroundColor(Color.BLACK);
+        mAdView.setBackgroundColor(Color.WHITE);
 
 
         appActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -135,8 +135,9 @@ public class adMobUnit extends adBaseUnit {
             @Override
             public void run()
             {
+                mAdView.setVisibility(View.VISIBLE);
                 Display display = appActivity.getWindowManager().getDefaultDisplay();
-                Log.d(TAG_ADMOB_LISTENER, String.format("setTranslationY. %d",display.getHeight()));
+                Log.d(TAG_ADMOB_LISTENER, String.format("setTranslationY.%d, %d",display.getHeight() , mAdView.getHeight()));
                 mAdView.setTranslationY(display.getHeight() - mAdView.getHeight());
             }
         });
@@ -150,10 +151,10 @@ public class adMobUnit extends adBaseUnit {
             @Override
             public void run()
             {
-                // mAdView.setVisibility(View.INVISIBLE);
-                Display display = appActivity.getWindowManager().getDefaultDisplay();
-                Log.d(TAG_ADMOB_LISTENER, String.format("setTranslationY.%d, %d",display.getHeight() , mAdView.getHeight()));
-                mAdView.setTranslationY(display.getHeight() - 1);
+                 mAdView.setVisibility(View.INVISIBLE);
+                //Display display = appActivity.getWindowManager().getDefaultDisplay();
+                //Log.d(TAG_ADMOB_LISTENER, String.format("setTranslationY.%d, %d",display.getHeight() , mAdView.getHeight()));
+                //mAdView.setTranslationY(display.getHeight() - 1);
             }
         });
     }
@@ -168,7 +169,7 @@ public class adMobUnit extends adBaseUnit {
             {
                 //AdRequest request = new AdRequest.Builder().build();
                 AdRequest request = new AdRequest.Builder()
-                        //.addTestDevice("33BE2250B43518CCDA7DE426D04EE231")
+                        //.addTestDevice("A5F9E6335552952334CBB97A10D1F4CB")
                         .build();
                 mAdView.loadAd(request);
             }
