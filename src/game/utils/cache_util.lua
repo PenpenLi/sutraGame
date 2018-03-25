@@ -26,7 +26,7 @@ CacheVal = {
 	[CacheType.buddhasLightLevel] =           {default = 3, encrypt = true},
 	[CacheType.tools] =           	{default = "", encrypt = false},
 	[CacheType.usedTool] =           {default = "1", encrypt = false},
-	[CacheType.buddhasId] =           {default = "nwdzwps", encrypt = false},
+	[CacheType.buddhasId] =           {default = "nwamtf", encrypt = false},
 	[CacheType.selectSongId] =           {default = 0, encrypt = false},
 	
 	[CacheType.ImageCacheData] =           {default = {}, encrypt = true},
@@ -107,7 +107,7 @@ end
 --自定义数据（加密）
 function CacheUtil:getCustomCacheVal(key, valueType, defaultVal)
 	local val = cc.UserDefault:getInstance():getStringForKey(key, tostring(defaultVal or ""))
-	val = Base64.decode(val, BASE64_ENCRYPT_KEY)
+	--val = Base64.decode(val, BASE64_ENCRYPT_KEY)
 	if valueType == "number" then return tonumber(val) end
 	if valueType == "string" then return tostring(val) end
 	if valueType == "boolean" then return toBoolean(val) end
@@ -123,10 +123,10 @@ function CacheUtil:setCustomCacheVal(key, val)
     end
 
     -- 加密
-    local encodeCacheStr = Base64.encode(cacheVal, BASE64_ENCRYPT_KEY) or cacheVal
+    --local encodeCacheStr = Base64.encode(cacheVal, BASE64_ENCRYPT_KEY) or cacheVal
 
     -- 写入已加密串到本地
-    cc.UserDefault:getInstance():setStringForKey(key, encodeCacheStr)
+    cc.UserDefault:getInstance():setStringForKey(key, cacheVal)
     cc.UserDefault:getInstance():flush()
 end
 

@@ -76,7 +76,6 @@ local function parseline(l)
             end  
         end  
   
-		log("v", v, string.len(v))
         if(tl) then v = trim_left(v); end  
         if(tr) then v = trim_right(v); end  
 		
@@ -196,9 +195,8 @@ function csvParse.LoadMusicRhythm(fileName)
 		ret[i].songId = songIds[i]
 	end
 	
-	log("---------------------------------------")
+	
 	local buddhaIds = parseline(xx[4])
-	log(buddhaIds)
 	for i=1, #buddhaIds do
 		ret[i].buddhaId = buddhaIds[i]
 	end
@@ -237,7 +235,6 @@ function csvParse.LoadMusicRhythm(fileName)
 	local res = {}
 	for k,v in pairs(ret) do
 		res[v.id] = v
-		log(v)
 	end
     return res
 end

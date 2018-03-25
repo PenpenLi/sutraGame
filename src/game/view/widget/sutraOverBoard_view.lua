@@ -76,7 +76,7 @@ function sutraOverBoardView:onCreate(param)
 	
 	self:dispatchEvent({name = GlobalEvent.SUTRAOVER_VIEW_SHOW, data={view=self}})
 	
-	UserData:songToday(param.id, param.fojuScore)
+	UserData:songToday(param.id, param.fojuScore, param.clickCount)
 	
 	if result then
 		UserData:setTodayCanSong(false)

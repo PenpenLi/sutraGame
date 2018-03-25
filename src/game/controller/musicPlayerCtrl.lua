@@ -102,7 +102,7 @@ end
 
 function musicPlayerCtrl:update(ft)
 	self.clock=self.clock+ft
-	--log("update", ft, self.clock, self.curStep, self.musicRunRhythm[self.curStep], os.clock())
+	--log("update", ft, self.clock, self.musicPlayerCtrl, self.musicRunRhythm[self.curStep], os.clock())
 
 	if ft <= 0.0 then
 		return
@@ -187,7 +187,7 @@ function musicPlayerCtrl:update(ft)
 		self.curStep=self.curStep+1
 		for i=self.curStep, self.musicRhythmCount do
 			if self.clock <= self.musicRunRhythm[i] then
-				self.curStep = i
+				self.s = i
 				break
 			end
 		end
@@ -373,6 +373,8 @@ end
 function musicPlayerCtrl:getMusicId()
 	return self.musicId
 end
-
+function musicPlayerCtrl:getClickCount()
+	return self.clickValidEventCount
+end
 
 return musicPlayerCtrl

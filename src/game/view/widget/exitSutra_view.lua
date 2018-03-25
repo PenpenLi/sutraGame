@@ -49,7 +49,7 @@ function exitSutraView:yesBtnClick(event)
 
 	self:dispatchEvent({name = GlobalEvent.EXITSUTRA_NOTIFY, data={}})
 	
-	LayerManager.showFloat(luaFile.sutraOverBoardView, {modal=true,id=self.player:getMusicId(), result=self.player:isSuccessed(), fojuScore = self.player:getFojuScore()})
+	LayerManager.showFloat(luaFile.sutraOverBoardView, {modal=true,id=self.player:getMusicId(), result=self.player:isSuccessed(), fojuScore = self.player:getFojuScore(), clickCount=self.player:getClickCount()})
 	self.player:clear()
 	LayerManager.closeFloat(self)	
 end

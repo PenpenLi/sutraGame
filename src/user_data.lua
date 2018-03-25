@@ -58,7 +58,8 @@ function UserData:init( ... )
 	end
 		
 	self.todayCanSign = true
-	self.todayCanIncense = true
+	self.todayCanIncense = CacheUtil:getCustomCacheVal("todayCanIncense", type(false), true)
+	log("self.todayCanIncense begin", self.todayCanIncense and 1 or 0)
 	self.todayCanSong = true
 	
 	self.songCount = 0
@@ -83,12 +84,15 @@ function UserData:init( ... )
 	--上香次数
 	self.censerNum = 0
 	self.censerRank = 0
-	self.incenseLastTime = 0
+	self.incenseLastTime = CacheUtil:getCustomCacheVal("incenseLastTime", type(0), 0)
 	
 	--诵经次数
 	self.sutraNum = 0
 	self.sutraRank = 0
 	self.sutraLastTime = 0
+	
+	--每个月佛号数
+	self.fohaoMonthNum = CacheUtil:getCustomCacheVal("fohaoMonthNum", type(0), 0)
 	
 	--莲花数量
 	self.lotusNum = 0
@@ -134,13 +138,13 @@ function UserData:saveIncenseData( ... )
 end
 
 --保存诵经数据
-function UserData:saveSongData( id, score )
+function UserData:saveSongData( id, score, clickCount )
 	--CacheUtil:setCacheVal(CacheType.songDay, self.songDay)
 
 	
 	
 	self.sutraLastTime = self.ostime
-	networkControl:sendMessage("updateUserData", {type="songScore", data=id..":"..score, ostime=self.ostime})
+	networkControl:sendMessage("updateUserData", {type="songScore", data=id..":"..score .. "," .. clickCount, ostime=self.ostime})
 end
 
 --计算登录数据
@@ -310,11 +314,12 @@ function UserData:incenseToday(  )
 		self:saveIncenseData()
 		
 		self.todayCanIncense = false
+		CacheUtil:setCustomCacheVal("todayCanIncense", self.todayCanIncense)
 	end
 end
 
-function UserData:songToday(id, score)
-	self:saveSongData(id, score)
+function UserData:songToday(id, score, clickCount)
+	self:saveSongData(id, score, clickCount)
 	
 	
 	--[[if self.todayCanSong then
@@ -558,6 +563,7 @@ end
 function UserData:setIncenseLastTime(d)
 	local t = tonumber(d) or 0
 	self.incenseLastTime = t
+	CacheUtil:setCustomCacheVal("	self.incenseLastTime", 	self.incenseLastTime)
 	
 	local last = self:getDayByTime(t)	
 	if last.year == self.today.year and last.month == self.today.month and last.day == self.today.day then
@@ -565,6 +571,9 @@ function UserData:setIncenseLastTime(d)
 	else
 		self.todayCanIncense = true
 	end
+	log("self.todayCanIncense", self.todayCanIncense and 1 or 0)
+	CacheUtil:setCustomCacheVal("todayCanIncense", self.todayCanIncense)
+	
 	self.gameLayer:updateCenserState()
 end
 

@@ -544,7 +544,7 @@ function GameLayer:songjing_btnClick(event)
 		self:jingwenAnim(0)
 		
 	else
-        ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.error, true), 70)
+        ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.error, false), 70)
 		TipViewEx:showTip(TipViewEx.tipType.songTip)
 	end
 end

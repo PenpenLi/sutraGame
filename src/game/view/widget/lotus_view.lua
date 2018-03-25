@@ -15,7 +15,7 @@ function lotusView:onCreate(param)
 	log("openlotusNum", openlotusNum)
 
 	local xx = cocosMake.newSprite("res/homeUI/xingguang.png")
-	
+	xx:setPosition(-100, -100)
 	self:addChild(xx)
 	
 	local lotusCnt = 0
