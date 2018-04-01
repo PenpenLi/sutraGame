@@ -167,7 +167,8 @@ function sutraBoardView:sureBtnClick(event)
 		end
 	end
 	if not key then
-		TipViewEx:showTip("改佛曲不存在，请重新选择")
+		--TipViewEx:showTip("改佛曲不存在，请重新选择")
+		LayerManager.closeFloat(self)
 		return
 	end
 	

@@ -15,42 +15,30 @@ exitSutraView.ui_binding_file = {
 
 function exitSutraView:onCreate(param)
 	
-	self.player = param.player
-	self.player:pause()
-	
-	AdManager:showAd()
+	self.onClickCallback = param.onClickCallback or function() end
 end
 
-function exitSutraView:appEnterForeground()
-	LayerManager.closeFloat(self)
-end
+
 
 function exitSutraView:onClose( ... )
-	self.player.exitSutraShowing = false
-	AdManager:loadAd()
-	AdManager:hideAd()
+	
 end
 
 function exitSutraView:bgTouch()
 end
 
 function exitSutraView:closeBtnClick(event)
-	self.player:resume()
+	self.onClickCallback("no")
 	LayerManager.closeFloat(self)
 end
 
 function exitSutraView:noBtnClick(event)
-	self.player:resume()
+	self.onClickCallback("no")
 	LayerManager.closeFloat(self)
 end
 
 function exitSutraView:yesBtnClick(event)
-	self.player:stop()
-
-	self:dispatchEvent({name = GlobalEvent.EXITSUTRA_NOTIFY, data={}})
-	
-	LayerManager.showFloat(luaFile.sutraOverBoardView, {modal=true,id=self.player:getMusicId(), result=self.player:isSuccessed(), fojuScore = self.player:getFojuScore(), clickCount=self.player:getClickCount()})
-	self.player:clear()
+	self.onClickCallback("yes")
 	LayerManager.closeFloat(self)	
 end
 

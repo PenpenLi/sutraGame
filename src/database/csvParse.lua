@@ -182,7 +182,7 @@ function csvParse.LoadMusicRhythm(fileName)
 	for i=1, #ids do ret[i] = {} end
 
 	for i=1, #ids do
-		ret[i].id = tonumber(ids[i])
+		ret[i].id = ids[i]
 	end
 	
 	local songNames = parseline(xx[2])	

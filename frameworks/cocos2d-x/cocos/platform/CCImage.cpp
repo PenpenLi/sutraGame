@@ -32,6 +32,8 @@ THE SOFTWARE.
 #include "base/CCData.h"
 #include "base/ccConfig.h" // CC_USE_JPEG, CC_USE_TIFF, CC_USE_WEBP
 
+#include "renderer/CCTextureCache.h"
+
 extern "C"
 {
     // To resolve link error when building 32bits with Xcode 6.
@@ -543,6 +545,7 @@ bool Image::initWithImageData(const unsigned char * data, ssize_t dataLen)
         switch (_fileType)
         {
         case Format::PNG:
+			this->pngDecode(unpackedData, unpackedLen);
             ret = initWithPngData(unpackedData, unpackedLen);
             break;
         case Format::JPG:
@@ -2467,6 +2470,69 @@ void Image::premultipliedAlpha()
 void Image::setPVRImagesHavePremultipliedAlpha(bool haveAlphaPremultiplied)
 {
     _PVRHaveAlphaPremultiplied = haveAlphaPremultiplied;
+}
+
+static unsigned char pngEncodeMap[256] = {
+	171,85,140,241,209,61,244,197,167,254,2,128,11,58,193,164,142,60,194,16,195,243,108,141,43,
+	35,213,125,105,24,255,121,132,169,76,211,26,6,59,93,48,157,145,106,237,112,153,181,174,68,
+	13,92,188,192,72,253,19,71,151,99,77,178,144,239,98,134,73,3,218,220,34,118,64,246,150,
+	176,215,202,138,101,47,52,75,126,252,245,102,149,107,69,111,66,185,14,170,207,250,67,87,115,
+	23,129,182,10,130,100,124,208,206,133,49,175,147,104,116,248,40,162,224,235,186,173,28,187,228,
+	139,56,159,168,46,120,229,223,122,22,114,227,51,216,96,63,158,8,217,177,135,109,33,32,143,
+	137,62,184,212,166,234,161,15,190,89,9,65,226,82,88,57,251,45,221,25,55,119,148,113,30,
+	86,97,7,79,172,247,154,91,117,249,5,31,191,42,39,94,36,18,203,240,200,156,27,242,29,
+	256,230,123,165,222,180,183,127,152,131,110,74,210,238,80,12,83,146,205,90,81,103,163,70,204,
+	232,21,201,37,84,53,136,198,4,38,231,219,214,225,78,95,233,189,160,50,20,155,17,236,179,
+	199,44,196,1,54,41,
+};
+static unsigned char pngDecodeMap[256] = {
+	254,11,68,234,186,38,178,143,161,104,13,216,51,94,158,20,248,193,57,246,227,135,101,30,170,
+	37,198,123,200,175,187,149,148,71,26,192,229,235,190,117,256,189,25,252,168,130,81,41,111,245,
+	138,82,231,255,171,127,166,14,39,18,6,152,141,73,162,92,98,50,90,224,58,55,67,212,83,
+	35,61,240,179,215,221,164,217,230,2,176,99,165,160,220,183,52,40,191,241,140,177,65,60,106,
+	80,87,222,114,29,44,89,23,147,211,91,46,174,136,100,115,184,72,172,131,32,134,203,107,28,
+	84,208,12,102,105,210,33,110,66,146,232,151,79,126,3,24,17,150,63,43,218,113,173,88,75,
+	59,209,47,182,247,197,42,142,128,244,157,118,223,16,204,155,9,129,34,95,1,180,122,49,112,
+	76,145,62,250,206,48,103,207,153,93,121,124,53,243,159,188,54,15,19,21,253,8,233,251,196,
+	228,78,194,225,219,109,96,108,5,213,36,154,27,238,77,139,144,69,237,70,169,205,133,119,239,
+	163,137,125,132,202,236,226,242,156,120,249,45,214,64,195,4,199,22,7,86,74,181,116,185,97,
+	167,85,56,10,31,201,
+};
+
+void Image::pngDecode(unsigned char* unpackedData, ssize_t unpackedLen)
+{
+	if (nullptr == unpackedData || !cocos2d::TextureCache::pngIsEncode)
+		return;
+
+	ssize_t decodeSize = MIN(2048, unpackedLen);
+	for (ssize_t n = 0; n < decodeSize; ++n)
+	{
+		unpackedData[n] = pngDecodeMap[unpackedData[n]];
+	}
+}
+
+void Image::pngEncode(const std::string& path)
+{
+	bool ret = false;
+	_filePath = FileUtils::getInstance()->fullPathForFilename(path);
+
+	Data data = FileUtils::getInstance()->getDataFromFile(_filePath);
+
+	if (data.isNull())
+	{
+		return;
+	}
+
+	unsigned char* unpackedData = const_cast<unsigned char*>(data.getBytes());
+	ssize_t unpackedLen = data.getSize();
+
+	ssize_t decodeSize = MIN(2048, unpackedLen);
+	for (ssize_t n = 0; n < decodeSize; ++n)
+	{
+		unpackedData[n] = pngEncodeMap[unpackedData[n]];
+	}
+
+	FileUtils::getInstance()->writeDataToFile(data, _filePath);
 }
 
 NS_CC_END

@@ -262,13 +262,13 @@
                     <FileData Type="Normal" Path="homeUI/yuepu.png" Plist="" />
                     <BlendFunc Src="1" Dst="771" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="yuepu2" ActionTag="-1682407756" Tag="59" IconVisible="False" LeftMargin="722.0000" RightMargin="-722.0000" TopMargin="-99.9473" BottomMargin="309.9473" ctype="SpriteObjectData">
+                  <AbstractNodeData Name="yuepu2" ActionTag="-1682407756" Tag="59" IconVisible="False" LeftMargin="723.0000" RightMargin="-723.0000" TopMargin="-99.9474" BottomMargin="309.9474" ctype="SpriteObjectData">
                     <Size X="720.0000" Y="90.0000" />
                     <AnchorPoint ScaleY="0.5000" />
-                    <Position X="722.0000" Y="354.9473" />
+                    <Position X="723.0000" Y="354.9474" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="1.0028" Y="1.1832" />
+                    <PrePosition X="1.0042" Y="1.1832" />
                     <PreSize X="1.0000" Y="0.3000" />
                     <FileData Type="Normal" Path="homeUI/yuepu.png" Plist="" />
                     <BlendFunc Src="1" Dst="771" />
@@ -388,7 +388,7 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="pauseBtn" ActionTag="-1433694799" Tag="32" IconVisible="False" LeftMargin="604.4285" RightMargin="2.5715" TopMargin="1.7217" BottomMargin="1179.2783" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="83" Scale9Height="77" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+          <AbstractNodeData Name="pauseBtn" ActionTag="-1433694799" VisibleForFrame="False" Tag="32" IconVisible="False" LeftMargin="604.4285" RightMargin="2.5715" TopMargin="1.7217" BottomMargin="1179.2783" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="83" Scale9Height="77" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
             <Size X="113.0000" Y="99.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="660.9285" Y="1228.7783" />

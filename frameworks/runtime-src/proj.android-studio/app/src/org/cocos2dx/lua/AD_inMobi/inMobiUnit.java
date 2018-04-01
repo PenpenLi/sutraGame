@@ -43,8 +43,9 @@ public class inMobiUnit extends adBaseUnit {
     protected  int rtTimes = 1000*0;
     protected  boolean requestIndex = true;
 
-    protected long placementID = 1473189489298L;//1511238989700L 1512290525192L 1473189489298L
-    protected String accountID = "123456789abcdfghjiukljnm09874";//d6033153bb3d4982a35b8c349c354f68 123456789abcdfghjiukljnm09874
+    //最后一个是测试
+    protected long placementID = 1511238989700L;//1511238989700L 1512290525192L 1520368613118L 1473189489298L
+    protected String accountID = "d6033153bb3d4982a35b8c349c354f68";//d6033153bb3d4982a35b8c349c354f68 123456789abcdfghjiukljnm09874
     InMobiBanner.BannerAdRequestListener bannerAdRequestListener;
     InMobiAdRequest mInMobiAdRequest;
     LinearLayout contain;
@@ -65,7 +66,7 @@ public class inMobiUnit extends adBaseUnit {
                 InMobiSdk.init(appActivity, accountID);
                 InMobiSdk.setLogLevel(InMobiSdk.LogLevel.DEBUG);
 
-
+                InMobiBanner bannerAd = new InMobiBanner(appActivity, placementID);
 
                 mInMobiAdRequest = new InMobiAdRequest.Builder(placementID)
                         .setMonetizationContext(InMobiAdRequest.MonetizationContext.MONETIZATION_CONTEXT_ACTIVITY)
@@ -75,7 +76,8 @@ public class inMobiUnit extends adBaseUnit {
                     public void onAdRequestCompleted(InMobiAdRequestStatus inMobiAdRequestStatus, InMobiBanner inMobiBanner) {
                         InMobiAdRequestStatus.StatusCode st = inMobiAdRequestStatus.getStatusCode();
                         String errMsg = inMobiAdRequestStatus.getMessage();
-                        Log.d(TAG_INMOBI_LISTENER, String.format("onAdRequestCompleted：%d, %s", st, errMsg));
+                        if (null == errMsg)errMsg = new String("");
+                        Log.d(TAG_INMOBI_LISTENER, String.format("onAdRequestCompleted：%s, %s", st, errMsg));
                         if (st == InMobiAdRequestStatus.StatusCode.NO_ERROR &&
                                 null != inMobiBanner) {
                             setupBanner(inMobiBanner);
@@ -101,8 +103,8 @@ public class inMobiUnit extends adBaseUnit {
                 contain.setLayoutParams(bannerLayoutParams);
                 if (!contain.isEnabled()) contain.setEnabled(true);
                 //contain.setBackgroundColor(Color.BLACK);
+                //contain.addView(bannerAd);
                 appActivity.addContentView(contain, bannerLayoutParams);
-
                 requestLoadAd();
             }
         });

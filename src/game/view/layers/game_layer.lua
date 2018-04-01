@@ -98,8 +98,7 @@ function GameLayer:initUI()
 	self.touchMaskPanel:onClicked(function()end)
 	self.touchMaskPanel:setVisible(true)
 	
-	self.continueBtn:setVisible(false)
-	self.pauseBtn:setVisible(false)
+	
 	
 	--缓存图片
 	cc.SpriteFrameCache:getInstance():addSpriteFrames("signBoard/clickNumberEffect.plist")
@@ -108,7 +107,8 @@ function GameLayer:initUI()
 
     self:setBuddhasImage(UserData:getBuddhas())
 	
-	
+	self.continueBtn:setVisible(false)
+	self.pauseBtn:setVisible(false)
 end
 
 function GameLayer:showStartSpeak()
@@ -202,6 +202,48 @@ end
 
 
 function GameLayer:exitGameBtnClick(event)
+	local max = 256
+	local encodeMap = {}
+	local encodeList = {}
+	
+	for i=1, max do encodeMap[i] = 0 end
+	
+	local enCnt = 0
+	while true do
+		local r = math.random(1, max)
+		if encodeMap[r] == 0 then
+			encodeMap[r] = 1
+			encodeList[#encodeList+1] = r
+			log("res:", r, #encodeList)
+		end
+		if #encodeList == max then
+			break
+		end
+	end
+	log("encodeList------------------------")
+	for i=1, #encodeList, 25 do
+		local line = ""
+		for j=i, math.min(#encodeList, i+24) do
+			line = line .. encodeList[j] .. ","
+		end
+		log(line)
+	end
+	
+	log("decodeList------------------------")
+	
+	local decodeList = {}
+	for i=1, max do decodeList[i] = 0 end
+	for i=1, #encodeList do
+		decodeList[encodeList[i]] = i
+	end
+	for i=1, #decodeList, 25 do
+		local line = ""
+		for j=i, math.min(#decodeList, i+24) do
+			line = line .. decodeList[j] .. ","
+		end
+		log(line)
+	end
+	log("over------------------------")
 	--[[
 	local spr = cocosMake.newSprite("Buddhas/f_01test.png", 0, 0 , {anchor=cc.p(0,0)})
 	spr:getTexture():setTexParameters(GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_REPEAT)
@@ -223,27 +265,24 @@ function GameLayer:exitGameBtnClick(event)
 		if hval > 1.0 then hval = 0.0 end
 	end, 0.03)	
 	]]--
-    ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
+   --[[ ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
 	if not self.musicPlayerCtrl:isPlaying() then
 		LayerManager.showFloat(luaFile.exitGameBoardView, {modal=true, player=self.musicPlayerCtrl})
 	else
-		if self.musicPlayerCtrl:getState() ~= "pause" then
-			self.musicPlayerCtrl.exitSutraShowing = true
-			LayerManager.showFloat(luaFile.exitSutraView, {modal=true, player=self.musicPlayerCtrl})
-		end
-	end
+		self:showExitSutraView()
+	end--]]
 end
 
 function GameLayer:continueBtnClick()
-	
 	self.continueBtn:setVisible(false)
 	self.pauseBtn:setVisible(true)
 
 	self:setTouchMaskPanelVisible(false)
 	
-	self.musicPlayerCtrl.exitSutraShowing = false
-	self.musicPlayerCtrl:resume()
+	if self.musicPlayerCtrl:getState() == "pause" then
+		self.musicPlayerCtrl:resume()
+	end
 	
     AdManager:loadAd()
 	AdManager:hideAd()
@@ -255,8 +294,9 @@ function GameLayer:pauseBtnClick()
 	
 	self:setTouchMaskPanelVisible(true)
 	
-	self.musicPlayerCtrl.exitSutraShowing = true
-	self.musicPlayerCtrl:pause()
+	if self.musicPlayerCtrl:getState() ~= "pause" then
+		self.musicPlayerCtrl:pause()
+	end
 	
 	AdManager:showAd()
 end
@@ -445,8 +485,10 @@ function GameLayer:jingwen_btnClick(event)
 	local function callback()
 		local musicData = UserData:getSelectSongInfo()
 		--更换佛祖图像
-		UserData:setBuddhas(musicData.buddhaId)
-		self:setBuddhasImage(UserData:getBuddhas())
+		if musicData then
+			UserData:setBuddhas(musicData.buddhaId)
+			self:setBuddhasImage(UserData:getBuddhas())
+		end
 	end
 	LayerManager.showFloat(luaFile.sutraBoardView, {modal=true, selectCallback=callback})
 end
@@ -694,6 +736,7 @@ function GameLayer:return_key()
 		self.woodenFishClickCount:setVisible(false)
 		self.woodenFishClickCount.cnt = 0
 		self.pauseBtn:setVisible(false)
+		self.continueBtn:setVisible(false)
 				
 		self:setTouchMaskPanelVisible(false)
 		
@@ -719,15 +762,17 @@ function GameLayer:appEnterBackground()
 	if self.audio_background_handle then
 		ccexp.AudioEngine:pause(self.audio_background_handle)
 	end
-    self.musicPlayerCtrl:pause()
+	if self.musicPlayerCtrl:isPlaying() then
+		self.musicPlayerCtrl:pause()
+	end
 end
 
 function GameLayer:appEnterForeground()
 	if self.audio_background_handle then
 		ccexp.AudioEngine:resume(self.audio_background_handle)
 	end
-	if not self.musicPlayerCtrl.exitSutraShowing then
-		self.musicPlayerCtrl:resume()
+	if not self.exitSutraView and self.musicPlayerCtrl:isPlaying() then
+		self:continueBtnClick()
 	end
 end
 
@@ -744,6 +789,30 @@ function GameLayer:showNote(noteStr)
 		self.noteStrWidget:runAction(action)
 	end
 	self.noteStrWidget:setString(noteStr)	
+end
+
+function GameLayer:showExitSutraView()
+	if not self.exitSutraView then
+		self.exitSutraView = LayerManager.showFloat(luaFile.exitSutraView, 
+				{modal=true, onClickCallback=function (cn)
+					self:continueBtnClick()
+					self.exitSutraView = nil
+					
+					if "yes" == cn then
+						self:continueBtnClick()
+						
+						self:dispatchEvent({name = GlobalEvent.EXITSUTRA_NOTIFY, data={}})
+						
+						LayerManager.showFloat(luaFile.sutraOverBoardView, {modal=true,
+							id=self.musicPlayerCtrl:getMusicId(), result=self.musicPlayerCtrl:isSuccessed(), 
+							fojuScore = self.musicPlayerCtrl:getFojuScore(), clickCount=self.musicPlayerCtrl:getClickCount()})
+						self.musicPlayerCtrl:stop()
+						self.musicPlayerCtrl:clear()
+					end
+				end})
+		
+		self:pauseBtnClick()
+	end
 end
 
 cocosMake.Director:setDisplayStats(TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS)

@@ -47,6 +47,7 @@ using namespace std;
 
 NS_CC_BEGIN
 
+bool TextureCache::pngIsEncode = false;
 // implementation TextureCache
 
 TextureCache * TextureCache::getInstance()

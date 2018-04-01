@@ -303,7 +303,7 @@ end
 
 function musicPlayerCtrl:pause()
     log("musicPlayerCtrl:pause", self.clock)
-	if self.playing then
+	if self.playing and self.state ~= "pause" then
 		cocosMake.setGameSpeed(0)
 		if self.musicHandle then
 			ccexp.AudioEngine:pause(self.musicHandle)
@@ -315,7 +315,7 @@ end
 
 function musicPlayerCtrl:resume()
     log("musicPlayerCtrl:resume", self.clock)
-	if self.playing then
+	if self.playing and self.state ~= "resume" then
 		cocosMake.setGameSpeed(1)
         self.state = "resume"
 	end
@@ -341,6 +341,8 @@ function musicPlayerCtrl:stop()
 end
 
 function musicPlayerCtrl:clear()
+	cocosMake.setGameSpeed(1)
+	
 	self.songSuccessIndex = false
 	self:clearxx()
 	self.clickValidCallback = nil

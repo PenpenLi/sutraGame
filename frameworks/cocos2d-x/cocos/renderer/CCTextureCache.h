@@ -59,8 +59,14 @@ NS_CC_BEGIN
 * Once the texture is loaded, the next time it will return.
 * A reference of the previously loaded texture reducing GPU & CPU memory.
 */
+
 class CC_DLL TextureCache : public Ref
 {
+public:
+	/** Returns the shared instance of the cache. */
+	CC_DEPRECATED_ATTRIBUTE static void pngEncode(bool b = false) { TextureCache::pngIsEncode = b; };
+	static bool pngIsEncode;
+
 public:
     /** Returns the shared instance of the cache. */
     CC_DEPRECATED_ATTRIBUTE static TextureCache * getInstance();

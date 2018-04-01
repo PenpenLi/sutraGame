@@ -135,7 +135,7 @@ function authGame:totalPushCallback(data)
 		UserData:setMusicScoreWithID(tonumber(sc[1]), tonumber(sc[2]))
 	end
 	
-	local jingtuList = string.split(jingtuGroup, ",")
+	local jingtuList = string.split(data.jingtuGroup, ",")
 	for k, v in pairs(jingtuList) do
 		local sc = string.split(v, ":")
 		UserData:setJingtuOpenData(sc[1], tonumber(sc[2]))

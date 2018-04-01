@@ -14,7 +14,7 @@ jingtuView.ui_binding_file = {
 function jingtuView:onCreate(param)
 	local jingtu = param.jingtu or "jlsj"
 	local openBlockNum = UserData:getJingtuOpenData(jingtu) or 0
-	log("openBlockNum", openBlockNum)
+	log("openBlockNum", openBlockNum, jingtu)
 	
 	local jingtuNode = cc.CSLoader:createNode("jingtuNode_" .. jingtu .. ".csb")
 	if jingtuNode then

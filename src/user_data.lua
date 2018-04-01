@@ -28,8 +28,8 @@ function UserData:init( ... )
 	
 	--界面显示的佛祖
 	self.buddhasId = CacheUtil:getCacheVal(CacheType.buddhasId)
-	
-	
+
+
 	--改成只有一种木鱼
 	self.usedTool = "1"
 	
@@ -392,8 +392,13 @@ function UserData:loadMusicRhythmData()
 			return a.id < b.id
 		end)
 		
-		self.musicData = ret
-		return ret
+		self.musicData={}
+		for k,v in pairs(ret) do
+			v.id = tonumber(v.id)
+			self.musicData[v.id] = DeepCopy(v)
+		end
+		
+		return self.musicData
 	else
 		return self.musicData
 	end
@@ -409,7 +414,7 @@ function UserData:getSelectSongInfo()
 end
 
 function UserData:setSelectSongId(id)
-	self.selectSongId = id
+	self.selectSongId = tonumber(id) or 0
 	CacheUtil:setCacheVal(CacheType.selectSongId, self.selectSongId)
 end
 function UserData:getSelectSongId()

@@ -17,8 +17,8 @@ public class adManager {
     {
         appActivity = instance;
 
-        admobAD = new adMobUnit();
-        admobAD.initSDK(appActivity);
+        //admobAD = new adMobUnit();
+        //admobAD.initSDK(appActivity);
 
         inMobiAD = new inMobiUnit();
         inMobiAD.initSDK(appActivity);
