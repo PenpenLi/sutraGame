@@ -20,7 +20,7 @@ GAME_GAME_IP_ADDRESS = "47.91.176.170"
 GAME_GAME_IP_PORT = 7001
 
 
---目前支持的分辨率
+--鐩墠鏀寔鐨勫垎杈ㄧ巼
 _SUPPORT_RESOLUTION_ = {
 	{9,16},
 	{3,4},
@@ -42,5 +42,5 @@ CC_DESIGN_RESOLUTION = {
         end
     end
 }
---打包时打开
+--鎵撳寘鏃舵墦寮�
 --function print()end

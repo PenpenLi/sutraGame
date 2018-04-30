@@ -21,6 +21,8 @@ function mainScene:onEnter()
 	networkControl:init()
 	networkControl:authUser()
 	
+	localCacheServerCtrl = new_class(luaFile.localCacheServerCtrl)
+	
 	if TARGET_PLATFORM ~= cc.PLATFORM_OS_WINDOWS then
 		local action_list = {}
 		action_list[#action_list+1] = cc.DelayTime:create(0.10)

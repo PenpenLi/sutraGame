@@ -168,10 +168,10 @@ function authUser.start_register(id, psd, notifyCallback)
 	if notifyCallback then authUser.notifyCallback = notifyCallback end
 	
 	
-	if not check_illegal_chars(id) or not check_illegal_chars(psd) then
-		authUser.notifyCallback(auth.STATE.register_id_psd_error)
-		return
-	end
+	--if not check_illegal_chars(id) or not check_illegal_chars(psd) then
+	--	authUser.notifyCallback(auth.STATE.register_id_psd_error)
+	--	return
+	--end
 	
 	authUser.notifyCallback(auth.STATE.connecting)
 	
@@ -187,10 +187,10 @@ function authUser.start_login(id, psd, notifyCallback)
 	if notifyCallback then authUser.notifyCallback = notifyCallback end
 	
 	
-	if not check_illegal_chars(id) or not check_illegal_chars(psd) then
-		authUser.notifyCallback(auth.STATE.loginError_id_psd_error)
-		return
-	end
+	--if not check_illegal_chars(id) or not check_illegal_chars(psd) then
+	--	authUser.notifyCallback(auth.STATE.loginError_id_psd_error)
+	--	return
+	--end
 	
 	authUser.notifyCallback(auth.STATE.connecting)
 	

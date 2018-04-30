@@ -3,6 +3,7 @@
 ------------------------------------
 CacheUtil = CacheUtil or {}
 CacheType = {
+	localCacheServer = "_localCacheServer_",
     signDay = "_signDay_",
 	incenseDay = "_incenseDay_",
 	songDay = "_songDay_",
@@ -14,10 +15,26 @@ CacheType = {
 	usedTool = "_usedTool_",
 	buddhasId = "_buddhasId_",
 	selectSongId = "_selectSongId_",
+	signLine = "_signLine_",
+	incenseLastTime = "_incenseLastTime_",
+	censerNum = "_censerNum_",
+	censerRank = "_censerRank_",
+	signNum = "_signNum_",
+	signRank = "_signRank_",
+	sutraNum = "_sutraNum_",
+	sutraRank = "_sutraRank_",
+	sutraLastTime = "_sutraLastTime_",
+	fohaoMonthNum = "_fohaoMonthNum_",
+	totalRank = "_totalRank_",
+	jingtuOpenData = "_jingtuOpenData_",
+	lotusNum = "_lotusNum_",
+	
 }
 
 	
 CacheVal = {
+
+	[CacheType.localCacheServer] =           {default = {}, encrypt = false},
     [CacheType.signDay] =           {default = {}, encrypt = true},
 	[CacheType.incenseDay] =           {default = {}, encrypt = true},
 	[CacheType.songDay] =           {default = {}, encrypt = true},
@@ -30,6 +47,20 @@ CacheVal = {
 	[CacheType.selectSongId] =           {default = 0, encrypt = false},
 	
 	[CacheType.ImageCacheData] =           {default = {}, encrypt = true},
+	[CacheType.signLine] =           {default = 0, encrypt = false},
+	[CacheType.incenseLastTime] =           {default = 0, encrypt = false},
+	[CacheType.censerNum] =           {default = 0, encrypt = false},
+	[CacheType.censerRank] =           {default = 0, encrypt = false},
+	[CacheType.signNum] =           {default = 0, encrypt = false},
+	[CacheType.signRank] =           {default = 0, encrypt = false},
+	[CacheType.sutraNum] =           {default = 0, encrypt = false},
+	[CacheType.sutraRank] =           {default = 0, encrypt = false},
+	[CacheType.sutraLastTime] =           {default = 0, encrypt = false},
+	[CacheType.fohaoMonthNum] =           {default = 0, encrypt = false},
+	[CacheType.totalRank] =           {default = 0, encrypt = false},
+	[CacheType.jingtuOpenData] =           {default = {}, encrypt = false},
+	[CacheType.lotusNum] =           {default = 0, encrypt = false},
+	
 }
 
 
@@ -71,7 +102,7 @@ end
 
 function CacheUtil:getCacheVal(key)
     -- 本地未读取到数据或读取错误，默认返回的串
-    local defaultStr = CacheVal[key].encrypt and Base64.encode(valueToString(CacheVal[key].default), BASE64_ENCRYPT_KEY) or CacheVal[key].default
+    local defaultStr = CacheVal[key].encrypt and Base64.encode(valueToString(CacheVal[key].default), BASE64_ENCRYPT_KEY) or valueToString(CacheVal[key].default)
     -- 读取到的本地数据（加密的数据）
     local encodeCacheStr = cc.UserDefault:getInstance():getStringForKey(key, defaultStr)
     -- 解密读取到的本地数据

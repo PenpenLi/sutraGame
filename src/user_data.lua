@@ -2,6 +2,8 @@
 
 local UserData = class("UserData")
 
+local cacheToServerData = {}
+
 function UserData:ctor( ... )
     
     self:init()
@@ -11,39 +13,27 @@ end
 
 
 function UserData:init( ... )
-	self.signDay = CacheUtil:getCacheVal(CacheType.signDay)
-	self.signLine = 0
-	
-	self.buddhasLightLevel = CacheUtil:getCacheVal(CacheType.buddhasLightLevel)
-	self.buddhasLightDay = CacheUtil:getCacheVal(CacheType.buddhasLightDay)
-	
-	--self.incenseDay = CacheUtil:getCacheVal(CacheType.incenseDay)
-
-	self.songDay = CacheUtil:getCacheVal(CacheType.songDay)
-	
-	self.birthday = CacheUtil:getCacheVal(CacheType.birthday)
-	
+	--[[self.songDay = CacheUtil:getCacheVal(CacheType.songDay)
+		
 	--我的物品
 	self.toolList = CacheUtil:getCacheVal(CacheType.tools)
 	
-	--界面显示的佛祖
-	self.buddhasId = CacheUtil:getCacheVal(CacheType.buddhasId)
-
-
-	--改成只有一种木鱼
-	self.usedTool = "1"
 	
-	--self.chenghaoLv = 0--称号等级
 	
-	self.buddhasLightLevel = 3--佛光定为3级
+	self.buddhasLightLevel = CacheUtil:getCacheVal(CacheType.buddhasLightLevel)
+	
 	if self.buddhasLightLevel == 0 then
 		self.buddhasLightLevel = 1
 		CacheUtil:setCacheVal(CacheType.buddhasLightLevel, self.buddhasLightLevel)
 	end
+	
+	self.birthday = CacheUtil:getCacheVal(CacheType.birthday)
 	if self.birthday == 0 then
 		self.birthday = os.time()
 		CacheUtil:setCacheVal(CacheType.birthday, self.birthday)
 	end
+	
+	self.buddhasLightDay = CacheUtil:getCacheVal(CacheType.buddhasLightDay)
 	if self.buddhasLightDay == 0 then 
 		self.buddhasLightDay = os.time()
 		CacheUtil:setCacheVal(CacheType.buddhasLightDay, self.buddhasLightDay)
@@ -55,56 +45,68 @@ function UserData:init( ... )
 	for k,v in pairs(tools) do 
 		local tool = string.split(v, ":")
 		self.toolList[tostring(tool[1])] = tonumber(tool[2])
-	end
+	end--]]
+
+	self:setToday(os.time())
 		
-	self.todayCanSign = true
-	self.todayCanIncense = CacheUtil:getCustomCacheVal("todayCanIncense", type(false), true)
-	log("self.todayCanIncense begin", self.todayCanIncense and 1 or 0)
-	self.todayCanSong = true
+	self.buddhasLightLevel = 3--佛光定为3级
 	
-	self.songCount = 0
-	self.songContinueCount = 0
+	--改成只有一种木鱼
+	self.usedTool = "1"
 	
+	--界面显示的佛祖
+	self.buddhasId = CacheUtil:getCacheVal(CacheType.buddhasId)
+	
+	
+	
+	
+	
+	--[[self.songCount = 0	
+	self.songContinueCount = 0	
 	self.signCount = 0
-	self.signContinueCount = 0
+	self.signContinueCount = 0--]]
 	
 	--当前选中的佛经
 	self.selectSongId = CacheUtil:getCacheVal(CacheType.selectSongId)
 	
 	--净土已打开数据
-	self.jingtuOpenData = {}
+	self.jingtuOpenData = CacheUtil:getCacheVal(CacheType.jingtuOpenData)
 	
 	--综合排名
-	self.totalRank = 0
+	self.totalRank = CacheUtil:getCacheVal(CacheType.totalRank)
 	
-	--签到次数
-	self.signNum = 0
-	self.signRank = 0
 	
-	--上香次数
-	self.censerNum = 0
-	self.censerRank = 0
-	self.incenseLastTime = CacheUtil:getCustomCacheVal("incenseLastTime", type(0), 0)
+	--上香
+	self.censerNum = CacheUtil:getCacheVal(CacheType.censerNum)
+	self.censerRank = CacheUtil:getCacheVal(CacheType.censerRank)
+	self.incenseLastTime = CacheUtil:getCacheVal(CacheType.incenseLastTime)
+	local incenseLastDate = self:getDayByTime(self.incenseLastTime)
+	self.todayCanIncense = (incenseLastDate.year ~= self.today.year and incenseLastDate.month ~= self.today.month and incenseLastDate.day ~= self.today.day)
 	
-	--诵经次数
-	self.sutraNum = 0
-	self.sutraRank = 0
-	self.sutraLastTime = 0
+	--签到数据
+	self.signLine = CacheUtil:getCacheVal(CacheType.signLine)
+	self.signDay = CacheUtil:getCacheVal(CacheType.signDay)
+	self.signNum = CacheUtil:getCacheVal(CacheType.signNum)
+	self.signRank = CacheUtil:getCacheVal(CacheType.signRank)
+	self.todayCanSign = true
+	self.monthWeekDay = {}
+	self:calcSign()
+	
+	--诵经
+	self.sutraNum = CacheUtil:getCacheVal(CacheType.sutraNum)
+	self.sutraRank = CacheUtil:getCacheVal(CacheType.sutraRank)
+	self.sutraLastTime = CacheUtil:getCacheVal(CacheType.sutraLastTime)
+	self.todayCanSong = true
+	self:calcTodayCanSong(self.sutraLastTime)
 	
 	--每个月佛号数
-	self.fohaoMonthNum = CacheUtil:getCustomCacheVal("fohaoMonthNum", type(0), 0)
+	self.fohaoMonthNum = CacheUtil:getCacheVal(CacheType.fohaoMonthNum)
 	
 	--莲花数量
-	self.lotusNum = 0
-	
-	self.monthWeekDay = {}
+	self.lotusNum = CacheUtil:getCacheVal(CacheType.lotusNum)
 	
 	
-	self.today = {month=0, day=0, year=0}
-	self:setToday(os.time())
 	
-	self:calcSign()
-	--self:calcIncense()
 	
 	self:loadMusicRhythmData()
 end
@@ -122,29 +124,26 @@ function UserData:saveSignData( ... )
 	
 	--同步到服务器
 	local signLine = CGame:bitOperate(2, self.signLine, CGame:bitOperate(5, self.today.day-1, 1))
-	networkControl:sendMessage("updateUserData", {type="signLine", data=signLine, ostime=self.ostime})
+	self.signLine = signLine
+	CacheUtil:setCacheVal(CacheType.signLine, self.signLine)
+	networkControl:sendMessage("updateUserData", {type="signLine", data=signLine, ostime=self.ostime, isSync=false})
+	localCacheServerCtrl:addCache("signLine", {signLine=signLine, time=self.ostime})
 end
 
 --保存点香数据
 function UserData:saveIncenseData( ... )
-	--CacheUtil:setCacheVal(CacheType.incenseDay, self.incenseDay)
-	self.buddhasLightLevel = 3--佛光定为3级
-	CacheUtil:setCacheVal(CacheType.buddhasLightLevel, self.buddhasLightLevel)
-	CacheUtil:setCacheVal(CacheType.buddhasLightDay, self.buddhasLightDay)
-	
 	self.incenseLastTime = self.ostime
-	networkControl:sendMessage("updateUserData", {type="censerNum", data="", ostime=self.ostime})
-	
+	CacheUtil:setCacheVal(CacheType.incenseLastTime, self.incenseLastTime)
+	networkControl:sendMessage("updateUserData", {type="censerNum", data="", ostime=self.ostime, isSync=false})
+	localCacheServerCtrl:addCache("censerNum", {time=self.ostime})
 end
 
 --保存诵经数据
 function UserData:saveSongData( id, score, clickCount )
-	--CacheUtil:setCacheVal(CacheType.songDay, self.songDay)
-
-	
-	
 	self.sutraLastTime = self.ostime
-	networkControl:sendMessage("updateUserData", {type="songScore", data=id..":"..score .. "," .. clickCount, ostime=self.ostime})
+	local data = id..":"..score .. "," .. clickCount
+	networkControl:sendMessage("updateUserData", {type="songScore", data=data, ostime=self.ostime, isSync=false})
+	localCacheServerCtrl:addCache("songScore", {songData=data, time=self.ostime})
 end
 
 --计算登录数据
@@ -259,6 +258,16 @@ function UserData:calcIncense( ... )
 	end--]]
 end
 
+function UserData:calcTodayCanSong( lastSongTime )
+	local last = self:getDayByTime(lastSongTime)
+	log("UserData:setSutraLastTime", last)
+	if last.year == self.today.year and last.month == self.today.month and last.day == self.today.day then
+		self.todayCanSong = false
+	else
+		self.todayCanSong = true
+	end
+end
+
 function UserData:calcSong( ... )
 	local songDay = self.songDay
 	if not songDay[self.today.year] then songDay[self.today.year] = {} end
@@ -314,7 +323,7 @@ function UserData:incenseToday(  )
 		self:saveIncenseData()
 		
 		self.todayCanIncense = false
-		CacheUtil:setCustomCacheVal("todayCanIncense", self.todayCanIncense)
+		self.gameLayer:updateCenserState()
 	end
 end
 
@@ -434,6 +443,7 @@ end
 --设置净土已打开数据
 function UserData:setJingtuOpenData(jingtuName, openNum)
 	self.jingtuOpenData[jingtuName] = openNum
+	CacheUtil:setCacheVal(CacheType.jingtuOpenData, self.jingtuOpenData)	
 end
 function UserData:getJingtuOpenData(jingtuName)
 	for k,v in pairs( self.jingtuOpenData ) do
@@ -446,6 +456,7 @@ end
 --综合排名
 function UserData:setTotalRank(r)
 	self.totalRank = r
+	CacheUtil:setCacheVal(CacheType.totalRank, self.totalRank)
 end
 function UserData:getTotalRank()
 	return self.totalRank
@@ -491,12 +502,14 @@ end
 
 function UserData:setSignNum(d)
 	self.signNum = tonumber(d) or 0
+	CacheUtil:setCacheVal(CacheType.signNum, self.signNum)
 end
 function UserData:getSignNum()
 	return self.signNum
 end
 function UserData:setSignRank(d)
 	self.signRank = d
+	CacheUtil:setCacheVal(CacheType.signRank, self.signRank)
 end
 function UserData:getSignRank()
 	return self.signRank
@@ -504,12 +517,14 @@ end
 
 function UserData:setCenserNum(d)
 	self.censerNum = tonumber(d) or 0
+	CacheUtil:setCacheVal(CacheType.censerNum, self.censerNum)
 end
 function UserData:getCenserNum()
 	return self.censerNum
 end
 function UserData:setCenserRank(d)
 	self.censerRank = tonumber(d) or 0
+	CacheUtil:setCacheVal(CacheType.censerRank, self.censerRank)
 end
 function UserData:getCenserRank()
 	return self.censerRank
@@ -517,27 +532,23 @@ end
 
 function UserData:setSutraNum(d)
 	self.sutraNum = tonumber(d) or 0
+	CacheUtil:setCacheVal(CacheType.sutraNum, self.sutraNum)
 end
 function UserData:getSutraNum()
 	return self.sutraNum
 end
 function UserData:setSutraRank(d)
 	self.sutraRank = tonumber(d) or 0
+	CacheUtil:setCacheVal(CacheType.sutraRank, self.sutraRank)
 end
 function UserData:getSutraRank()
 	return self.sutraRank
 end
 function UserData:setSutraLastTime(t)
 	self.sutraLastTime = t
+	CacheUtil:setCacheVal(CacheType.sutraLastTime, self.sutraLastTime)
 	
-	local last = self:getDayByTime(t)	
-	log("UserData:setSutraLastTime", last)
-	if last.year == self.today.year and last.month == self.today.month and last.day == self.today.day then
-		self.todayCanSong = false
-	else
-		self.todayCanSong = true
-	end
-	
+	self:calcTodayCanSong(t)
 end
 
 function UserData:getTodayCanSong()
@@ -552,6 +563,7 @@ end
 
 function UserData:setLotusNum(d)
 	self.lotusNum = tonumber(d) or 0
+	CacheUtil:setCacheVal(CacheType.lotusNum, self.lotusNum)
 end
 function UserData:getLotusNum()
 	return self.lotusNum
@@ -559,6 +571,7 @@ end
 
 function UserData:setFohaoMonthNum(num)
 	self.fohaoMonthNum = num
+	CacheUtil:setCacheVal(CacheType.fohaoMonthNum, self.fohaoMonthNum)
 end
 function UserData:getFohaoMonthNum()
 	return self.fohaoMonthNum or 0
@@ -568,7 +581,7 @@ end
 function UserData:setIncenseLastTime(d)
 	local t = tonumber(d) or 0
 	self.incenseLastTime = t
-	CacheUtil:setCustomCacheVal("	self.incenseLastTime", 	self.incenseLastTime)
+	CacheUtil:setCacheVal(CacheType.incenseLastTime, self.incenseLastTime)
 	
 	local last = self:getDayByTime(t)	
 	if last.year == self.today.year and last.month == self.today.month and last.day == self.today.day then
@@ -577,7 +590,7 @@ function UserData:setIncenseLastTime(d)
 		self.todayCanIncense = true
 	end
 	log("self.todayCanIncense", self.todayCanIncense and 1 or 0)
-	CacheUtil:setCustomCacheVal("todayCanIncense", self.todayCanIncense)
+	
 	
 	self.gameLayer:updateCenserState()
 end

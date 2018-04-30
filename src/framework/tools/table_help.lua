@@ -41,7 +41,7 @@ function tableEx.serialize(tab)
     elseif t == "string" then
         str = str .. string.format("%q", tab)
     elseif t == "table" then
-        str = str .. "{\n"
+        str = str .. "{"
         for k, v in pairs(tab) do
             str = str .. "[" .. tableEx.serialize(k) .. "]=" .. tableEx.serialize(v) .. ",\n"
         end

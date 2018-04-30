@@ -1,4 +1,4 @@
---¹«Ê½ÑİËã
+--å…¬å¼æ¼”ç®—
 FormulaHelper = FormulaHelper or {}
 FormulaHelper.isInitMag = false
 
@@ -10,7 +10,7 @@ local function initMag(var)
     _var = var
     
     if FormulaHelper.isInitMag == false then
-        mag["magic"] = function() return 10--[[return _var:get()--´Ó½ÇÉ«object»ñµÃÏàÓ¦µÄÊôĞÔ--]] end
+        mag["magic"] = function() return 10--[[return _var:get()--ä»è§’è‰²objectè·å¾—ç›¸åº”çš„å±æ€§--]] end
         mag["attack"] = function() return 10 end
     end
 
@@ -22,7 +22,7 @@ local function parse(str)
     local mulaList = {}
             
             
-    --½«·ûºÅ»¯½âÎª+£¬-
+    --å°†ç¬¦å·åŒ–è§£ä¸º+ï¼Œ-
     local function popUp_para()
         local res = paraList[#paraList]
         paraList[#paraList] = nil
@@ -98,19 +98,19 @@ local function parse(str)
 
     while string.len(str) > 0 do
         local a,b,c,d,e = string.find(str, "([+*-/()])(.*)")
-        if c == "." then--·ÖÎöµ½.ºÅ£¬string½âÎö²»ÁË.ºÅ
+        if c == "." then--åˆ†æåˆ°.å·ï¼Œstringè§£æä¸äº†.å·
                 local tmp = string.sub(str, a+1, string.len(str))
                 local a_,b_,c_,d_,e_ = string.find(tmp, "([+*-/()])(.*)")
                 a_ = a_ or 0
                 a = a + a_ + 1
         end
-        if not a then--·ÖÎöµ½×îºóÒ»¸ö²ÎÊı
+        if not a then--åˆ†æåˆ°æœ€åä¸€ä¸ªå‚æ•°
             local subResult = string.sub(str, 1, string.len(str))
             popDown_para(subResult)
             think()
             break
 
-        elseif a ~= 1 then--µÚÒ»¸ö²»ÊÇÔËËã·û,ÄÇÃ´¾ÍÊÇ²ÎÊı
+        elseif a ~= 1 then--ç¬¬ä¸€ä¸ªä¸æ˜¯è¿ç®—ç¬¦,é‚£ä¹ˆå°±æ˜¯å‚æ•°
             if a == nil or a <= 1 then
                 a = 2
             end
@@ -121,7 +121,7 @@ local function parse(str)
             popDown_para(subResult)
             think()
                     
-            if a == string.len(str) then--·ÖÎöµ½.ºÅ£¬string½âÎö²»ÁË.ºÅ
+            if a == string.len(str) then--åˆ†æåˆ°.å·ï¼Œstringè§£æä¸äº†.å·
                 break
             else
                 str = string.sub(str, a, string.len(str))
@@ -159,8 +159,8 @@ local function parse(str)
     return sweep()
 end
 
---param : ²ÎÊı
---param.role : ½ÇÉ«
+--param : å‚æ•°
+--param.role : è§’è‰²
 function FormulaHelper.calculate(formula, var)
     initMag(var)
     return parse(formula)

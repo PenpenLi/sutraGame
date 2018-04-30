@@ -45,12 +45,20 @@ updateUserData 2 {
 		type 0 	: string
 		data 1 	: string
 		ostime 2	: integer
+		isSync 3 : boolean
 	}
 	response {
 		errCode 0 : integer
 		desc 1 : string
 	}
 }
+
+notifyUUID 3 {
+	request {
+		uuid 0 : string
+	}
+}
+
 ]]
 
 proto.s2c = sprotoparser.parse [[

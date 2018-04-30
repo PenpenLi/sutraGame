@@ -16,7 +16,7 @@ checkv.notifyCallback = function() end
 local function checkgameversionCallback(msg)
 	local datas = string.split(msg, "_")
 	
-	--²»ÓÃÉı¼¶
+	--ä¸ç”¨å‡çº§
 	if datas[1] == Constant.gameVersion then
 		checkv.notifyCallback(updateVersion.STATE.latestgameversion)
 	else

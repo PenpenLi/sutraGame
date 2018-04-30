@@ -85,9 +85,9 @@ end
 
 
 function sutraOverBoardView:jingwenAnim(overTime)
-	local txtNum = 4
+	local txtNum = 8
 	local moveX = -10
-	local degeX = 460/(txtNum)
+	local degeX = 500/(txtNum)
 	local offset = 130
 	local movetime = 1.3
 	local moveDelayInFront = 0

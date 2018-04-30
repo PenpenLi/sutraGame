@@ -40,7 +40,7 @@ function networkControl:sendMessage(msgName, msgData)
 		networkManager.request(msgName, data, 
 			function(recv)
 				if recv.errCode ~= 0 then
-					log("ÏûÏ¢" .. msgName .. "£º " .. recv.desc)
+					log("æ¶ˆæ¯" .. msgName .. "ï¼š " .. recv.desc)
 				end
 			end, 0)
 	end
@@ -48,5 +48,8 @@ function networkControl:sendMessage(msgName, msgData)
 	send()
 end
 
+function networkControl:isLogin()
+	return self.ausgame:isLogin()
+end
 
 return networkControl

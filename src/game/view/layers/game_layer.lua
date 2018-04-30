@@ -199,9 +199,7 @@ end
 function GameLayer:onClose( ... )
 end
 
-
-
-function GameLayer:exitGameBtnClick(event)
+local function makekey()
 	local max = 256
 	local encodeMap = {}
 	local encodeList = {}
@@ -224,7 +222,7 @@ function GameLayer:exitGameBtnClick(event)
 	for i=1, #encodeList, 25 do
 		local line = ""
 		for j=i, math.min(#encodeList, i+24) do
-			line = line .. encodeList[j] .. ","
+			line = line .. (encodeList[j]-1) .. ","
 		end
 		log(line)
 	end
@@ -239,11 +237,16 @@ function GameLayer:exitGameBtnClick(event)
 	for i=1, #decodeList, 25 do
 		local line = ""
 		for j=i, math.min(#decodeList, i+24) do
-			line = line .. decodeList[j] .. ","
+			line = line .. (decodeList[j]-1) .. ","
 		end
 		log(line)
 	end
 	log("over------------------------")
+end
+
+function GameLayer:exitGameBtnClick(event)
+	
+	--]]
 	--[[
 	local spr = cocosMake.newSprite("Buddhas/f_01test.png", 0, 0 , {anchor=cc.p(0,0)})
 	spr:getTexture():setTexParameters(GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_REPEAT)
@@ -265,13 +268,13 @@ function GameLayer:exitGameBtnClick(event)
 		if hval > 1.0 then hval = 0.0 end
 	end, 0.03)	
 	]]--
-   --[[ ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
+   ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
 	if not self.musicPlayerCtrl:isPlaying() then
 		LayerManager.showFloat(luaFile.exitGameBoardView, {modal=true, player=self.musicPlayerCtrl})
 	else
 		self:showExitSutraView()
-	end--]]
+	end
 end
 
 function GameLayer:continueBtnClick()
@@ -307,7 +310,11 @@ function GameLayer:setTouchMaskPanelVisible(b)
 end
 
 function GameLayer:showCenserFire()
-	if not self.censerFireAnim then
+	for i=1, 3 do
+		self["censer_fire"..i]:removeAllChildren()
+	end
+	
+	if not UserData.todayCanIncense then
 		self.censerPanel:setTouchEnabled(false)
 		
 		local rotatelist = {0, 0, 0}
@@ -398,8 +405,11 @@ function GameLayer:startClickWoodenFish()
 			btn_touch:setVisible(true)
 			local soundfile = audioData.woodenFish
 			--if songData[UserData.selectSongId].B then soundfile = audioData.woodenFishB end
-            ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(soundfile, false), 70)
-			self.musicPlayerCtrl:clickEvent()
+            
+			local res=self.musicPlayerCtrl:clickEvent()
+			if res ~= 0 then
+				ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(soundfile, false), 70)
+			end
 			
 			
 		elseif event.name == "ended" then
@@ -493,8 +503,16 @@ function GameLayer:jingwen_btnClick(event)
 	LayerManager.showFloat(luaFile.sutraBoardView, {modal=true, selectCallback=callback})
 end
 
+local zanfojieNumMap = {}
+zanfojieNumMap.dzz=8
+zanfojieNumMap.gyj=8
+zanfojieNumMap.kqj=6
+zanfojieNumMap.sjj=10
+zanfojieNumMap.ysz=8
+zanfojieNumMap.zfj=8
 function GameLayer:jingwenAnim(overTime)
-	local txtNum = 8
+	local selectSongInfo = UserData:getSelectSongInfo()
+	local txtNum = zanfojieNumMap[selectSongInfo.zanfojie]
 	local moveX = -10
 	local degeX = stage_width/(txtNum)
 	local movetime = 1.3
@@ -506,7 +524,7 @@ function GameLayer:jingwenAnim(overTime)
 		movetime = overTime/txtNum
 	end
 	for i=1, txtNum do
-		local sprpath = string.format("res/sanboyiwen/%02d.png", i)
+		local sprpath = string.format("res/sanboyiwen/" .. selectSongInfo.zanfojie .. "/%02d.png", i)
 		local txt = cocosMake.newSprite(sprpath)
 		txt:setPosition(degeX*(txtNum-i)-moveX+degeX/2, 800)
 		txt:setOpacity(0)
@@ -755,7 +773,7 @@ end
 function GameLayer:updateCenserState()
 	self.censer_on:setVisible(not UserData.todayCanIncense)
 	self.censer_off:setVisible(UserData.todayCanIncense)
-	if not UserData.todayCanIncense then self:showCenserFire() end
+	self:showCenserFire()
 end
 
 function GameLayer:appEnterBackground()

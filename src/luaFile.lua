@@ -90,3 +90,6 @@ add("loadingTipsCtrl", "game.controller.loadingTips_ctrl")
 add("ImageCacheCtrl", "game.controller.image_cache_ctrl")
 add("musicPlayerCtrl", "game.controller.musicPlayerCtrl")
 add("networkControl", "game.controller.networkControl")
+
+add("resourceCtrl", "game.controller.resource_ctrl")
+add("localCacheServerCtrl", "game.controller.localCacheServer_ctrl")

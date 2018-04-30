@@ -15,10 +15,10 @@ function musicPlayerCtrl:Init( ... )
 	self.clickValidEventCount = 0
 	self.clickValidCallback = nil
 	self.songSuccessIndex = false
-	self.songPlayDelayTime = 0--´ÓĞÇĞÇ³öÏÖµ½ÆÁÄ»ÖĞ¼äµÄÊ±¼ä£¬¿ªÊ¼²¥·Å·ğ¾­
-	self.validOffsetTime = -0.125--ÇÃ»÷ÓĞĞ§Ê±¼äÆ«ÒÆ
-	self.validAdjustTime = 0.15--ÇÃ»÷Èİ²îÊ±¼ä
-	self.invalidClickIndex = nil--ÆÁÄ»ÇÃ»÷ÎŞĞ§±êÊ¶¡£ÓÃÀ´·ğ¾ä¼ÆËãÖ®¼ä£¬ÎŞĞ§µÄÇÃ»÷
+	self.songPlayDelayTime = 0--ä»æ˜Ÿæ˜Ÿå‡ºç°åˆ°å±å¹•ä¸­é—´çš„æ—¶é—´ï¼Œå¼€å§‹æ’­æ”¾ä½›ç»
+	self.validOffsetTime = -0.125--æ•²å‡»æœ‰æ•ˆæ—¶é—´åç§»
+	self.validAdjustTime = 0.15--æ•²å‡»å®¹å·®æ—¶é—´
+	self.invalidClickIndex = nil--å±å¹•æ•²å‡»æ— æ•ˆæ ‡è¯†ã€‚ç”¨æ¥ä½›å¥è®¡ç®—ä¹‹é—´ï¼Œæ— æ•ˆçš„æ•²å‡»
 end
 
 function musicPlayerCtrl:recyclexx(xx)
@@ -91,19 +91,18 @@ function musicPlayerCtrl:playMusic(musicId, musicRes, musicTime, musicClickData,
 	self.fohaoNum = fohaoNum
 	self.playing = true
 	self.errTime = 0
-	self.curStep = -20--Ö¡»º³å
+	self.curStep = -20--å¸§ç¼“å†²
 	self:run()
 
 	
 	self.songSuccessIndex = false
 	
-    ccexp.AudioEngine:preload("res/audio/song/" .. self.musicRes .. ".mp3")
+    ccexp.AudioEngine:preload("audio/song/" .. self.musicRes .. ".mp3")
 end
 
 function musicPlayerCtrl:update(ft)
 	self.clock=self.clock+ft
-	--log("update", ft, self.clock, self.musicPlayerCtrl, self.musicRunRhythm[self.curStep], os.clock())
-
+	
 	if ft <= 0.0 then
 		return
 	end
@@ -122,7 +121,7 @@ function musicPlayerCtrl:update(ft)
 
 	if self.musicRhythmCount < self.curStep then
 		if self.clock >= self.musicTime + self.errTime then
-			self.curStep = -2--¸èÇúÁ¬Ğø²¥·ÅµÄÊ±ºò£¬ÓÃÀ´¶ÔÆëÊ±¼äÖáÓÃµÄ»º³åÖ¡Êı
+			self.curStep = -2--æ­Œæ›²è¿ç»­æ’­æ”¾çš„æ—¶å€™ï¼Œç”¨æ¥å¯¹é½æ—¶é—´è½´ç”¨çš„ç¼“å†²å¸§æ•°
 			self.clock = 0.0
             self.musicRunRhythm = DeepCopy(self.musicRhythm)
 		end
@@ -132,16 +131,16 @@ function musicPlayerCtrl:update(ft)
 	if not self.musicRunRhythm[self.curStep] then
 		self.curStep = self.curStep + 1
 		self.clock = 0.0
-        log("musicPlayerCtrl not self.curStep", self.curStep)
 
 		if self.musicRunRhythm[self.curStep] then
 			local action_list = {}
 			self.errTime = ft
+			
 			self.songPlayDelayTime = self.moveMiddleTime - self.errTime
             log("musicPlayerCtrl self.songPlayDelayTime", self.songPlayDelayTime)
 			action_list[#action_list + 1] = cc.DelayTime:create(self.songPlayDelayTime)
 			action_list[#action_list + 1] = cc.CallFunc:create(function ()
-                    local musicres = "res/audio/song/" .. self.musicRes .. ".mp3"
+                    local musicres = "audio/song/" .. self.musicRes .. ".mp3"
 					log("musicPlayerCtrl play music", musicres)
                     self.musicHandle = ccexp.AudioEngine:play2d(musicres, false)
                     ccexp.AudioEngine:setVolume(self.musicHandle, 100)
@@ -164,11 +163,12 @@ function musicPlayerCtrl:update(ft)
 		local moveLineAction = xx:runAction(cc.Sequence:create(unpack(action_list)))
 		xx.moveLineAction = moveLineAction
 		
-		--ÒÆ¶¯µ½ÖĞĞÄÎ»ÖÃ£¬×óÓÒself.validAdjustTimeÃë
+		--ç§»åŠ¨åˆ°ä¸­å¿ƒä½ç½®ï¼Œå·¦å³self.validAdjustTimeç§’
 		local action_clickLegal = {}
 		action_clickLegal[#action_clickLegal + 1] = cc.DelayTime:create(math.max(0, self.moveMiddleTime - self.validAdjustTime + self.validOffsetTime - offt/2))
 		action_clickLegal[#action_clickLegal + 1] = cc.CallFunc:create(function ()
 			self.clickLegalSprs[#self.clickLegalSprs+1] = {xx=xx, index=curStep}
+			log(self.clock-self.moveMiddleTime)
 		end)
 		action_clickLegal[#action_clickLegal + 1] = cc.DelayTime:create(self.validAdjustTime*2)
 		action_clickLegal[#action_clickLegal + 1] = cc.CallFunc:create(function ()
@@ -183,7 +183,7 @@ function musicPlayerCtrl:update(ft)
 		local clickLegalAction = xx:runAction(cc.Sequence:create(unpack(action_clickLegal)))
 		xx.clickLegalAction = clickLegalAction
 		
-		--²éÕÒÀë´Ë´Î×î½üµÄ·ğ¾äÊ±¼äµã
+		--æŸ¥æ‰¾ç¦»æ­¤æ¬¡æœ€è¿‘çš„ä½›å¥æ—¶é—´ç‚¹
 		self.curStep=self.curStep+1
 		for i=self.curStep, self.musicRhythmCount do
 			if self.clock <= self.musicRunRhythm[i] then
@@ -193,7 +193,7 @@ function musicPlayerCtrl:update(ft)
 		end
 	end
 end
---¿ªÊ¼²¥·Å¾­ÎÄ
+--å¼€å§‹æ’­æ”¾ç»æ–‡
 function musicPlayerCtrl:run()
 	--[[self.beginClock = os.clock()
 	schedule(self.containWidget, function ()

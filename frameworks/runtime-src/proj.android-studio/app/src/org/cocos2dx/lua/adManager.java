@@ -17,8 +17,8 @@ public class adManager {
     {
         appActivity = instance;
 
-        //admobAD = new adMobUnit();
-        //admobAD.initSDK(appActivity);
+        admobAD = new adMobUnit();
+        admobAD.initSDK(appActivity);
 
         inMobiAD = new inMobiUnit();
         inMobiAD.initSDK(appActivity);
@@ -33,19 +33,20 @@ public class adManager {
         if(inMobiAD != null)inMobiAD.luaLoadAd(param, luaFunc);
     }
     public void luaShowAd(final String param,final int luaFunc){
+        setNeedShow(true);
+
         if(admobAD != null && admobAD.getLoaded())
             admobAD.luaShowAd(param, luaFunc);
         else if(inMobiAD != null && inMobiAD.getLoaded())
             inMobiAD.luaShowAd(param, luaFunc);
-
-        setNeedShow(true);
     }
     public void luaHideAd(final String param,final int luaFunc){
-        if (admobAD != null) admobAD.luaHideAd(param, luaFunc);
+        setNeedShow(false);
 
+        if (admobAD != null) admobAD.luaHideAd(param, luaFunc);
         if(inMobiAD != null)inMobiAD.luaHideAd(param, luaFunc);
 
-        setNeedShow(false);
+
     }
     public void luaStateAd(final String param,final int luaFunc){
         if (admobAD != null)admobAD.luaStateAd(param, luaFunc);

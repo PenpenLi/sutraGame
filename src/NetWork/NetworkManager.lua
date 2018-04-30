@@ -114,4 +114,11 @@ end
 function networkManager.unRegisterMsgCallback(registerName)
 	networkManager.handle.setUnEventCallback(Constant.Network.CODE_ONMESSAGE, registerName)
 end
+function networkManager.registerErrorCallback(callback, registerName)
+	networkManager.handle.setEventCallback(Constant.Network.CODE_ONERROR, callback, registerName)
+end
+function networkManager.registerCloseCallback(callback, registerName)
+	networkManager.handle.setEventCallback(Constant.Network.CODE_ONCLOSE, callback, registerName)
+end
+
 return networkManager

@@ -60,6 +60,7 @@ public class AppActivity extends Cocos2dxActivity{
         adMgr.initSDK(g_AppActivity);
 
         AppUtils.init(this);
+
     }
 
 
@@ -91,12 +92,14 @@ public class AppActivity extends Cocos2dxActivity{
     public void onResume() {
         super.onResume();
         adMgr.onResume();
+
     }
 
     @Override
     public void onPause() {
         super.onPause();
         adMgr.onPause();
+
     }
 
     @Override

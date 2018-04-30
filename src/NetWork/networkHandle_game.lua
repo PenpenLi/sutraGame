@@ -98,9 +98,9 @@ function network.onMessage(type, msg)
     local function print_package(t, ...)
 		local function print_request(name, args, packageindex)
 			print("REQUEST", name)
-			if args then
+			--if args then
 				network.eventCallback( type, name, args )
-			end
+			--end
 		end
 		local function print_response(session, args, packageindex)
 			print("RESPONSE", session)

@@ -35,7 +35,7 @@ function AdManager:getUUID()
 	if ad then
 		return ad:getUUID()
 	end
-	return "ABCDEFG12345678913"
+	return "ABCDEFG12345678917"
 end
 
 AdManager:stateAd()

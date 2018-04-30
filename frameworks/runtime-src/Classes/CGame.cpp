@@ -19,7 +19,6 @@
 #include "SDKUtils.h"
 #include "net/NetEvent.h"
 
-#include "MacAddress/md5.h"
 
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
@@ -30,11 +29,12 @@
 #include "MacAddress/md5.h"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include "AndroidUtils.h"
+#include "MacAddress/md5.h"
 #include <jni.h>
 #include "platform/android/jni/JniHelper.h"
 
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-//#include "../proj.ios_mac/ios/BFIOSUtils.h"
+#include "../proj.ios_mac/ios/BFIOSUtils.h"
 #include "MacAddress/MacAddress.h"
 #endif
 
@@ -169,29 +169,29 @@ const char *CGame::getUUID()
 {
     __String *uuid = __String::create("");
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    //uuid = __String::create(BFIOSUtils::getUUID());
+    uuid = __String::create(BFIOSUtils::getUUID());
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-    //    uuid = __String::create("abc");
+//    uuid = __String::create("abc");
     
     MD5 md5;
     md5.update(getMacAddress()->getCString());
     uuid = __String::create(md5.toString().c_str());
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    /*GetMacByNetBIOS;*/
-    std::string macaddress;
-    if (GetMacByNetBIOS(macaddress))
-    {
-        MD5 md5;
-        md5.update(macaddress.c_str());
-        uuid = __String::create(md5.toString().c_str());
-    }
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	 /*GetMacByNetBIOS;*/
+	std::string macaddress;
+	if (GetMacByNetBIOS(macaddress))
+	{
+		MD5 md5;
+		md5.update(macaddress.c_str());
+		uuid = __String::create(md5.toString().c_str());
+	}
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)	
    	MD5 md5;
-    AndroidUtils androidUt ;
+	AndroidUtils androidUt ;
     md5.update(androidUt.getDeviceID());
-    uuid = __String::create(md5.toString().c_str());
+    uuid = __String::create(md5.toString().c_str()); 
 #endif
-    
+
     return uuid->getCString();
 }
 
@@ -201,7 +201,7 @@ void CGame::initDataBase(const char* dbfilePath,const char *dbFileName)
 	//std::string docFilePath = fu->getWritablePath();
 	
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    //BFIOSUtils::copyFileToDocument(dbfilePath,dbFileName);
+    BFIOSUtils::copyFileToDocument(dbfilePath,dbFileName);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	FileUtils *fu = FileUtils::getInstance();
 	string packFilePath = fu->fullPathForFilename(dbFileName);
@@ -297,7 +297,7 @@ void CGame::SDKDoStart()
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     //auto *sdk = SDKUtils::getInstance();
     //sdk->initFinishCallback("0","0");
-	//BFIOSUtils::sdk_init();
+	BFIOSUtils::sdk_init();
 
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	AndroidUtils androidUt;
@@ -308,7 +308,7 @@ void CGame::SDKDoStart()
 void CGame::SDKDoLogin()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    //BFIOSUtils::sdk_login();
+    BFIOSUtils::sdk_login();
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	AndroidUtils androidUt;
 	androidUt.sdk_dologin();
@@ -318,7 +318,7 @@ void CGame::SDKDoLogin()
 void CGame::SDKDoPay(std::string payinfo)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    //BFIOSUtils::sdk_dopay(payinfo);
+    BFIOSUtils::sdk_dopay(payinfo);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	AndroidUtils androidUt;
 	androidUt.sdk_dopay(payinfo.c_str());
@@ -328,7 +328,7 @@ void CGame::SDKDoPay(std::string payinfo)
 void CGame::SDKDoUserInfo(std::string userinfojson)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    //BFIOSUtils::sdk_doUserInfo(userinfojson);
+    BFIOSUtils::sdk_doUserInfo(userinfojson);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     
 #endif
@@ -338,7 +338,7 @@ void CGame::SDKDoUserInfo(std::string userinfojson)
 void CGame::OpenWeb(const char *url)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    //BFIOSUtils::app_Update(url);
+    BFIOSUtils::app_Update(url);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     AndroidUtils::openWebView(url);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -351,8 +351,7 @@ void CGame::OpenWeb(const char *url)
 const char *CGame::getAppVersion()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    //return BFIOSUtils::getAppVersion();
-    return "1.0";
+    return BFIOSUtils::getAppVersion();
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     return AndroidUtils::getPackageVersion();
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -365,8 +364,7 @@ const char *CGame::getAppVersion()
 const char *CGame::getDeviceModel()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    //return BFIOSUtils::getDeviceModel();
-    return "IOS";
+    return BFIOSUtils::getDeviceModel();
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     return AndroidUtils::getDeviceModel();
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -379,8 +377,7 @@ const char *CGame::getDeviceModel()
 const char *CGame::getOSName()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    //return BFIOSUtils::getOSName();
-    return "IOS";
+    return BFIOSUtils::getOSName();
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     return "Android";
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -393,8 +390,7 @@ const char *CGame::getOSName()
 const char *CGame::getOSVersion()
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    //return BFIOSUtils::getOSVersion();
-    return "";
+    return BFIOSUtils::getOSVersion();
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     return AndroidUtils::getDeviceOsVersion();
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -600,10 +596,4 @@ const std::string CGame::getMD5(std::string src)
 	return toupper(c);
 	});*/
 	return src_str;
-}
-
-void CGame::exitAppForce()
-{
-    char* nilptr = nullptr;
-    nilptr[0] = 0;
 }

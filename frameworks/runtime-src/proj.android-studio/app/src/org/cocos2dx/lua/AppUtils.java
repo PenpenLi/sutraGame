@@ -77,6 +77,7 @@ public class AppUtils {
     public static String getDeviceID()
     {
         //imei
+
         TelephonyManager telephonyManager = (TelephonyManager)AppActivity.g_AppActivity.getSystemService(Context.TELEPHONY_SERVICE);
         String deviceid = telephonyManager.getDeviceId();
         if (deviceid == null)

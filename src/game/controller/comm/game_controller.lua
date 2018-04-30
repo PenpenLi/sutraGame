@@ -10,6 +10,10 @@ end
 function GameController:startGame()
 	-- 启动管理类（Controller）
 	
+	require(luaFile.resourceCtrl)
+	resourceCtrl:init()
+	resourceCtrl:decodeAudio()
+	
 	self:startManager()
 	
     self.gamescene = new_class(luaFile.mainScene)
@@ -19,6 +23,8 @@ end
 
 -- 启动管理类
 function GameController:startManager( ... )
+	
+	--cc.Director:getInstance():getTextureCache():pngEncode(true)
     
     -- 网络管理
     --NetworkManager = new_class(luaFile.NetworkManager)
@@ -36,7 +42,7 @@ function GameController:startManager( ... )
    
     -- 登录控制器
     --LoginCtrl = new_class(luaFile.LoginCtrl)
-	
+		
 end
 
 function GameController:connectTcp(ip, port, domain, userdata)

@@ -1,5 +1,21 @@
 local authGame = {}
 
+local m_loginSuccess = false
+local m_heartbeatTickTime = 0
+
+function authGame:init()
+	scheduleG(function ()
+		if m_loginSuccess then
+			local curTime = os.time()
+			if curTime - m_heartbeatTickTime >= 20 then
+				print("心跳超时")
+				networkManager.disconnect()
+				m_loginSuccess = false
+			end
+		end
+	end, 5.0)
+end
+
 function authGame:connectGameServer()
 	networkManager.logic(networkManager.logicType.game)
 	
@@ -9,6 +25,28 @@ function authGame:connectGameServer()
 	GAME_GAME_IP_PORT,
 	"",
 	handler(self, self.connectServerCallback))
+	
+	networkManager.registerErrorCallback(handler(self, self.serverErrorCallback))
+	networkManager.registerErrorCallback(handler(self, self.serverCloseCallback))
+	
+	m_loginSuccess = false
+end
+
+function authGame:connectServerCallback(data)
+	if data == "open" then
+		print("服务器连接成功")
+
+		networkManager.request("notifyUUID", {uuid=UserData:getUUID()})
+		
+		m_loginSuccess = true
+		m_heartbeatTickTime = os.time()
+		localCacheServerCtrl:syncCacheServer()
+		self:sendTotalPushRequest()
+
+	else
+		print("服务器连接失败")
+		performWithDelayG(function () self:connectGameServer() end, 2)
+	end
 end
 
 
@@ -49,8 +87,6 @@ function authGame:serverMessageCallback(name, data)
 		if data.type == "fohaoMonthNum" then
 			UserData:setFohaoMonthNum(tonumber(data.data))
 		end
-		
-		
 		if data.type == "fohaoGroup" then
 			local musicScoreList = string.split(data.data, ",")
 			for k, v in pairs(musicScoreList) do
@@ -72,18 +108,22 @@ function authGame:serverMessageCallback(name, data)
 		
 	elseif name == "sendNote" then
 		self:dispatchEvent({name = GlobalEvent.UPDATE_NOTE_NOTIFY, data={note=data.note}})
+		
+	elseif name == "heartbeat" then
+		m_heartbeatTickTime = os.time()
 	end
 end
 
-function authGame:connectServerCallback(data)
-	if data == "open" then
-		print("服务器连接成功")
-		self:sendTotalPushRequest()
-		
-	else
-		print("服务器连接失败")
-	end
+function authGame:serverErrorCallback()
+	print("服务器连接错误")
+	performWithDelayG(function () self:connectGameServer() end, 2)
 end
+
+function authGame:serverCloseCallback()
+	print("服务器socket关闭")
+	performWithDelayG(function () self:connectGameServer() end, 2)
+end
+
 
 function authGame:sendTotalPushRequest()
 	if not self.totalPush_DelayHandle then
@@ -99,6 +139,7 @@ end
 
 function authGame:totalPushCallback(data)
 	unScheduleG(self.totalPush_DelayHandle)
+	self.totalPush_DelayHandle = nil
 	
 	log("totalPushCallback", data)
 	
@@ -141,6 +182,12 @@ function authGame:totalPushCallback(data)
 		UserData:setJingtuOpenData(sc[1], tonumber(sc[2]))
 	end
 end
+
+function authGame:isLogin()
+	return m_loginSuccess
+end
+
+authGame:init()
 
 cc.load("event"):setEventDispatcher(authGame, GameController)
 

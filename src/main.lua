@@ -14,17 +14,28 @@ cc.FileUtils:getInstance():addSearchPath("res/")
 collectgarbage("setpause", 100)
 collectgarbage("setstepmul", 5000)
 
---¾ÍÊÇ°Ñ time·µ»ØµÄÊıÖµ×Ö´®µ¹¹ıÀ´£¨µÍÎ»±ä¸ßÎ»£©£¬ ÔÙÈ¡¸ßÎ»6Î»
+--å°±æ˜¯æŠŠ timeè¿”å›çš„æ•°å€¼å­—ä¸²å€’è¿‡æ¥ï¼ˆä½ä½å˜é«˜ä½ï¼‰ï¼Œ å†å–é«˜ä½6ä½
 math.randomseed(tostring(os.time()):reverse():sub(1, 6))
 
 --require "pb"
 require "config"
 require "cocos.init"
 require "framework.init"
-require "DDZ_Define"
+
+
+
+
 
 local gamescene = nil
 local function main()
+	--testEncodePNG()
+	--testDecodePNG()
+	
+	
+	
+	
+	
+	
     TARGET_PLATFORM = cc.Application:getInstance():getTargetPlatform()
 	require("preload")
 	
@@ -35,7 +46,7 @@ local function main()
     collectgarbage("setpause", 100)
     collectgarbage("setstepmul", 5000)
 	
-    math.randomseed(tostring(os.time()):reverse():sub(1, 6))--Ëæ»úÖÖ×Ó ¾ÍÊÇ°Ñtime·µ»ØµÄÊıÖµ×Ö´®µ¹¹ıÀ´£¨µÍÎ»±ä¸ßÎ»£© ÔÙÈ¡¸ßÎ»6Î»
+    math.randomseed(tostring(os.time()):reverse():sub(1, 6))--éšæœºç§å­ å°±æ˜¯æŠŠtimeè¿”å›çš„æ•°å€¼å­—ä¸²å€’è¿‡æ¥ï¼ˆä½ä½å˜é«˜ä½ï¼‰ å†å–é«˜ä½6ä½
 
     if DEBUG == 0 then
         function print() end

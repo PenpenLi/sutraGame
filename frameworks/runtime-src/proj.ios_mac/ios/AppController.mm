@@ -30,7 +30,6 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 #import "platform/ios/CCEAGLView-ios.h"
-#import "adManager.h"
 
 @implementation AppController
 
@@ -87,9 +86,6 @@ static AppDelegate s_sharedApplication;
     cocos2d::Director::getInstance()->setOpenGLView(glview);
 
     app->run();
-    
-    [[adManager getInstance] initSDK];
-    [[adManager getInstance] viewDidLoad: viewController];
     return YES;
 }
 

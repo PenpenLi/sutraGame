@@ -84,19 +84,19 @@ local function setDesignResolution(r, framesize)
 end
 
 
---±¾Ì×ÊÊÅäÊÊÓÃÓÚÎŞ±ß¿òÄ£Ê½
+--æœ¬å¥—é€‚é…é€‚ç”¨äºæ— è¾¹æ¡†æ¨¡å¼
 local function setConstants()
     local sizeInPixels = view:getFrameSize()
 	local viewsize = director:getWinSize()
 
-    --ÊÊÅäËõ·ÅÖµ
+    --é€‚é…ç¼©æ”¾å€¼
     display._scaleX = view:getScaleX()
     display._scaleY = view:getScaleY()
 
-	local visibleOrigin = view:getVisibleOrigin()--¿ÉÏÔÊ¾ÇøÓòµÄÔ­µã
-    display.frameSize = {width = sizeInPixels.width/display._scaleX, height = sizeInPixels.height/display._scaleY}--Êµ¼Ê¿ÉÊÓÆÁÄ»·Ö±æÂÊ´óĞ¡£¨ÎŞ±ß¿òÊÊÅäÄ£Ê½Îª¿ÉÊÓ´°¿Ú´óĞ¡£©
+	local visibleOrigin = view:getVisibleOrigin()--å¯æ˜¾ç¤ºåŒºåŸŸçš„åŸç‚¹
+    display.frameSize = {width = sizeInPixels.width/display._scaleX, height = sizeInPixels.height/display._scaleY}--å®é™…å¯è§†å±å¹•åˆ†è¾¨ç‡å¤§å°ï¼ˆæ— è¾¹æ¡†é€‚é…æ¨¡å¼ä¸ºå¯è§†çª—å£å¤§å°ï¼‰
     display.contentScaleFactor = director:getContentScaleFactor()
-    display.winSize = {width = viewsize.width, height = viewsize.height}--Êµ¼ÊÊ¹ÓÃ·Ö±æÂÊ´óĞ¡£¬¼´¿ÉÓÃ´óĞ¡
+    display.winSize = {width = viewsize.width, height = viewsize.height}--å®é™…ä½¿ç”¨åˆ†è¾¨ç‡å¤§å°ï¼Œå³å¯ç”¨å¤§å°
 	
     display.visibleRect = { 
     leftBottom={x=visibleOrigin.x, y=visibleOrigin.y}, 
@@ -126,7 +126,7 @@ local function setConstants()
     display.visibleRect.topCenter.x = display.visibleRect.leftTop.x + (display.visibleRect.rightTop.x-display.visibleRect.leftTop.x)/2
     display.visibleRect.topCenter.y = display.visibleRect.leftTop.y
 
-    --Êµ¼Ê¿ÉÊÓÆÁÄ»ÏÔÊ¾Rect(¼´ÊÊÅäºó£¬ÖĞ¼ä¿ÉÒÔÏÔÊ¾µ½ÆÁÄ»µÄÇøÓò)
+    --å®é™…å¯è§†å±å¹•æ˜¾ç¤ºRect(å³é€‚é…åï¼Œä¸­é—´å¯ä»¥æ˜¾ç¤ºåˆ°å±å¹•çš„åŒºåŸŸ)
 
 	
     local sizeInPixels = view:getFrameSize()

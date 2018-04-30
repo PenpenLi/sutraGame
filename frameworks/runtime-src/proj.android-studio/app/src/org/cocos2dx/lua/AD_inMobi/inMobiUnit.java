@@ -44,7 +44,7 @@ public class inMobiUnit extends adBaseUnit {
     protected  boolean requestIndex = true;
 
     //最后一个是测试
-    protected long placementID = 1511238989700L;//1511238989700L 1512290525192L 1520368613118L 1473189489298L
+    protected long placementID = 1512290525192L;//1511238989700L 1512290525192L 1520368613118L 1473189489298L
     protected String accountID = "d6033153bb3d4982a35b8c349c354f68";//d6033153bb3d4982a35b8c349c354f68 123456789abcdfghjiukljnm09874
     InMobiBanner.BannerAdRequestListener bannerAdRequestListener;
     InMobiAdRequest mInMobiAdRequest;
@@ -203,8 +203,8 @@ public class inMobiUnit extends adBaseUnit {
                 Log.d(TAG_INMOBI_LISTENER, "onAdLoadSucceeded");
 
                 setLoaded(true);
-                //if (appActivity.adMgr.getNeedShow())
-                if(true)//这里写死，只要有广告来就展示
+                if (appActivity.adMgr.getNeedShow())
+                //if(true)//这里写死，只要有广告来就展示
                 {
                     showADView();
                 }
