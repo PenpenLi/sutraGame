@@ -185,6 +185,7 @@ const ProjectConfig &RuntimeEngine::getProjectConfig()
 
 void RuntimeEngine::setProjectPath(const std::string &workPath)
 {
+	CCLOG("yyyyyyyyyRuntimeEngine::setProjectPath:%s", workPath.c_str());
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     vector<std::string> searchPathArray = FileUtils::getInstance()->getSearchPaths();
 
@@ -257,6 +258,7 @@ void RuntimeEngine::start()
 
     // set search path
     string path = FileUtils::getInstance()->fullPathForFilename(_project.getScriptFileRealPath().c_str());
+	CCLOG("yyyyyyyyyRuntimeEngine::start._project.getScriptFileRealPath():", _project.getScriptFileRealPath().c_str());
     size_t pos;
     while ((pos = path.find_first_of("\\")) != std::string::npos)
     {

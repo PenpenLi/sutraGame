@@ -53,6 +53,29 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
+          <AbstractNodeData Name="scorePanel" ActionTag="2084494113" Tag="6" IconVisible="False" LeftMargin="-467.3214" RightMargin="-471.6786" TopMargin="39.4978" BottomMargin="-366.4978" LeftEage="309" RightEage="309" TopEage="107" BottomEage="107" Scale9OriginX="309" Scale9OriginY="107" Scale9Width="321" Scale9Height="113" ctype="ImageViewObjectData">
+            <Size X="939.0000" Y="327.0000" />
+            <Children>
+              <AbstractNodeData Name="score" ActionTag="-1959153378" Tag="7" IconVisible="False" LeftMargin="568.3461" RightMargin="320.6539" TopMargin="51.7359" BottomMargin="225.2641" FontSize="50" LabelText="00" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="50.0000" Y="50.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="593.3461" Y="250.2641" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="112" G="84" B="13" />
+                <PrePosition X="0.6319" Y="0.7653" />
+                <PreSize X="0.0532" Y="0.1529" />
+                <OutlineColor A="255" R="255" G="0" B="0" />
+                <ShadowColor A="255" R="110" G="110" B="110" />
+              </AbstractNodeData>
+            </Children>
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="2.1786" Y="-202.9978" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="Normal" Path="songOver/ts_bg.png" Plist="" />
+          </AbstractNodeData>
         </Children>
       </ObjectData>
     </Content>

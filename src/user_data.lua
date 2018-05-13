@@ -59,6 +59,7 @@ function UserData:init( ... )
 	
 	
 	
+	--local incenseLastDate1 = self:getDayByTime(1524058749)
 	
 	
 	--[[self.songCount = 0	
@@ -81,7 +82,9 @@ function UserData:init( ... )
 	self.censerRank = CacheUtil:getCacheVal(CacheType.censerRank)
 	self.incenseLastTime = CacheUtil:getCacheVal(CacheType.incenseLastTime)
 	local incenseLastDate = self:getDayByTime(self.incenseLastTime)
-	self.todayCanIncense = (incenseLastDate.year ~= self.today.year and incenseLastDate.month ~= self.today.month and incenseLastDate.day ~= self.today.day)
+	self.todayCanIncense = true
+	--self.todayCanIncense = (incenseLastDate.year ~= self.today.year and incenseLastDate.month ~= self.today.month and incenseLastDate.day ~= self.today.day)
+	
 	
 	--签到数据
 	self.signLine = CacheUtil:getCacheVal(CacheType.signLine)
@@ -120,7 +123,7 @@ end
 --所有保存数据的时间点以server下发的servertime为准，client算好上传
 --保存登录数据
 function UserData:saveSignData( ... )
-	CacheUtil:setCacheVal(CacheType.signDay, self.signDay)
+	
 	
 	--同步到服务器
 	local signLine = CGame:bitOperate(2, self.signLine, CGame:bitOperate(5, self.today.day-1, 1))
@@ -201,6 +204,9 @@ function UserData:calcSign( ... )
 		end
 		curTime = curTime - ondayTime
 	end
+	
+	CacheUtil:setCacheVal(CacheType.signDay, self.signDay)
+	if self.gameLayer then self.gameLayer:setSignButtonTipsVisible(self.todayCanSign) end
 end
 
 --计算点香数据
@@ -308,11 +314,11 @@ end
 
 function UserData:signToday(  )
 	if self.todayCanSign then
+		self.todayCanSign = false
+		
 		self.signDay[self.today.year][self.today.month][self.today.day] = true
 		self:calcSign()
-		self:saveSignData()
-		
-		self.todayCanSign = false
+		self:saveSignData()		
 	end
 end
 
@@ -442,6 +448,9 @@ end
 
 --设置净土已打开数据
 function UserData:setJingtuOpenData(jingtuName, openNum)
+	if not self.jingtuOpenData[jingtuName] or self.jingtuOpenData[jingtuName] < openNum then
+		CacheUtil:setCustomCacheVal("jingtu_buttonTips", true)
+	end
 	self.jingtuOpenData[jingtuName] = openNum
 	CacheUtil:setCacheVal(CacheType.jingtuOpenData, self.jingtuOpenData)	
 end
@@ -562,7 +571,12 @@ end
 
 
 function UserData:setLotusNum(d)
-	self.lotusNum = tonumber(d) or 0
+	local lotusNum = tonumber(d) or 0
+	if not self.lotusNum or self.lotusNum < lotusNum then
+		CacheUtil:setCustomCacheVal("lotus_buttonTips", true)
+	end
+	
+	self.lotusNum = lotusNum
 	CacheUtil:setCacheVal(CacheType.lotusNum, self.lotusNum)
 end
 function UserData:getLotusNum()

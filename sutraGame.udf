@@ -28,15 +28,5 @@
         <LastRunType Value="Windows" />
       </Value>
     </Item>
-    <Item Key="TabsParamsKey">
-      <Value ctype="TabsInfo">
-        <OpenedDocuments>
-          <FilePathData Path="GameLayerNode.csd" />
-          <FilePathData Path="sutraOverBoardNode.csd" />
-          <FilePathData Path="exitSutraNode.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="GameLayerNode.csd" />
-      </Value>
-    </Item>
   </Properties>
 </UserData>

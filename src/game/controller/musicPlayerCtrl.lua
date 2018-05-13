@@ -78,6 +78,7 @@ function musicPlayerCtrl:setParam(startPos, endPos, speed, containWidget)
 end
 
 function musicPlayerCtrl:playMusic(musicId, musicRes, musicTime, musicClickData, fohaoNum)
+	log("musicPlayerCtrl:playMusic", musicId, musicRes, musicTime, musicClickData, fohaoNum)
 	self.musicId = musicId
 	self.musicRes = musicRes
 	self.clickScore = {}

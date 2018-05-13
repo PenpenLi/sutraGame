@@ -27,7 +27,7 @@ function exitGameBoardView:onCreate(param)
 	end
 	tiplist[#tiplist+1] = cocosMake.newSprite("signBoard/T_01.png")
 	
-	local offsetlist = {30, 45, 80, 105}
+	local offsetlist = {40, 55, 90, 115}
 	local y = offsetlist[#tiplist]
 	local offsety = -60
 	for i=1, #tiplist-1 do

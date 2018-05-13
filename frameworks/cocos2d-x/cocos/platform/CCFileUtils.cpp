@@ -601,6 +601,7 @@ bool FileUtils::writeDataToFile(const Data& data, const std::string& fullPath)
 bool FileUtils::init()
 {
     _searchPathArray.push_back(_defaultResRootPath);
+	CCLOG("yyyyyyyyyFileUtils::init._defaultResRootPath:%s", _defaultResRootPath.c_str());
     _searchResolutionsOrderArray.push_back("");
     return true;
 }
@@ -637,10 +638,13 @@ FileUtils::Status FileUtils::getContents(const std::string& filename, ResizableB
     auto fs = FileUtils::getInstance();
 
     std::string fullPath = fs->fullPathForFilename(filename);
+	CCLOG("yyyyyyyFileUtils::getContents:%s", fullPath.c_str());
     if (fullPath.empty())
         return Status::NotExists;
 
-    FILE *fp = fopen(fs->getSuitableFOpen(fullPath).c_str(), "rb");
+	const char* cname = fs->getSuitableFOpen(fullPath).c_str();
+	CCLOG("yyyyyyyFileUtils::getContents.cname:%s", cname);
+    FILE *fp = fopen(cname, "rb");
     if (!fp)
         return Status::OpenFailed;
 
@@ -739,6 +743,7 @@ std::string FileUtils::getNewFilename(const std::string &filename) const
 
 std::string FileUtils::getPathForFilename(const std::string& filename, const std::string& resolutionDirectory, const std::string& searchPath) const
 {
+	CCLOG("getPathForFilename::getPathForFilename:%s,%s,%s", filename.c_str(), resolutionDirectory.c_str(), searchPath.c_str());
     std::string file = filename;
     std::string file_path = "";
     size_t pos = filename.find_last_of("/");
@@ -760,6 +765,7 @@ std::string FileUtils::getPathForFilename(const std::string& filename, const std
 
 std::string FileUtils::fullPathForFilename(const std::string &filename) const
 {
+	CCLOG("yyyyyyyyFileUtils::fullPathForFilename:%s", filename.c_str());
     if (filename.empty())
     {
         return "";
@@ -791,6 +797,7 @@ std::string FileUtils::fullPathForFilename(const std::string &filename) const
             if (!fullpath.empty())
             {
                 // Using the filename passed in as key.
+				CCLOG("yyyyyyyyFileUtils::fullPathForFilename._fullPathCache.insert:%s", fullpath.c_str());
                 _fullPathCache.insert(std::make_pair(filename, fullpath));
                 return fullpath;
             }
@@ -868,6 +875,7 @@ void FileUtils::setWritablePath(const std::string& writablePath)
 
 void FileUtils::setDefaultResourceRootPath(const std::string& path)
 {
+	CCLOG("yyyyyyyyyFileUtils::setDefaultResourceRootPath:%s", path.c_str());
     _defaultResRootPath = path;
 }
 
@@ -879,6 +887,8 @@ void FileUtils::setSearchPaths(const std::vector<std::string>& searchPaths)
     _searchPathArray.clear();
     for (const auto& iter : searchPaths)
     {
+		const std::string& str = iter;
+		CCLOG("yyyyyyyyyFileUtils::setSearchPaths.iter:%s", str.c_str());
         std::string prefix;
         std::string path;
 
@@ -912,6 +922,7 @@ void FileUtils::addSearchPath(const std::string &searchpath,const bool front)
         prefix = _defaultResRootPath;
 
     std::string path = prefix + searchpath;
+	CCLOG("yyyyyyyyyFileUtils::addSearchPath.searchpath:%s", searchpath.c_str());
     if (!path.empty() && path[path.length()-1] != '/')
     {
         path += "/";
@@ -951,6 +962,7 @@ void FileUtils::loadFilenameLookupDictionaryFromFile(const std::string &filename
 
 std::string FileUtils::getFullPathForDirectoryAndFilename(const std::string& directory, const std::string& filename) const
 {
+	CCLOG("yyyyyyyyyFileUtils::getFullPathForDirectoryAndFilename:%s,%s", directory.c_str(), filename.c_str());
     // get directory+filename, safely adding '/' as necessary
     std::string ret = directory;
     if (directory.size() && directory[directory.size()-1] != '/'){

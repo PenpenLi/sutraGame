@@ -14,7 +14,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.5000" Y="0.5000" />
             <PreSize X="1.0000" Y="1.0000" />
-            <FileData Type="Normal" Path="bg/gamelayer/9-16.jpg" Plist="" />
+            <FileData Type="Normal" Path="bg/gamelayer/BG01.jpg" Plist="" />
           </AbstractNodeData>
           <AbstractNodeData Name="centerPanel" ActionTag="494192413" Tag="16" IconVisible="False" LeftMargin="360.0000" RightMargin="160.0000" TopMargin="440.0000" BottomMargin="640.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="200.0000" Y="200.0000" />

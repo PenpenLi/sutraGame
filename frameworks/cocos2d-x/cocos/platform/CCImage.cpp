@@ -486,7 +486,7 @@ bool Image::initWithImageFile(const std::string& path)
 {
     bool ret = false;
     _filePath = FileUtils::getInstance()->fullPathForFilename(path);
-
+	CCLOG("Image::initWithImageFile:%s", _filePath.c_str());
     Data data = FileUtils::getInstance()->getDataFromFile(_filePath);
 
     if (!data.isNull())

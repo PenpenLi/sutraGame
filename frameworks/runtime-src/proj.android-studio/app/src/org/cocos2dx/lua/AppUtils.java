@@ -1,6 +1,7 @@
 package org.cocos2dx.lua;
 
 import android.bluetooth.BluetoothAdapter;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -155,8 +156,10 @@ public class AppUtils {
         }   // hex string to uppercase
         szUniqueID = szUniqueID.toUpperCase();
 
+
         return szUniqueID;
     }
+
     //獲取包名
     public static String getPackageName()
     {

@@ -183,6 +183,7 @@ bool FileUtilsAndroid::isFileExistInternal(const std::string& strFilePath) const
     }
     else
     {
+		CCLOG("yyyyyyyyyFileUtilsAndroid::isFileExistInternal.strFilePath=%s", strFilePath.c_str());
         FILE *fp = fopen(strFilePath.c_str(), "r");
         if (fp)
         {
@@ -251,11 +252,13 @@ bool FileUtilsAndroid::isAbsolutePath(const std::string& strPath) const
 
 FileUtils::Status FileUtilsAndroid::getContents(const std::string& filename, ResizableBuffer* buffer)
 {
+	
     static const std::string apkprefix("assets/");
     if (filename.empty())
         return FileUtils::Status::NotExists;
 
     string fullPath = fullPathForFilename(filename);
+	LOGD("yyyyyyyyFileUtilsAndroid::getContents.fullPath:%s", fullPath.c_str());
 
     if (fullPath[0] == '/')
         return FileUtils::getContents(fullPath, buffer);
@@ -288,7 +291,7 @@ FileUtils::Status FileUtilsAndroid::getContents(const std::string& filename, Res
 
     auto size = AAsset_getLength(asset);
     buffer->resize(size);
-
+	LOGD("yyyyyyyyFileUtilsAndroid::getContents.AAsset_getLength.size:%d", size);
     int readsize = AAsset_read(asset, buffer->buffer(), size);
     AAsset_close(asset);
 

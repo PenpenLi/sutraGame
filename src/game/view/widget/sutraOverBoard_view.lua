@@ -74,6 +74,7 @@ function sutraOverBoardView:onCreate(param)
 	
 	self:jingwenAnim(12)
 	
+	
 	self:dispatchEvent({name = GlobalEvent.SUTRAOVER_VIEW_SHOW, data={view=self}})
 	
 	UserData:songToday(param.id, param.fojuScore, param.clickCount)
@@ -81,12 +82,22 @@ function sutraOverBoardView:onCreate(param)
 	if result then
 		UserData:setTodayCanSong(false)
 	end
+	
+	self.scorePanel:setOpacity(0)
+	local action_list1 = {}
+	action_list1[#action_list1 + 1] = cc.FadeIn:create(1.0)
+	action_list1[#action_list1 + 1] = cc.DelayTime:create(11.0)
+	action_list1[#action_list1 + 1] = cc.FadeOut:create(1.0)
+	local action1 = cc.Sequence:create(unpack(action_list1))
+	self.scorePanel:runAction(action1)
+	self.score:setString(param.fojuScore)
 end
 
 
 function sutraOverBoardView:jingwenAnim(overTime)
 	local txtNum = 8
 	local moveX = -10
+	local posY = 850
 	local degeX = 500/(txtNum)
 	local offset = 130
 	local movetime = 1.3
@@ -100,7 +111,7 @@ function sutraOverBoardView:jingwenAnim(overTime)
 	for i=1, txtNum do
 		local sprpath = string.format("res/songOver/%02d.png", i)
 		local txt = cocosMake.newSprite(sprpath)
-		txt:setPosition(offset+degeX*(txtNum-i)-moveX+degeX/2, 760)
+		txt:setPosition(offset+degeX*(txtNum-i)-moveX+degeX/2, posY)
 		txt:setOpacity(0)
 		self:addChild(txt)
 		

@@ -68,8 +68,22 @@ function androidAD:getUUID()
 	print("getUUID")
 	local className="org/cocos2dx/lua/AppUtils" --包名/类名
 	local args = {  }
-	local sigs = "()Ljava/lang/String;" --传入string参数，无返回值   
+	local sigs = "()Ljava/lang/String;"
 	local ok,ret = luaj.callStaticMethod(className,"getDeviceClientId",args,sigs)  
+	log("callcall", ok, ret)
+	if not ok then
+		return ""
+	end
+	
+	return ret
+end
+
+function androidAD:setSysClipboardText(text)
+	print("getUUID")
+	local className="org/cocos2dx/lua/AppActivity" --包名/类名
+	local args = { text }
+	local sigs = "(Ljava/lang/String)V" --传入string参数，无返回值   
+	local ok,ret = luaj.callStaticMethod(className,"setSysClipboardText",args,sigs)  
 	log("callcall", ok, ret)
 	if not ok then
 		return ""

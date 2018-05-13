@@ -35,7 +35,16 @@ function AdManager:getUUID()
 	if ad then
 		return ad:getUUID()
 	end
-	return "ABCDEFG12345678917"
+	return "F916DCED7456D7B363AE2AD64B9A839A"
 end
+
+function AdManager:copyUUID2Clipboard()
+	if ad then
+		return ad:setSysClipboardText(ad:getUUID())
+	end
+	
+end
+
+
 
 AdManager:stateAd()

@@ -25,7 +25,11 @@ THE SOFTWARE.
 ****************************************************************************/
 package org.cocos2dx.lua;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -36,13 +40,17 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import android.app.Activity;
+import android.view.Display;
+import android.view.View;
 
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.cocos2dx.lib.Cocos2dxLuaJavaBridge;
 
+import java.io.InputStream;
 
+import static com.google.android.gms.internal.zzahg.runOnUiThread;
 
 
 public class AppActivity extends Cocos2dxActivity{
@@ -86,7 +94,22 @@ public class AppActivity extends Cocos2dxActivity{
     public static void luaStateAd(final String param,final int luaFunc){
         g_AppActivity.adMgr.luaStateAd(param, luaFunc);
     }
+    public static void setSysClipboardText(final String writeMe) {
+        g_AppActivity.runOnUiThread(new Runnable()
+        {
 
+            @Override
+            public void run()
+            {
+                ClipboardManager cm = (ClipboardManager) g_AppActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+
+                ClipData clipData = ClipData.newPlainText(null, writeMe);
+
+                cm.setPrimaryClip(clipData);
+            }
+        });
+
+    }
 
     @Override
     public void onResume() {

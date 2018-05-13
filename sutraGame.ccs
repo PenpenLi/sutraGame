@@ -6,6 +6,7 @@
         <Folder Name="bg">
           <Folder Name="gamelayer">
             <Image Name="9-16.jpg" />
+            <Image Name="BG01.jpg" />
           </Folder>
         </Folder>
         <Folder Name="Buddhas">
@@ -84,6 +85,21 @@
           <Image Name="j_UP.png" />
         </Folder>
         <Folder Name="signBoard">
+          <Folder Name="dstg">
+            <Image Name="dstg_01.png" />
+            <Image Name="dstg_02.png" />
+            <Image Name="dstg_03.png" />
+            <Image Name="dstg_04.png" />
+            <Image Name="dstg_05.png" />
+            <Image Name="dstg_06.png" />
+            <Image Name="dstg_07.png" />
+            <Image Name="dstg_08.png" />
+            <Image Name="dstg_09.png" />
+            <Image Name="dstg_10.png" />
+            <Image Name="dstg_11.png" />
+            <Image Name="dstg_12.png" />
+            <Image Name="dstg_gray.png" />
+          </Folder>
           <Folder Name="jingtu">
             <Folder Name="jlsj">
               <Image Name="jlsj_01.png" />
@@ -193,6 +209,7 @@
           <Image Name="s_x02.png" />
           <Image Name="s_x03.png" />
           <Image Name="sb_02.png" />
+          <Image Name="ts_bg.png" />
         </Folder>
         <Folder Name="woodenFish">
           <Image Name="m_01.png" />
@@ -220,6 +237,7 @@
         <Project Name="sutraOverBoardNode.csd" Type="Node" />
         <Project Name="taskNode.csd" Type="Node" />
         <Project Name="toolNode.csd" Type="Node" />
+        <Project Name="jingtuNode_dstg.csd" Type="Node" />
       </RootFolder>
     </Group>
   </SolutionFolder>

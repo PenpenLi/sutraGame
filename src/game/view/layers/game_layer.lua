@@ -16,6 +16,7 @@ GameLayer.ui_binding_file = {
 function GameLayer:onCreate(param)
 	
 	UserData:setGameLayer(self)
+	self:setSignButtonTipsVisible(UserData.todayCanSign)
 	
 	self:initUI()
 	
@@ -26,6 +27,24 @@ function GameLayer:onCreate(param)
 
 
 	self.musicPlayerCtrl = new_class(luaFile.musicPlayerCtrl)
+	
+	local path = cc.FileUtils:getInstance():fullPathForFilename("res/exit.png")
+	log("res/exit.png full path : ", path)
+	local testSpr = cocosMake.newSprite("res/exit.png", 300, 300)
+	self:addChild(testSpr)
+	
+	local program = cc.GLProgram:create("Shaders/bolang.vsh", "Shaders/bolang.fsh")
+	program:link()
+	program:use()
+	program:updateUniforms()
+	local state = cc.GLProgramState:create(program)
+	testSpr:setGLProgramState(state)
+	
+	
+	
+	
+	--拷贝UUID到剪贴板 test code
+	AdManager:copyUUID2Clipboard()
 end
 
 function GameLayer:initUI()
@@ -109,6 +128,20 @@ function GameLayer:initUI()
 	
 	self.continueBtn:setVisible(false)
 	self.pauseBtn:setVisible(false)
+	
+	self:showBGFrameAnim()
+end
+
+function GameLayer:showBGFrameAnim()
+	local cnt = 1
+	schedule(self, function ()
+		cnt = cnt + 1
+		if cnt > 25 then
+			cnt = 1
+		end
+		self.background:loadTexture(string.format("bg/gamelayer/BG%02d.jpg",  cnt))
+		self.background:setContentSize(self.background:getVirtualRendererSize())
+	end, 0.04)
 end
 
 function GameLayer:showStartSpeak()
@@ -125,6 +158,7 @@ buddhasPosOffset.nwbssjmnf = cc.p(0,5)
 buddhasPosOffset.nwdzwps = cc.p(0,70)
 buddhasPosOffset.nwgsyps = cc.p(0,60)
 buddhasPosOffset.xzysysf = cc.p(0,30)
+buddhasPosOffset.nwdlxsmlf = cc.p(0,30)
 setmetatable(buddhasPosOffset, { __index = function(mytable, key) return cc.p(0,0) end })
 
 local buddhasScale={}
@@ -134,6 +168,7 @@ buddhasScale.nwdzwps = 0.85
 buddhasScale.nwamtf = 0.77
 buddhasScale.nwbssjmnf = 0.7
 buddhasScale.xzysysf = 0.8
+buddhasScale.nwdlxsmlf = 0.8
 setmetatable(buddhasScale, { __index = function(mytable, key) return 1.0 end })
 
 function GameLayer:setBuddhasImage(res)
@@ -408,7 +443,7 @@ function GameLayer:startClickWoodenFish()
             
 			local res=self.musicPlayerCtrl:clickEvent()
 			if res ~= 0 then
-				ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(soundfile, false), 70)
+				--ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(soundfile, false), 70)
 			end
 			
 			
@@ -510,6 +545,7 @@ zanfojieNumMap.kqj=6
 zanfojieNumMap.sjj=10
 zanfojieNumMap.ysz=8
 zanfojieNumMap.zfj=8
+zanfojieNumMap.mtz=10
 function GameLayer:jingwenAnim(overTime)
 	local selectSongInfo = UserData:getSelectSongInfo()
 	local txtNum = zanfojieNumMap[selectSongInfo.zanfojie]
@@ -582,13 +618,16 @@ function GameLayer:huiwenAnim(overTime, animCallback)
 end
 
 function GameLayer:songjing_btnClick(event)
-	if UserData:getSelectSongId() > 0 then
+	local songInfo = UserData:getSelectSongInfo()
+	if UserData:getSelectSongId() > 0 and songInfo then
 		self.bottomMenuPanel:setVisible(false)		
 		self.woodenFishTouchPanel:removeAllChildren()
 		self.woodenFishTouchPanel:setVisible(true)
 		
-	
-	--test code 0 - 28
+		local zfj = string.split(songInfo.zanfojieAudio, "_")
+		local zfjTime = tonumber(zfj[2])
+		
+		--test code 0 - 28
 		local startSongHandle
 		performWithDelay(self, function()
 					self:startClickWoodenFish()
@@ -596,12 +635,12 @@ function GameLayer:songjing_btnClick(event)
 					self.pauseBtn:setVisible(true)
 					self.woodenFishNode:setVisible(true)
 					ccexp.AudioEngine:stop(startSongHandle or 0)
-				end, 0)
-		startSongHandle = ccexp.AudioEngine:play2d(audioData.startSong, true)
+				end, zfjTime)
+		startSongHandle = ccexp.AudioEngine:play2d("sanboyiwen/audio/"..songInfo.zanfojieAudio..".mp3", true)
 		ccexp.AudioEngine:setVolume(startSongHandle, 100)
 		ccexp.AudioEngine:stop(self.audio_background_handle)
 		
-		self:jingwenAnim(0)
+		self:jingwenAnim(zfjTime)
 		
 	else
         ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.error, false), 70)
@@ -831,6 +870,27 @@ function GameLayer:showExitSutraView()
 		
 		self:pauseBtnClick()
 	end
+end
+
+function GameLayer:setSignButtonTipsVisible(b)
+	if b and not self.signTipsAnimNode then
+		local animateNode = new_class(luaFile.AnimationSprite, {
+			startFrameIndex = 1,                             -- 开始帧索引
+			isReversed = false,                              -- 是否反转
+			plistFileName = "res/homeUI/tipsButtonEffect.plist", -- plist文件
+			pngFileName = "res/homeUI/tipsButtonEffect.png",     -- png文件
+			pattern = "tipsButtonEffect/",                      -- 帧名称模式串
+			frameNum = 12,                                   -- 帧数
+			rate = 0.09	,                                     -- 
+			stay = true,                                    -- 是否停留（是否从cache中移除纹理）
+			indexFormat = 4,                                 -- 整数位数
+		})		
+		animateNode:playForever()
+		self.qiandao_btn:addChild(animateNode)
+		animateNode:setPosition(60, 80)
+		self.signTipsAnimNode = animateNode
+	end
+	if self.signTipsAnimNode then self.signTipsAnimNode:setVisible(b) end
 end
 
 cocosMake.Director:setDisplayStats(TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS)

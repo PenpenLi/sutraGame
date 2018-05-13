@@ -5,7 +5,6 @@ local mp3list = {
 "audio/clickWoodenFishError.mp3",
 "audio/error.mp3",
 "audio/signDay.mp3",
-"audio/startSong.mp3",
 "audio/win.mp3",
 "audio/woodenFish.mp3",
 "audio/woodenFishB.mp3",

@@ -64,6 +64,14 @@ function signBoardView:onCreate(param)
 	end
 	
 	AdManager:showAd()
+	
+	self:setJingtuButtonTipsVisible(true)
+	self:setLotusButtonTipsVisible(true)
+	
+	--是否更新了相关数据，按钮特效提示
+	self:setJingtuButtonTipsVisible(CacheUtil:getCustomCacheVal("jingtu_buttonTips", "boolean", false))
+	self:setLotusButtonTipsVisible(CacheUtil:getCustomCacheVal("lotus_buttonTips", "boolean", false))
+	
 	return true
 end
 
@@ -94,6 +102,7 @@ function signBoardView:jingtuBtnClick(event)
 	local buddhas = string.lower(UserData:getBuddhas())
 	for k,v in pairs(songData) do
 		if  v.buddhaId == buddhas then
+			CacheUtil:setCustomCacheVal("jingtu_buttonTips", false)
 			LayerManager.showFloat(luaFile.jingtuView, {modal=true, jingtu=v.jingtuId})
 			break
 		end
@@ -115,9 +124,51 @@ function signBoardView:lotusBtnClick(event)
 	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
 	--LayerManager.closeFloat(self)
-	
+	CacheUtil:setCustomCacheVal("lotus_buttonTips", false)
 	LayerManager.showFloat(luaFile.lotusView, {modal=true})
 end
 
+function signBoardView:setJingtuButtonTipsVisible(b)
+	if b and not self.jingtuTipsAnimNode then
+		local animateNode = new_class(luaFile.AnimationSprite, {
+			startFrameIndex = 1,                             -- 开始帧索引
+			isReversed = false,                              -- 是否反转
+			plistFileName = "res/homeUI/tipsButtonEffect.plist", -- plist文件
+			pngFileName = "res/homeUI/tipsButtonEffect.png",     -- png文件
+			pattern = "tipsButtonEffect/",                      -- 帧名称模式串
+			frameNum = 12,                                   -- 帧数
+			rate = 0.09,                                     -- 
+			stay = true,                                    -- 是否停留（是否从cache中移除纹理）
+			indexFormat = 4,                                 -- 整数位数
+		})		
+		animateNode:playForever()
+		self.jingtuBtn:addChild(animateNode)
+		animateNode:setPosition(60, 50)
+		self.jingtuTipsAnimNode = animateNode
+	end
+	if self.jingtuTipsAnimNode then self.jingtuTipsAnimNode:setVisible(b) end
+end
+
+
+function signBoardView:setLotusButtonTipsVisible(b)
+	if b and not self.lotusTipsAnimNode then
+		local animateNode = new_class(luaFile.AnimationSprite, {
+			startFrameIndex = 1,                             -- 开始帧索引
+			isReversed = false,                              -- 是否反转
+			plistFileName = "res/homeUI/tipsButtonEffect.plist", -- plist文件
+			pngFileName = "res/homeUI/tipsButtonEffect.png",     -- png文件
+			pattern = "tipsButtonEffect/",                      -- 帧名称模式串
+			frameNum = 12,                                   -- 帧数
+			rate = 0.09,                                     -- 
+			stay = true,                                    -- 是否停留（是否从cache中移除纹理）
+			indexFormat = 4,                                 -- 整数位数
+		})		
+		animateNode:playForever()
+		self.lotusBtn:addChild(animateNode)
+		animateNode:setPosition(60, 50)
+		self.lotusTipsAnimNode = animateNode
+	end
+	if self.lotusTipsAnimNode then self.lotusTipsAnimNode:setVisible(b) end
+end
 
 return signBoardView
