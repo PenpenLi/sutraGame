@@ -1,14 +1,21 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'bugly'
+
+bugly {
+    appId = 'c82863fe21' // 注册时分配的App ID
+    appKey = '2ffb54ea-2afe-411a-b28d-dac0bda56a0c' // 注册时分配的App Key
+}
+
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 23
+    buildToolsVersion '23.0.1'
     defaultConfig {
         applicationId "com.leting.sutraGame"
-        minSdkVersion 17
-        targetSdkVersion 22
-        versionCode 4
-        versionName '2.2'
+        minSdkVersion 22
+        targetSdkVersion 23
+        versionCode 8
+        versionName '2.6'
 
         ndk {
             // bugly设置支持的SO库架构
@@ -38,7 +45,7 @@ android {
 }
 
 dependencies {
-    provided fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':libcocos2dx')
     compile 'com.google.android.gms:play-services-ads:11.4.2'
     //compile 'com.google.android.gms:play-services:8.4.0'

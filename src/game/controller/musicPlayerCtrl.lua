@@ -143,6 +143,7 @@ function musicPlayerCtrl:update(ft)
 			action_list[#action_list + 1] = cc.CallFunc:create(function ()
                     local musicres = "audio/song/" .. self.musicRes .. ".mp3"
 					log("musicPlayerCtrl play music", musicres)
+					if self.musicHandle and self.musicHandle > 0 then ccexp.AudioEngine:stop(self.musicHandle) end
                     self.musicHandle = ccexp.AudioEngine:play2d(musicres, false)
                     ccexp.AudioEngine:setVolume(self.musicHandle, 100)
 				end)

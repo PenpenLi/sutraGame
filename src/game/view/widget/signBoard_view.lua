@@ -15,7 +15,10 @@ signBoardView.ui_binding_file = {
 }
 
 function signBoardView:onCreate(param)
-	self.fohaoMonthNum:setString(UserData:getFohaoMonthNum())
+	local selectSong = UserData:getSelectSongInfo()
+	local score = 0
+	if selectSong and selectSong.score then score = selectSong.score end
+	self.fohaoMonthNum:setString(score)
 	local ndy = self.signBoardNode:getPositionY()
 	self.signBoardNode:setPositionY(ndy+100)
 	
@@ -130,21 +133,8 @@ end
 
 function signBoardView:setJingtuButtonTipsVisible(b)
 	if b and not self.jingtuTipsAnimNode then
-		local animateNode = new_class(luaFile.AnimationSprite, {
-			startFrameIndex = 1,                             -- 开始帧索引
-			isReversed = false,                              -- 是否反转
-			plistFileName = "res/homeUI/tipsButtonEffect.plist", -- plist文件
-			pngFileName = "res/homeUI/tipsButtonEffect.png",     -- png文件
-			pattern = "tipsButtonEffect/",                      -- 帧名称模式串
-			frameNum = 12,                                   -- 帧数
-			rate = 0.09,                                     -- 
-			stay = true,                                    -- 是否停留（是否从cache中移除纹理）
-			indexFormat = 4,                                 -- 整数位数
-		})		
-		animateNode:playForever()
-		self.jingtuBtn:addChild(animateNode)
-		animateNode:setPosition(60, 50)
-		self.jingtuTipsAnimNode = animateNode
+		self.jingtuTipsAnimNode=WidgetHelp:createButtonEffSprite({scale=1.6, x=60, y=50})
+		self.jingtuBtn:addChild(self.jingtuTipsAnimNode)
 	end
 	if self.jingtuTipsAnimNode then self.jingtuTipsAnimNode:setVisible(b) end
 end
@@ -152,21 +142,8 @@ end
 
 function signBoardView:setLotusButtonTipsVisible(b)
 	if b and not self.lotusTipsAnimNode then
-		local animateNode = new_class(luaFile.AnimationSprite, {
-			startFrameIndex = 1,                             -- 开始帧索引
-			isReversed = false,                              -- 是否反转
-			plistFileName = "res/homeUI/tipsButtonEffect.plist", -- plist文件
-			pngFileName = "res/homeUI/tipsButtonEffect.png",     -- png文件
-			pattern = "tipsButtonEffect/",                      -- 帧名称模式串
-			frameNum = 12,                                   -- 帧数
-			rate = 0.09,                                     -- 
-			stay = true,                                    -- 是否停留（是否从cache中移除纹理）
-			indexFormat = 4,                                 -- 整数位数
-		})		
-		animateNode:playForever()
-		self.lotusBtn:addChild(animateNode)
-		animateNode:setPosition(60, 50)
-		self.lotusTipsAnimNode = animateNode
+		self.lotusTipsAnimNode=WidgetHelp:createButtonEffSprite({scale=1.6, x=80, y=50})
+		self.lotusBtn:addChild(self.lotusTipsAnimNode)
 	end
 	if self.lotusTipsAnimNode then self.lotusTipsAnimNode:setVisible(b) end
 end

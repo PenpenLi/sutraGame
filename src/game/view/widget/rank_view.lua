@@ -25,6 +25,7 @@ end
 
 
 function rankView:onClose( ... )
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	self:dispatchEvent({name = GlobalEvent.RANK_VIEW_SHOW, data={view=nil}})
 end
 

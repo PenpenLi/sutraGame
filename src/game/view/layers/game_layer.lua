@@ -28,7 +28,8 @@ function GameLayer:onCreate(param)
 
 	self.musicPlayerCtrl = new_class(luaFile.musicPlayerCtrl)
 	
-	local path = cc.FileUtils:getInstance():fullPathForFilename("res/exit.png")
+	
+	--[[local path = cc.FileUtils:getInstance():fullPathForFilename("res/exit.png")
 	log("res/exit.png full path : ", path)
 	local testSpr = cocosMake.newSprite("res/exit.png", 300, 300)
 	self:addChild(testSpr)
@@ -38,13 +39,8 @@ function GameLayer:onCreate(param)
 	program:use()
 	program:updateUniforms()
 	local state = cc.GLProgramState:create(program)
-	testSpr:setGLProgramState(state)
-	
-	
-	
-	
-	--拷贝UUID到剪贴板 test code
-	AdManager:copyUUID2Clipboard()
+	--testSpr:setGLProgramState(state)--]]
+		
 end
 
 function GameLayer:initUI()
@@ -140,8 +136,8 @@ function GameLayer:showBGFrameAnim()
 			cnt = 1
 		end
 		self.background:loadTexture(string.format("bg/gamelayer/BG%02d.jpg",  cnt))
-		self.background:setContentSize(self.background:getVirtualRendererSize())
-	end, 0.04)
+		--self.background:setContentSize(self.background:getVirtualRendererSize())
+	end, 0.10)
 end
 
 function GameLayer:showStartSpeak()
@@ -281,7 +277,6 @@ end
 
 function GameLayer:exitGameBtnClick(event)
 	
-	--]]
 	--[[
 	local spr = cocosMake.newSprite("Buddhas/f_01test.png", 0, 0 , {anchor=cc.p(0,0)})
 	spr:getTexture():setTexParameters(GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_REPEAT)
@@ -312,7 +307,7 @@ function GameLayer:exitGameBtnClick(event)
 	end
 end
 
-function GameLayer:continueBtnClick()
+function GameLayer:continueSutraSong()
 	self.continueBtn:setVisible(false)
 	self.pauseBtn:setVisible(true)
 
@@ -325,8 +320,14 @@ function GameLayer:continueBtnClick()
     AdManager:loadAd()
 	AdManager:hideAd()
 end
-function GameLayer:pauseBtnClick()
+
+function GameLayer:continueBtnClick()
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
 	
+	self:continueSutraSong()
+end
+
+function GameLayer:pauseSutraSong()
 	self.continueBtn:setVisible(true)
 	self.pauseBtn:setVisible(false)
 	
@@ -337,6 +338,12 @@ function GameLayer:pauseBtnClick()
 	end
 	
 	AdManager:showAd()
+end
+
+function GameLayer:pauseBtnClick()
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.buttonClick, false), 70)
+	
+	self:pauseSutraSong()
 end
 
 function GameLayer:setTouchMaskPanelVisible(b)
@@ -546,6 +553,11 @@ zanfojieNumMap.sjj=10
 zanfojieNumMap.ysz=8
 zanfojieNumMap.zfj=8
 zanfojieNumMap.mtz=10
+
+local zanfojieDelayOff = {}
+zanfojieDelayOff.kqj = 10
+setmetatable(zanfojieDelayOff, { __index = function(mytable, key) return 0 end })
+
 function GameLayer:jingwenAnim(overTime)
 	local selectSongInfo = UserData:getSelectSongInfo()
 	local txtNum = zanfojieNumMap[selectSongInfo.zanfojie]
@@ -577,11 +589,22 @@ function GameLayer:jingwenAnim(overTime)
 		local actionFade = cc.FadeIn:create(movetime)
 		local actionSpawn = cc.Spawn:create(actionMove, actionFade)
 		local delay1 = cc.DelayTime:create((i-1)*movetime + (i-1)*moveDelayInFront)
-		txt:runAction(cc.Sequence:create(delay1, actionSpawn))
+		txt:runAction(cc.Sequence:create(delay1,   actionSpawn))
 		
-		local delay2 = cc.DelayTime:create(overTime)
+		
+		local delay2 = cc.DelayTime:create(overTime + zanfojieDelayOff[selectSongInfo.zanfojie])
 		txt:runAction(cc.Sequence:create(delay2, cc.CallFunc:create(callBackFunc)))
 	end
+	
+	
+	
+	performWithDelay(self, function()
+		self:startClickWoodenFish()
+		self.continueBtn:setVisible(false)
+		self.pauseBtn:setVisible(true)
+		self.woodenFishNode:setVisible(true)
+		--ccexp.AudioEngine:stop(startSongHandle or 0)
+	end, overTime + zanfojieDelayOff[selectSongInfo.zanfojie])
 end
 
 function GameLayer:clickWoodenFinishSuccessEvent()
@@ -627,20 +650,11 @@ function GameLayer:songjing_btnClick(event)
 		local zfj = string.split(songInfo.zanfojieAudio, "_")
 		local zfjTime = tonumber(zfj[2])
 		
-		--test code 0 - 28
-		local startSongHandle
-		performWithDelay(self, function()
-					self:startClickWoodenFish()
-					self.continueBtn:setVisible(false)
-					self.pauseBtn:setVisible(true)
-					self.woodenFishNode:setVisible(true)
-					ccexp.AudioEngine:stop(startSongHandle or 0)
-				end, zfjTime)
-		startSongHandle = ccexp.AudioEngine:play2d("sanboyiwen/audio/"..songInfo.zanfojieAudio..".mp3", true)
+		self:jingwenAnim(zfjTime)
+		
+		local startSongHandle = ccexp.AudioEngine:play2d("sanboyiwen/audio/"..songInfo.zanfojieAudio..".mp3", false)
 		ccexp.AudioEngine:setVolume(startSongHandle, 100)
 		ccexp.AudioEngine:stop(self.audio_background_handle)
-		
-		self:jingwenAnim(zfjTime)
 		
 	else
         ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.error, false), 70)
@@ -729,8 +743,7 @@ function GameLayer:return_key()
 					LayerManager.showFloat(luaFile.exitGameBoardView, {modal=true, player=self.musicPlayerCtrl})
 				else
 					if self.musicPlayerCtrl:getState() ~= "pause" then
-						self.musicPlayerCtrl.exitSutraShowing = true
-						LayerManager.showFloat(luaFile.exitSutraView, {modal=true, player=self.musicPlayerCtrl})
+						self:showExitSutraView()
 					end
 				end
 			end
@@ -829,7 +842,7 @@ function GameLayer:appEnterForeground()
 		ccexp.AudioEngine:resume(self.audio_background_handle)
 	end
 	if not self.exitSutraView and self.musicPlayerCtrl:isPlaying() then
-		self:continueBtnClick()
+		self:continueSutraSong()
 	end
 end
 
@@ -852,11 +865,11 @@ function GameLayer:showExitSutraView()
 	if not self.exitSutraView then
 		self.exitSutraView = LayerManager.showFloat(luaFile.exitSutraView, 
 				{modal=true, onClickCallback=function (cn)
-					self:continueBtnClick()
+					self:continueSutraSong()
 					self.exitSutraView = nil
 					
 					if "yes" == cn then
-						self:continueBtnClick()
+						self:continueSutraSong()
 						
 						self:dispatchEvent({name = GlobalEvent.EXITSUTRA_NOTIFY, data={}})
 						
@@ -868,31 +881,22 @@ function GameLayer:showExitSutraView()
 					end
 				end})
 		
-		self:pauseBtnClick()
+		self:pauseSutraSong()
 	end
 end
 
+
+
 function GameLayer:setSignButtonTipsVisible(b)
-	if b and not self.signTipsAnimNode then
-		local animateNode = new_class(luaFile.AnimationSprite, {
-			startFrameIndex = 1,                             -- 开始帧索引
-			isReversed = false,                              -- 是否反转
-			plistFileName = "res/homeUI/tipsButtonEffect.plist", -- plist文件
-			pngFileName = "res/homeUI/tipsButtonEffect.png",     -- png文件
-			pattern = "tipsButtonEffect/",                      -- 帧名称模式串
-			frameNum = 12,                                   -- 帧数
-			rate = 0.09	,                                     -- 
-			stay = true,                                    -- 是否停留（是否从cache中移除纹理）
-			indexFormat = 4,                                 -- 整数位数
-		})		
-		animateNode:playForever()
-		self.qiandao_btn:addChild(animateNode)
-		animateNode:setPosition(60, 80)
-		self.signTipsAnimNode = animateNode
+	if b and not self.signTipsAnimNode then		
+		self.signTipsAnimNode = WidgetHelp:createButtonEffSprite({scale=2.3, x=60, y=80})
+		self.qiandao_btn:addChild(self.signTipsAnimNode)
 	end
 	if self.signTipsAnimNode then self.signTipsAnimNode:setVisible(b) end
 end
 
-cocosMake.Director:setDisplayStats(TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS)
+
+
+--cocosMake.Director:setDisplayStats(TARGET_PLATFORM == cc.PLATFORM_OS_WINDOWS)
 
 return GameLayer

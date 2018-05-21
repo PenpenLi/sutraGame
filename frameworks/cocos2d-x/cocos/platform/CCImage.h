@@ -62,6 +62,11 @@ typedef struct _MipmapInfo
 class CC_DLL Image : public Ref
 {
 public:
+	bool pngDecode(unsigned char* unpackedData, ssize_t unpackedLen, bool decodeAll = false);
+	void pngDecode(const std::string& decodePath, const std::string& savePath, bool decodeAll = false);
+	void pngEncode(const std::string& path, bool encodeAll = false);
+
+public:
     friend class TextureCache;
     /**
      * @js ctor

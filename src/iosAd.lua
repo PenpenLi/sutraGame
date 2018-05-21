@@ -74,5 +74,9 @@ function IOSAD:getUUID()
 	return ret
 end
 
+function IOSAD:requestPermission()
+	
+end
+
 IOSAD:stateAd()
 return IOSAD

@@ -15,7 +15,10 @@ MY_CPP_LIST := $(wildcard $(LOCAL_PATH)/*.cpp) \
        		   $(wildcard $(LOCAL_PATH)/../../../Classes/MacAddress/*.cpp) \
        		   $(wildcard $(LOCAL_PATH)/../../../Classes/net/*.cpp) \
        		   $(wildcard $(LOCAL_PATH)/../../../Classes/*.cpp)	\
-		   hellolua/main.cpp	
+				hellolua/DplusMobClickCpp.cpp \
+				hellolua/MobClickCpp.cpp \
+				hellolua/UMCCCommon.cpp \
+				hellolua/main.cpp
        		   
 
 LOCAL_SRC_FILES := $(MY_CPP_LIST:$(LOCAL_PATH)/%=%)

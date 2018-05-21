@@ -25,32 +25,34 @@ THE SOFTWARE.
 ****************************************************************************/
 package org.cocos2dx.lua;
 
+import android.Manifest;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import android.app.Activity;
 import android.view.Display;
 import android.view.View;
 
 
+import com.umeng.analytics.UMGameAnalytics;
+import com.umeng.analytics.game.UMGameAgent;
+import com.umeng.common.UMCocosConfigure;
+import com.umeng.commonsdk.UMConfigure;
+
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.cocos2dx.lib.Cocos2dxLuaJavaBridge;
 
 import java.io.InputStream;
-
-import static com.google.android.gms.internal.zzahg.runOnUiThread;
 
 
 public class AppActivity extends Cocos2dxActivity{
@@ -69,6 +71,8 @@ public class AppActivity extends Cocos2dxActivity{
 
         AppUtils.init(this);
 
+        UMGameAnalytics.init(this);
+        UMCocosConfigure.init(this, "5ac8dc14a40fa365260003d1", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "669c30a9584623e70e8cd01b0381dcb4");
     }
 
 
@@ -80,6 +84,7 @@ public class AppActivity extends Cocos2dxActivity{
 
         return glSurfaceView;
     }
+
 
 
     public static void luaLoadAd(final String param,final int luaFunc){
@@ -94,21 +99,63 @@ public class AppActivity extends Cocos2dxActivity{
     public static void luaStateAd(final String param,final int luaFunc){
         g_AppActivity.adMgr.luaStateAd(param, luaFunc);
     }
-    public static void setSysClipboardText(final String writeMe) {
-        g_AppActivity.runOnUiThread(new Runnable()
-        {
 
-            @Override
-            public void run()
-            {
-                ClipboardManager cm = (ClipboardManager) g_AppActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+    static final String TAG_PERMISSION = "TAG_PERMISSION";
+    static int permissionLuaCallback = 0;
+    public static void requestPermission(final String param,final int luaFunc) {
+        permissionLuaCallback = luaFunc;
+        Log.d(TAG_PERMISSION, "0");
+        if (ContextCompat.checkSelfPermission(g_AppActivity,
+                Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG_PERMISSION, "A");
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(g_AppActivity,
+                    Manifest.permission.READ_PHONE_STATE)) {
+                Log.d(TAG_PERMISSION, "B");
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
 
-                ClipData clipData = ClipData.newPlainText(null, writeMe);
+            } else {
+                Log.d(TAG_PERMISSION, "C");
+                // No explanation needed, we can request the permission.
 
-                cm.setPrimaryClip(clipData);
+                ActivityCompat.requestPermissions(g_AppActivity,
+                        new String[]{Manifest.permission.READ_PHONE_STATE},
+                        333);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
             }
-        });
+        }
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        Log.d(TAG_PERMISSION, "D");
+        switch (requestCode) {
+            case 333: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d(TAG_PERMISSION, "E");
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     @Override
@@ -116,6 +163,7 @@ public class AppActivity extends Cocos2dxActivity{
         super.onResume();
         adMgr.onResume();
 
+        UMGameAgent.onResume(this);
     }
 
     @Override
@@ -123,6 +171,7 @@ public class AppActivity extends Cocos2dxActivity{
         super.onPause();
         adMgr.onPause();
 
+        UMGameAgent.onPause(this);
     }
 
     @Override

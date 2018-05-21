@@ -19,8 +19,7 @@ function mainScene:onEnter()
 	networkManager = new_class(luaFile.networkManager)	
 	networkControl = new_class(luaFile.networkControl)
 	networkControl:init()
-	networkControl:authUser()
-	
+	networkControl:authUser()	
 	localCacheServerCtrl = new_class(luaFile.localCacheServerCtrl)
 	
 	if TARGET_PLATFORM ~= cc.PLATFORM_OS_WINDOWS then
@@ -31,7 +30,6 @@ function mainScene:onEnter()
 			AdManager:hideAd()
 		end)
 		self:runAction(cc.Sequence:create(unpack(action_list)))
-		
 	end
 	
 	StateMgr:ChangeState(StateType.Game)

@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.tencent.bugly.crashreport.CrashReport;
 
-
 /**
  * Created by afwang on 13-9-17.
  */
@@ -14,6 +13,8 @@ public class SturaGameApplication extends Application {
     super.onCreate();
 
     CrashReport.initCrashReport(getApplicationContext(), "c82863fe21", false);
+
+
   }
 
 

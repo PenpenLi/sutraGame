@@ -12,6 +12,7 @@ sutraOverBoardView.ui_binding_file = {
 
 function sutraOverBoardView:onCreate(param)
 	local result = param.result
+	self.result = result
 	self.sutraTotalCount:setString("")
 	--[[
 	for i=1, 3 do
@@ -33,12 +34,8 @@ function sutraOverBoardView:onCreate(param)
 	animateNode:playOnce(true)
 	self.effectNode:addChild(animateNode)
 	--]]
-	for i=0,2 do
-		performWithDelay(cocosMake.getRunningScene(), function()
-            ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.win, false), 70)
-        end, i*5.0)
-	end
 	
+	self.closeBtn:setVisible(false)
 	
 	--胜利
 	if result then
@@ -72,7 +69,8 @@ function sutraOverBoardView:onCreate(param)
 		self.shibaiBoard:setVisible(true)
 	end
 	
-	self:jingwenAnim(12)
+	ccexp.AudioEngine:setVolume(ccexp.AudioEngine:play2d(audioData.huixiangwen, false), 70)
+	self:jingwenAnim(20)
 	
 	
 	self:dispatchEvent({name = GlobalEvent.SUTRAOVER_VIEW_SHOW, data={view=self}})
@@ -86,7 +84,7 @@ function sutraOverBoardView:onCreate(param)
 	self.scorePanel:setOpacity(0)
 	local action_list1 = {}
 	action_list1[#action_list1 + 1] = cc.FadeIn:create(1.0)
-	action_list1[#action_list1 + 1] = cc.DelayTime:create(11.0)
+	action_list1[#action_list1 + 1] = cc.DelayTime:create(19.0)
 	action_list1[#action_list1 + 1] = cc.FadeOut:create(1.0)
 	local action1 = cc.Sequence:create(unpack(action_list1))
 	self.scorePanel:runAction(action1)
@@ -120,6 +118,8 @@ function sutraOverBoardView:jingwenAnim(overTime)
 			local actionFade = cc.FadeOut:create(movetime)
 			local actionSpawn = cc.Spawn:create(actionMove, actionFade)
 			txt:runAction(cc.Sequence:create(actionSpawn, cc.RemoveSelf:create()))
+			
+			if not self.unNeedShowCloseBtn then self.closeBtn:setVisible(true) end
 		end
 		
 		local actionMove = cc.MoveBy:create(movetime, cc.p(moveX, 0))
@@ -141,6 +141,8 @@ function sutraOverBoardView:jingwenAnim(overTime)
 		self.shibaiBoard:setVisible(false)
 		self.closeBtn:setVisible(false)
 		self.touchLayer:setVisible(false)
+		
+		self.unNeedShowCloseBtn = true
 	end
 end
 

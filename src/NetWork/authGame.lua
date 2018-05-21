@@ -84,9 +84,6 @@ function authGame:serverMessageCallback(name, data)
 		if data.type == "sutraLastTime" then
 			UserData:setSutraLastTime(tonumber(data.data))
 		end
-		if data.type == "fohaoMonthNum" then
-			UserData:setFohaoMonthNum(tonumber(data.data))
-		end
 		if data.type == "fohaoGroup" then
 			local musicScoreList = string.split(data.data, ",")
 			for k, v in pairs(musicScoreList) do
@@ -158,8 +155,6 @@ function authGame:totalPushCallback(data)
 	UserData:setCenserRank(data.censerRank)
 	
 	UserData:setSutraNum(data.sutraNum)
-	
-	UserData:setFohaoMonthNum(data.fohaoMonthNum)
 	
 	UserData:setSutraRank(data.sutraRank)
 	

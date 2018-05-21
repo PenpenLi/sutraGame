@@ -32,6 +32,8 @@ THE SOFTWARE.
 #include "base/CCData.h"
 #include "base/ccConfig.h" // CC_USE_JPEG, CC_USE_TIFF, CC_USE_WEBP
 
+#include "renderer/CCTextureCache.h"
+
 extern "C"
 {
     // To resolve link error when building 32bits with Xcode 6.
@@ -486,7 +488,7 @@ bool Image::initWithImageFile(const std::string& path)
 {
     bool ret = false;
     _filePath = FileUtils::getInstance()->fullPathForFilename(path);
-	CCLOG("Image::initWithImageFile:%s", _filePath.c_str());
+
     Data data = FileUtils::getInstance()->getDataFromFile(_filePath);
 
     if (!data.isNull())
@@ -543,7 +545,7 @@ bool Image::initWithImageData(const unsigned char * data, ssize_t dataLen)
         switch (_fileType)
         {
         case Format::PNG:
-            ret = initWithPngData(unpackedData, unpackedLen);
+			ret = initWithPngData(unpackedData, unpackedLen);
             break;
         case Format::JPG:
             ret = initWithJpgData(unpackedData, unpackedLen);
@@ -568,6 +570,12 @@ bool Image::initWithImageData(const unsigned char * data, ssize_t dataLen)
             break;
         default:
             {
+				
+				if (cocos2d::TextureCache::pngIsEncode)
+					this->pngDecode(unpackedData, unpackedLen);
+				
+				ret = initWithPngData(unpackedData, unpackedLen);
+
                 // load and detect image format
                 tImageTGA* tgaData = tgaLoadBuffer(unpackedData, unpackedLen);
                 
@@ -582,6 +590,7 @@ bool Image::initWithImageData(const unsigned char * data, ssize_t dataLen)
                 
                 free(tgaData);
                 break;
+				
             }
         }
         
@@ -2467,6 +2476,105 @@ void Image::premultipliedAlpha()
 void Image::setPVRImagesHavePremultipliedAlpha(bool haveAlphaPremultiplied)
 {
     _PVRHaveAlphaPremultiplied = haveAlphaPremultiplied;
+}
+
+static unsigned char pngEncodeMap[256] = {
+	187,232,210,110,15,141,121,67,26,84,114,212,7,226,251,125,197,42,123,220,108,43,54,20,109,
+	195,138,5,151,162,146,168,40,150,243,160,154,21,177,118,79,185,156,179,129,148,73,140,204,33,
+	130,100,134,9,247,143,165,70,133,142,12,87,227,95,184,244,164,196,206,102,6,253,224,89,116,
+	201,46,203,62,190,14,48,241,104,51,132,39,139,230,37,186,0,11,213,252,24,80,90,147,216,
+	71,124,69,2,16,64,120,4,66,27,145,178,158,91,53,155,49,218,229,92,25,246,231,167,85,
+	199,225,3,68,193,200,221,8,237,128,101,38,72,50,22,65,209,78,86,234,248,215,94,52,183,
+	171,131,30,207,202,153,236,59,111,228,112,32,214,107,181,77,175,137,76,245,34,255,122,161,61,
+	176,159,117,55,74,82,250,157,35,83,198,119,217,47,28,29,189,173,60,23,166,44,96,149,126,
+	127,19,10,254,13,136,205,169,182,240,170,58,45,75,1,208,115,41,194,135,113,180,99,63,188,
+	172,97,88,18,163,192,31,57,152,93,223,191,106,144,211,105,222,242,233,238,219,174,103,17,98,
+	56,235,239,36,249,81,
+};
+static unsigned char pngDecodeMap[256] = {
+	91,214,103,127,107,27,70,12,132,53,202,92,60,204,80,4,104,248,228,201,23,37,139,194,95,
+	120,8,109,189,190,152,231,161,49,170,183,253,89,136,86,32,217,17,21,196,212,76,188,81,116,
+	138,84,148,114,22,178,250,232,211,157,193,174,78,223,105,140,108,7,128,102,57,100,137,46,179,
+	213,168,165,142,40,96,255,180,184,9,124,143,61,227,73,97,113,119,234,147,63,197,226,249,222,
+	51,135,69,247,83,240,237,163,20,24,3,158,160,220,10,216,74,177,39,186,106,6,172,18,101,
+	15,199,200,134,44,50,151,85,58,52,219,205,167,26,87,47,5,59,55,238,110,30,98,45,198,
+	33,28,233,155,36,115,42,182,112,176,35,173,29,229,66,56,195,123,31,207,210,150,225,192,246,
+	166,175,38,111,43,221,164,208,149,64,41,90,0,224,191,79,236,230,129,218,25,67,16,185,125,
+	130,75,154,77,48,206,68,153,215,141,2,239,11,93,162,146,99,187,117,245,19,131,241,235,72,
+	126,13,62,159,118,88,122,1,243,144,251,156,133,244,252,209,82,242,34,65,169,121,54,145,254,
+	181,14,94,71,203,171,
+};
+
+ssize_t randomIndex(ssize_t size)
+{
+	return size/4;
+}
+
+bool Image::pngDecode(unsigned char* unpackedData, ssize_t unpackedLen, bool decodeAll)
+{
+	if (nullptr == unpackedData || !cocos2d::TextureCache::pngIsEncode)
+		return false;
+
+	ssize_t decodeSize = MIN(2048, unpackedLen);
+	if (decodeAll)decodeSize = unpackedLen;
+
+	ssize_t r = randomIndex(unpackedLen);
+	int yushu = r % 256;
+	int duishu = 256 - yushu;
+	int beishu = r / 256;
+
+	for (ssize_t n = 0; n < decodeSize; ++n)
+	{
+		int index = unpackedData[n];
+		index = index >= yushu ? index - yushu : duishu + index;
+		if (index < 0 || index > 255)
+		{
+			CCLOG("pngDecode Error: %d", index);
+		}
+		unpackedData[n] = pngDecodeMap[index];
+	}
+
+	return true;
+}
+
+void Image::pngDecode(const std::string& decodePath, const std::string& savePath, bool decodeAll)
+{
+	std::string filepath = FileUtils::getInstance()->fullPathForFilename((decodePath));
+	Data data = FileUtils::getInstance()->getDataFromFile(filepath);
+
+	pngDecode(data.getBytes(), data.getSize(), decodeAll);
+
+	FileUtils::getInstance()->writeDataToFile(data, savePath);
+}
+
+void Image::pngEncode(const std::string& path, bool encodeAll)
+{
+	bool ret = false;
+	_filePath = FileUtils::getInstance()->fullPathForFilename(path);
+
+	Data data = FileUtils::getInstance()->getDataFromFile(_filePath);
+
+	if (data.isNull())
+	{
+		return;
+	}
+
+	unsigned char* unpackedData = const_cast<unsigned char*>(data.getBytes());
+	ssize_t unpackedLen = data.getSize();
+	ssize_t rindex = randomIndex(unpackedLen);
+
+	ssize_t decodeSize = MIN(2048, unpackedLen);
+	if (encodeAll) decodeSize = unpackedLen;
+
+	for (ssize_t n = 0; n < decodeSize; ++n)
+	{
+		unsigned char val = pngEncodeMap[unpackedData[n]];
+		val = ((val + rindex) % 256);
+		unpackedData[n] = val;
+	}
+	
+
+	FileUtils::getInstance()->writeDataToFile(data, _filePath);
 }
 
 NS_CC_END

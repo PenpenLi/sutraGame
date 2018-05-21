@@ -28,5 +28,19 @@
         <LastRunType Value="Windows" />
       </Value>
     </Item>
+    <Item Key="TabsParamsKey">
+      <Value ctype="TabsInfo">
+        <OpenedDocuments>
+          <FilePathData Path="GameLayerNode.csd" />
+          <FilePathData Path="sutraOverBoardNode.csd" />
+          <FilePathData Path="jingtuNode_llsj.csd" />
+          <FilePathData Path="jingtuNode_jlsj.csd" />
+          <FilePathData Path="jingtuNode_dstg.csd" />
+          <FilePathData Path="lotusNode.csd" />
+          <FilePathData Path="signBoardNode.csd" />
+        </OpenedDocuments>
+        <ActiveDocument Path="sutraOverBoardNode.csd" />
+      </Value>
+    </Item>
   </Properties>
 </UserData>

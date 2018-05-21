@@ -10,15 +10,31 @@ end
 function GameController:startGame()
 	-- 启动管理类（Controller）
 	
+	AdManager:requestPermission()
+	
+	if TARGET_PLATFORM == cc.PLATFORM_OS_IPHONE or TARGET_PLATFORM == cc.PLATFORM_OS_IPAD then
+		self:initPreInfo()	
+		cocosMake.runScene(new_class(luaFile.mainScene))
+		
+	else
+		cocosMake.runScene(new_class(luaFile.splashScene))
+	end
+	
+end
+
+function GameController:initPreInfo()
 	require(luaFile.resourceCtrl)
 	resourceCtrl:init()
 	resourceCtrl:decodeAudio()
 	
 	self:startManager()
 	
-    self.gamescene = new_class(luaFile.mainScene)
-    cocosMake.runScene(self.gamescene)
 	
+	
+	--缓冲背景图片
+	for i=1, 25 do
+		cocosMake.loadImage(string.format("bg/gamelayer/BG%02d.jpg",  i))
+	end
 end
 
 -- 启动管理类

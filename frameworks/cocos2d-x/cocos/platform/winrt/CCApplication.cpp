@@ -269,7 +269,6 @@ bool Application::openURL(const std::string &url)
 
 void Application::setResourceRootPath(const std::string& rootResDir)
 {
-	CCLOG("Application::setResourceRootPath:%s", rootResDir.c_str());
     m_resourceRootPath = rootResDir;
     std::replace(m_resourceRootPath.begin(), m_resourceRootPath.end(), '\\', '/');
     if (m_resourceRootPath[m_resourceRootPath.length() - 1] != '/')

@@ -298,7 +298,6 @@ void RuntimeLuaImpl::startScript(const std::string& strDebugArg)
     
     // set search path
     string path = FileUtils::getInstance()->fullPathForFilename(project.getScriptFileRealPath().c_str());
-	CCLOG("yyyyyyyyyRuntimeLuaImpl::startScript.project.getScriptFileRealPath:", project.getScriptFileRealPath().c_str());
     size_t pos;
     while ((pos = path.find_first_of("\\")) != std::string::npos)
     {

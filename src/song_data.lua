@@ -35,6 +35,7 @@ woodenFish = "woodenFish.mp3",
 woodenFishB = "woodenFishB.mp3",--当播放到B开头的经文，就用这个木鱼音效
 signDay = "signDay.mp3",--签到
 clickWoodenFishError = "clickWoodenFishError.mp3",--敲木鱼敲错
+huixiangwen = "huixiangwen.mp3",--回向文
 }
 for k,v in pairs(audioData) do
 	audioData[k] = audiopath .. audioData[k]

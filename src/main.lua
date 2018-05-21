@@ -25,15 +25,7 @@ require "framework.init"
 
 
 
-
-local gamescene = nil
 local function main()
-	--testEncodePNG()
-	--testDecodePNG()
-	
-	
-	
-	
 	
 	
     TARGET_PLATFORM = cc.Application:getInstance():getTargetPlatform()

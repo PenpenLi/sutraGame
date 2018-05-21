@@ -25,6 +25,7 @@ add("jsonParse", "database.jsonParse")
 
 
 add("mainScene", "game.view.scenes.mainScene")
+add("splashScene", "game.view.scenes.splashScene")
 add("loginLayer", "src.layer.loginLayer")
 add("roomLayer", "src.layer.roomLayer")
 add("mainLayer", "src.layer.mainLayer")

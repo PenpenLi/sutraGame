@@ -102,9 +102,6 @@ function UserData:init( ... )
 	self.todayCanSong = true
 	self:calcTodayCanSong(self.sutraLastTime)
 	
-	--每个月佛号数
-	self.fohaoMonthNum = CacheUtil:getCacheVal(CacheType.fohaoMonthNum)
-	
 	--莲花数量
 	self.lotusNum = CacheUtil:getCacheVal(CacheType.lotusNum)
 	
@@ -424,7 +421,7 @@ function UserData:getSelectSongInfo()
 	if self.selectSongId == 0 then
 		return nil
 	end
-	local musicData = UserData:loadMusicRhythmData()
+	local musicData = self:loadMusicRhythmData()
 	return musicData[self.selectSongId]
 end
 
@@ -582,15 +579,6 @@ end
 function UserData:getLotusNum()
 	return self.lotusNum
 end
-
-function UserData:setFohaoMonthNum(num)
-	self.fohaoMonthNum = num
-	CacheUtil:setCacheVal(CacheType.fohaoMonthNum, self.fohaoMonthNum)
-end
-function UserData:getFohaoMonthNum()
-	return self.fohaoMonthNum or 0
-end
-
 
 function UserData:setIncenseLastTime(d)
 	local t = tonumber(d) or 0

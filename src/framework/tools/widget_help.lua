@@ -328,3 +328,29 @@ function WidgetHelp:setShader(node, vshfile, fshfile)
     node:setGLProgram(program)
 	program:use()
 end
+
+
+function WidgetHelp:createButtonEffSprite(param)
+	param = param or {}
+	local scnt = 12
+	local sp = 0.09
+	local node = cocosMake.newNode()
+	node:setScale(param.scale or 1.0)
+	node:setPosition(param.x or 0, param.y or 0)
+	for j=1,scnt do
+		local frameName =string.format("homeUI/tipsButtonEffect/%04d.png",j)
+		local s = cocosMake.newSprite(frameName, 0, 0)
+		s:setVisible(false)
+		
+		local sequence = transition.sequence({
+			cc.DelayTime:create((j-1)*sp),
+			cc.Show:create(),
+			cc.DelayTime:create(sp),
+			cc.Hide:create(),
+			cc.DelayTime:create(math.max(0,(scnt-j))*sp),
+		})
+		s:runAction(cc.RepeatForever:create(sequence))
+		node:addChild(s)
+	end
+	return node
+end
