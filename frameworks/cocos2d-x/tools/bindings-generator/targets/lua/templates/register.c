@@ -7,6 +7,7 @@ ${current_class.methods.constructor.generate_code($current_class)}
 #set generator = $current_class.generator
 #set methods = $current_class.methods_clean()
 #set st_methods = $current_class.static_methods_clean()
+#set public_field = $current_class.public_field_clean()
 #
 static int lua_${generator.prefix}_${current_class.class_name}_finalize(lua_State* tolua_S)
 {
@@ -59,6 +60,9 @@ int lua_register_${generator.prefix}_${current_class.class_name}(lua_State* tolu
     #if has_constructor
         tolua_function(tolua_S,"new",lua_${generator.prefix}_${current_class.class_name}_constructor);
     #end if
+    #for m in public_field
+        tolua_variable(tolua_S,"${m['name']}",${m['class_name']}_set${m['name']},${m['class_name']}_get${m['name']});
+    #end for
     #for m in methods
         #set fn = m['impl']
         tolua_function(tolua_S,"${m['name']}",${fn.signature_name});

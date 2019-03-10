@@ -466,8 +466,9 @@ class NativeField(object):
     def generate_code(self, current_class = None, generator = None):
         gen = current_class.generator if current_class else generator
         config = gen.config
-
+        print "NativeField.generate_code"
         if config['definitions'].has_key('public_field'):
+            print "config['definitions'].has_key('public_field')"
             tpl = Template(config['definitions']['public_field'],
                                     searchList=[current_class, self])
             self.signature_name = str(tpl)
@@ -751,7 +752,14 @@ class NativeClass(object):
         parse the current cursor, getting all the necesary information
         '''
         self._deep_iterate(self.cursor)
-
+    
+    def public_field_clean(self):
+        ret = []
+        for m in self.public_fields:
+            print "log.public_fields,self.class_name, m.name", self.class_name, m.name
+            if self.generator.should_bind_field(self.class_name, m.name):
+                ret.append({"class_name": self.class_name, "name": m.name})
+        return ret
     def methods_clean(self):
         '''
         clean list of methods (without the ones that should be skipped)
@@ -828,6 +836,7 @@ class NativeClass(object):
             for m in self.override_methods_clean():
                 m['impl'].generate_code(self, is_override = True)
         for m in self.public_fields:
+            print "log.public_fields,self.class_name, m.name", self.class_name, m.name
             if self.generator.should_bind_field(self.class_name, m.name):
                 m.generate_code(self)
         # generate register section
@@ -903,6 +912,7 @@ class NativeClass(object):
         elif cursor.kind == cindex.CursorKind.FIELD_DECL:
             self.fields.append(NativeField(cursor))
             if self._current_visibility == cindex.AccessSpecifierKind.PUBLIC and NativeField.can_parse(cursor.type):
+                print "add public_field", self.public_fields
                 self.public_fields.append(NativeField(cursor))
         elif cursor.kind == cindex.CursorKind.CXX_ACCESS_SPEC_DECL:
             self._current_visibility = cursor.get_access_specifier()
@@ -1105,12 +1115,14 @@ class Generator(object):
         return False
 
     def should_bind_field(self, class_name, field_name, verbose=False):
+        print "log.should_bind_field.class_name", class_name
         if class_name == "*" and self.bind_fields.has_key("*"):
             for func in self.bind_fields["*"]:
                 if re.match(func, method_name):
                     return True
         else:
             for key in self.bind_fields.iterkeys():
+                print "log.should_bind_field.key", key
                 if key == "*" or re.match("^" + key + "$", class_name):
                     if verbose:
                         print "%s in bind_fields" % (class_name)

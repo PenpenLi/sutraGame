@@ -1,5 +1,5 @@
 ## ===== member implementation template
-int ${signature_name}_get${name}(lua_State* tolua_S)
+int ${namespaced_class_name}_get${name}(lua_State* tolua_S)
 {
     ${namespaced_class_name}* cobj = nullptr;
 \#if COCOS2D_DEBUG >= 1
@@ -12,7 +12,7 @@ int ${signature_name}_get${name}(lua_State* tolua_S)
 \#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function '${signature_name}_get${name}'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function '${namespaced_class_name}_get${name}'", nullptr);
         return 0;
     }
 \#endif
@@ -38,12 +38,12 @@ int ${signature_name}_get${name}(lua_State* tolua_S)
     return 1;
 \#if COCOS2D_DEBUG >= 1
 tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function '${signature_name}_get${name}'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function '${namespaced_class_name}_get${name}'.",&tolua_err);
     return 0;
 \#endif
 }
 
-int ${signature_name}_set${name}(lua_State* tolua_S)
+int ${namespaced_class_name}_set${name}(lua_State* tolua_S)
 {
     int argc = 0;
     ${namespaced_class_name}* cobj = nullptr;
@@ -59,7 +59,7 @@ int ${signature_name}_set${name}(lua_State* tolua_S)
 \#if COCOS2D_DEBUG >= 1
     if (!cobj) 
     {
-        tolua_error(tolua_S,"invalid 'cobj' in function '${signature_name}_set${name}'", nullptr);
+        tolua_error(tolua_S,"invalid 'cobj' in function '${namespaced_class_name}_set${name}'", nullptr);
         return 0;
     }
 \#endif
@@ -94,7 +94,7 @@ int ${signature_name}_set${name}(lua_State* tolua_S)
 
 \#if COCOS2D_DEBUG >= 1
 tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function '${signature_name}_get${name}'.",&tolua_err);
+    tolua_error(tolua_S,"#ferror in function '${namespaced_class_name}_get${name}'.",&tolua_err);
     return 0;
 \#endif
 }
